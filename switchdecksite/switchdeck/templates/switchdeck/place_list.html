@@ -1,0 +1,11 @@
+{% extends 'switchdeck/_base.html' %}
+{% block title %}Switchdeck: {{object.name.title }}{% endblock %}
+{% block content %}
+
+<ul>
+  {% for place in object_list %}
+  <li><a href="{{ place.get_absolute_url }}">{{ place.name.title }}</a></li>
+  {% endfor %}
+</ul>
+
+{% endblock %}

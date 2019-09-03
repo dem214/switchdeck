@@ -1,0 +1,12 @@
+{% extends "switchdeck/_base.html" %}
+{% block title %}SignUp{% endblock %}
+
+{% block content %}
+
+<form action="{% url 'signup' %}" method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <input type="submit" name="SignUp">
+</form>
+
+{% endblock %}

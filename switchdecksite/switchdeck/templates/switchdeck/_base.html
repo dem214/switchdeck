@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <!-- Base template -->
+  <head>
+    <title>{% block title %}{% endblock %}</title>
+  </head>
+  <body>
+    <!-- Title or titleimage -->
+    <h1><a href="{% url 'index' %}">SwitchDeck</a></h1>
+
+    <ul>
+      <li><a href="{% url 'places' %}">Places</a></li>
+      <li><a href="{% url 'users' %}">Users</a></li>
+      {% if user.is_authenticated %}
+      <!-- Authenticated header bar info -->
+      <li><a href="{{ user.profile.get_absolute_url }}">
+        {{ user.get_username }}
+      </a></li>
+      <li><a href="{% url 'logout'%}?next={{request.path}}">Logout</a></li>
+      {% if user.is_staff %}
+        <li><a href="{% url 'admin:index' %}">Admin site</a></li>
+        {% block admin_link %}{% endblock %}
+      {% endif %}
+      {% else %}
+      <!-- Unauthenticated header bar info -->
+      <li><a href="{% url 'signup' %}">Sign Up</a></li>
+      <li><a href="{% url 'login'%}?next={{request.path}}">Login</a></li>
+      {% endif %}
+    </ul>
+    <!-- End of base template -->
+    {% block content %}{% endblock content %}
+  </body>
+</html>

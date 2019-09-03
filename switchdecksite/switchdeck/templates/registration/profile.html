@@ -1,0 +1,65 @@
+{% extends "switchdeck/_base.html" %}
+
+{% block title %}SwitchDeck profile: {{ userprof.get_username }} {% endblock %}
+
+{% block admin_link %}<li>
+  <a href="{% url 'admin:switchdeck_user_change' userprof.id%}">
+    Change on admin site
+  </a>
+</li>
+{% endblock %}
+
+{% block content %}
+
+<h1>{{ userprof.username }}</h1>
+
+
+{% if user.is_authenticated and user == userprof %}
+<!-- Add game href -->
+<p><a href="{% url 'add_game_keep' %}">Add keep game</a></p>
+<p><a href="{% url 'add_game_wish' %}">Add wish game</a></p>
+{% endif %}
+
+
+{% if keep_list %}
+<h2>Keep list</h2>
+<ul>
+  {% for game_item in keep_list %}
+  <li><a href="{% url 'gamelist_item' game_item.id %}">
+    {{ game_item.game.name }}
+    {% if game_item.prop == 's' %} [for sell]{% endif %}
+  </a></li>
+  {% endfor %}
+</ul>
+{% endif %}
+
+{% if wish_list %}
+<h2>Wish list</h2>
+<ul>
+  {% for game_item in wish_list %}
+  <li><a href="{% url 'gamelist_item' game_item.id %}">
+    {{ game_item.game.name }}
+    {% if game_item.prop == 'b' %} [ready to buy]{% endif %}
+  </a></li>
+  {% endfor %}
+</ul>
+{% endif %}
+
+{% if sell_list %}
+<h2>Sell list</h2>
+<ul>
+  {% for game_item in sell_list %}
+  <li><a href="{% url 'gamelist_item' game_item.id %}">{{ game_item.game.name }}</a></li>
+  {% endfor %}
+</ul>
+{% endif %}
+
+{% if buy_list %}
+<h2>Buy list</h2>
+<ul>
+  {% for game_item in buy_list %}
+  <li><a href="{% url 'gamelist_item' game_item.id %}">{{ game_item.game.name }}</a></li>
+  {% endfor %}
+</ul>
+{% endif %}
+{% endblock %}

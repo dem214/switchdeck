@@ -1,0 +1,25 @@
+{% extends "switchdeck/_base.html" %}
+{% block title %}Login{% endblock %}
+
+{% block content %}
+
+{% if next %}
+    {% if user.is_authenticated %}
+    <p>Your account doesn't have access to this page. To proceed,
+    please login with an account that has access.</p>
+    {% else %}
+    <p>Please login to see this page.</p>
+    {% endif %}
+{% endif %}
+
+<form action="{% url 'login' %}" method="post">
+  {% csrf_token %}
+  <table>
+    {{ form.as_table }}
+  </table>
+  <input type="submit" name="Login">
+  <input type="hidden" name="next" value="{{ next }}">
+</form>
+<p><a href="{% url 'password_reset' %}">Forgot password?</a></p>
+
+{% endblock %}

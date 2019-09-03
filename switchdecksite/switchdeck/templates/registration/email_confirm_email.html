@@ -1,0 +1,5 @@
+<h1>Hello, {{user.get_username}}</h1>
+<p>You have been sign up you account on SwitchDeck</p>
+<p>To continue using your fresh account, please, confirm your email by
+following this link <a href="http://{{ domain }}{% url 'activate' uid=uid token=token %}">
+http://{{ domain }}{% url 'activate' uid=uid token=token %}</a></p>

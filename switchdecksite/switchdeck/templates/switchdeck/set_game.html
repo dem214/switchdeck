@@ -1,0 +1,18 @@
+{% extends "switchdeck/_base.html" %}
+
+{% block title %}SwitchDeck: Set game{% endblock %}
+
+{% block content %}
+<h2>Wanna set {{ gamelist.game.name}} to {{set_prop}}</h2>
+<p>Edit description and price</p>
+
+<form class="" action="
+{% if prop == 's' %}{% url 'set_game_to_sell' %}
+{% elif prop == 'b' %}{% url 'set_game_to_buy' %}{% endif %}"
+method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" name="" value="submit">
+
+</form>
+{% endblock %}

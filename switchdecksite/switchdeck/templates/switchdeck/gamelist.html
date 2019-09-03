@@ -1,0 +1,79 @@
+{% extends "switchdeck/_base.html" %}
+{% load humanize %}
+
+{% block title %}SwitchDeck lot# {{ object.id }} {% endblock %}
+
+{% block content %}
+
+<!-- Gamelist item info -->
+<a href="{{ object.profile.get_absolute_url }}">
+  {{ object.profile.get_username }}
+</a>
+{{ object.get_prop_display }}
+<a href="{{ object.game.get_absolute_url }}">
+  {{ object.game.name }}
+</a>
+ for {{ object.price }}
+
+<p>Added {{object.public_date}}</p>
+<!-- Delete button -->
+{% if user.is_authenticated and user == object.profile.user %}
+<button onclick="delete_func()">Delete</button>
+<script type="text/javascript">
+  function delete_func() {
+    var answer = confirm("Delete {{object.game.name}}.\nAre you sure?")
+    if (answer == true) {
+      window.open("{% url 'delete_game' object.id %}")
+    }
+  }
+</script>
+<!--Set buttons-->
+{% if object.prop != 'k' %}
+<p><a href="{% url 'set_game_to_keep' glid=object.id %}">Set to keep</a></p>
+{% endif %}
+{% if object.prop != 's' %}
+<p><a href="{% url 'set_game_to_sell' glid=object.id %}">Set to sell</a></p>
+{% endif %}
+{% if object.prop != 'b' %}
+<p><a href="{% url 'set_game_to_buy' glid=object.id %}">Set to buy</a></p>
+{% endif %}
+{% if object.prop != 'w' %}
+<p><a href="{% url 'set_game_to_wish' glid=object.id %}">Set to wish</a></p>
+{% endif %}
+{% endif %}
+
+{% if object.prop != 'k' and object != 'w' %}
+  <!-- Comments list -->
+  <p>Comments</p>
+  {% if comments %}
+    <ul>
+      {% for comment in comments %}
+        <li><a href="{{ comment.author.get_absolute_url }}">
+          {{ comment.author.get_username }}</a><br>
+          {{ comment.timestamp | naturaltime }}<br>
+          {{ comment.text }}</li>
+          {% if comment.author.user == user %}
+            <a href="
+              {% url 'delete_comment' comment.id %}?next={{ request.path }}">
+              Delete comment</a>
+          {% endif %}
+      {% endfor %}
+    </ul>
+  {% endif %}
+  <!-- Pagination -->
+  {% if comments.paginator.num_pages > 1 %}
+    {% include "switchdeck/_pagination.html" with page_obj=comments %}
+  {% endif %}
+
+  <!--Add a comment -->
+  {% if user.is_authenticated %}
+    <form action="{% url 'gamelist_item' object.id %}" method="post">
+      {% csrf_token %}
+      {{ form.text }}
+      <br>
+      <input type="submit" name="submit_btn" value="Submit">
+    </form>
+  {% endif %}
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends "switchdeck/_base.html" %}
+
+{% block title %}SwitchDeck: {{game.name}}{% endblock %}
+
+{% block admin_link %}<li>
+  <a href="{% url 'admin:switchdeck_game_change' game.id%}">
+    Change on admin site
+  </a>
+</li>
+{% endblock %}
+
+{% block content %}
+
+<h1>{{ game.name }}</h1>
+{{ game.discription}}
+
+{% if sell_list %}
+<a href="{% url 'game_sell_list' game.id%}">
+  Sell list: {{sell_list_count}} lots</a>
+<ul>
+  {% for item in sell_list %}
+  <li><a href="{{item.get_absolute_url}}">{{item}}</a></li>
+  {% endfor %}
+</ul>
+<p><a href="{% url 'game_sell_list' game.id%}">more</a></p>
+{% endif %}
+{% if buy_list %}
+<p><a href="{% url 'game_buy_list' game.id%}"></p>
+  Buy list: {{buy_list_count}} lots</a>
+<ul>
+  {% for item in buy_list %}
+  <li><a href="{{item.get_absolute_url}}">{{item}}</a></li>
+  {% endfor %}
+</ul>
+<p><a href="{% url 'game_buy_list' game.id %}">more</a></p>
+{% endif %}
+
+{% endblock %}
