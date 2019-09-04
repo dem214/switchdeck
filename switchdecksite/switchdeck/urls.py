@@ -44,5 +44,8 @@ urlpatterns = [
         name='delete_comment'),
     path('place/<str:name>/', views.PlaceView.as_view(), name='place'),
     path('place/', views.PlacesListView.as_view(), name='places'),
-    path('accounts/', profile_views.UsersListView.as_view(), name = 'users')
+    path('accounts/', profile_views.UsersListView.as_view(), name = 'users'),
+    #path('accounts/profile/<str:username>/update/',
+    #    profile_views.UpdateProfileView.as_view(),
+    #    name='update_profile'),
 ]

@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
-from django.views.generic import DetailView, ListView, CreateView, FormView
+from django.views.generic import DetailView, ListView, CreateView, FormView, \
+UpdateView
 from django.contrib.auth import get_user_model, login
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy
@@ -92,3 +93,10 @@ def activate(request, uid, token):
 class UsersListView(ListView):
     model = Profile
     template_name = 'registration/profile_list.html'
+
+class UpdateProfileView(UpdateView):
+    model = Profile
+    slug_field = 'user__username'
+    slug_url_kwarg = 'username'
+    fields = ['place']
+    template_name = 'registration/user_form.html'
