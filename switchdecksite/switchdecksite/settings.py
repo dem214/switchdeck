@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'switchdeck.apps.SwitchdeckConfig',
+    'crispy_forms',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.admindocs',
@@ -129,3 +130,6 @@ AUTH_USER_MODEL = 'switchdeck.User'
 #Email wirting to file
 EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
 EMAIL_FILE_PATH = os.path.join(BASE_DIR, 'emails')
+
+#crispy bootstrap forms
+CRISPY_TEMPLATE_PACK = 'bootstrap4'

@@ -1,11 +1,12 @@
 {% extends "switchdeck/_base.html" %}
+{% load crispy_forms_tags %}
 {% block title %}SignUp{% endblock %}
 
 {% block content %}
 
 <form action="{% url 'signup' %}" method="post">
   {% csrf_token %}
-  {{ form.as_p }}
+  {{ form|crispy }}
   <input type="submit" name="SignUp">
 </form>
 
