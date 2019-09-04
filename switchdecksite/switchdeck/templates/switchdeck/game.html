@@ -3,7 +3,7 @@
 {% block title %}SwitchDeck: {{game.name}}{% endblock %}
 
 {% block admin_link %}<li>
-  <a href="{% url 'admin:switchdeck_game_change' game.id%}">
+  <a class="btn btn-outline-danger" href="{% url 'admin:switchdeck_game_change' game.id%}">
     Change on admin site
   </a>
 </li>

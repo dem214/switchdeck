@@ -3,7 +3,7 @@
 {% block title %}SwitchDeck profile: {{ userprof.get_username }} {% endblock %}
 
 {% block admin_link %}<li>
-  <a href="{% url 'admin:switchdeck_user_change' userprof.id%}">
+  <a class="btn btn-outline-danger" href="{% url 'admin:switchdeck_user_change' userprof.id%}">
     Change on admin site
   </a>
 </li>
