@@ -47,19 +47,29 @@
   <!-- Comments list -->
   <p>Comments</p>
   {% if comments %}
-    <ul>
-      {% for comment in comments %}
-        <li><a href="{{ comment.author.get_absolute_url }}">
-          {{ comment.author.get_username }}</a><br>
-          {{ comment.timestamp | naturaltime }}<br>
-          {{ comment.text }}</li>
-          {% if comment.author.user == user %}
-            <a href="
-              {% url 'delete_comment' comment.id %}?next={{ request.path }}">
-              Delete comment</a>
-          {% endif %}
-      {% endfor %}
-    </ul>
+    {% for comment in comments %}
+    <div class="card">
+      <div class="card-header">
+        <a href="{{ comment.author.get_absolute_url }}">
+          {{ comment.author.get_username }}</a>
+      </div>
+      <div class="card-body">
+        {{ comment.text }}
+      </div>
+      <div class="card-footer text-muted">
+        {{ comment.timestamp | naturaltime }}
+        {% if comment.author.user == user %}
+          <button class="btn btn-danger btn-sm float-right" type="button"
+            name="delete-comment-button"
+            href="{% url 'delete_comment' comment.id %}?next={{ request.path }}">
+            Delete comment
+          </button>
+        {% endif %}
+      </div>
+    </div>
+    <br>
+
+    {% endfor %}
   {% endif %}
   <!-- Pagination -->
   {% if comments.paginator.num_pages > 1 %}
