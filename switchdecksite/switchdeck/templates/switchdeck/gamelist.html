@@ -19,7 +19,25 @@
 <p>Added {{object.public_date}}</p>
 <!-- Delete button -->
 {% if user.is_authenticated and user == object.profile.user %}
-<button onclick="delete_func()">Delete</button>
+
+<!--Set buttons-->
+{% if object.prop != 'k' %}
+<button type="button" class="btn btn-primary"
+  href="{% url 'set_game_to_keep' glid=object.id %}">Set to keep</button>
+{% endif %}
+{% if object.prop != 's' %}
+<button type="button" class="btn btn-primary"
+  href="{% url 'set_game_to_sell' glid=object.id %}">Set to sell</button>
+{% endif %}
+{% if object.prop != 'b' %}
+<button type="button" class="btn btn-primary"
+  href="{% url 'set_game_to_buy' glid=object.id %}">Set to buy</button>
+{% endif %}
+{% if object.prop != 'w' %}
+<button type="button" class="btn btn-primary"
+  href="{% url 'set_game_to_wish' glid=object.id %}">Set to wish</button>
+{% endif %}
+<button type="button" class="btn btn-danger "onclick="delete_func()">Delete</button>
 <script type="text/javascript">
   function delete_func() {
     var answer = confirm("Delete {{object.game.name}}.\nAre you sure?")
@@ -28,19 +46,6 @@
     }
   }
 </script>
-<!--Set buttons-->
-{% if object.prop != 'k' %}
-<p><a href="{% url 'set_game_to_keep' glid=object.id %}">Set to keep</a></p>
-{% endif %}
-{% if object.prop != 's' %}
-<p><a href="{% url 'set_game_to_sell' glid=object.id %}">Set to sell</a></p>
-{% endif %}
-{% if object.prop != 'b' %}
-<p><a href="{% url 'set_game_to_buy' glid=object.id %}">Set to buy</a></p>
-{% endif %}
-{% if object.prop != 'w' %}
-<p><a href="{% url 'set_game_to_wish' glid=object.id %}">Set to wish</a></p>
-{% endif %}
 {% endif %}
 
 {% if object.prop != 'k' and object != 'w' %}
