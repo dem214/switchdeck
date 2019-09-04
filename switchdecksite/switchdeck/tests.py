@@ -153,10 +153,11 @@ on succsess')
         response = c.post("/accounts/login/",
             {'username': 'john',
             'password': 'wrongpassword'})
-        self.assertIn('error', str(response.content))
+        self.assertIn('alert-danger', str(response.content),
+            'alert-danger is not showed by failed login')
 
     def test_index(self):
-        resp = self.c.get('/')
+        resp = Client().get('/')
         self.assertEqual(200, resp.status_code, 'index is not accesible')
 
     def test_profile_logged_redirection(self):
