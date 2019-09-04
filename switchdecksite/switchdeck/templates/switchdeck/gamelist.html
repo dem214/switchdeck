@@ -21,22 +21,24 @@
 {% if user.is_authenticated and user == object.profile.user %}
 
 <!--Set buttons-->
-{% if object.prop != 'k' %}
-<button type="button" class="btn btn-primary"
-  href="{% url 'set_game_to_keep' glid=object.id %}">Set to keep</button>
-{% endif %}
-{% if object.prop != 's' %}
-<button type="button" class="btn btn-primary"
-  href="{% url 'set_game_to_sell' glid=object.id %}">Set to sell</button>
-{% endif %}
-{% if object.prop != 'b' %}
-<button type="button" class="btn btn-primary"
-  href="{% url 'set_game_to_buy' glid=object.id %}">Set to buy</button>
-{% endif %}
-{% if object.prop != 'w' %}
-<button type="button" class="btn btn-primary"
-  href="{% url 'set_game_to_wish' glid=object.id %}">Set to wish</button>
-{% endif %}
+<div class="btn-group" role="group" aria-label="Set button group">
+  {% if object.prop != 'k' %}
+  <button type="button" class="btn btn-outline-primary"
+    href="{% url 'set_game_to_keep' glid=object.id %}">Set to keep</button>
+  {% endif %}
+  {% if object.prop != 's' %}
+  <button type="button" class="btn btn-outline-primary"
+    href="{% url 'set_game_to_sell' glid=object.id %}">Set to sell</button>
+  {% endif %}
+  {% if object.prop != 'b' %}
+  <button type="button" class="btn btn-outline-primary"
+    href="{% url 'set_game_to_buy' glid=object.id %}">Set to buy</button>
+  {% endif %}
+  {% if object.prop != 'w' %}
+  <button type="button" class="btn btn-outline-primary"
+    href="{% url 'set_game_to_wish' glid=object.id %}">Set to wish</button>
+  {% endif %}
+</div>
 <button type="button" class="btn btn-danger "onclick="delete_func()">Delete</button>
 <script type="text/javascript">
   function delete_func() {
@@ -61,8 +63,8 @@
       <div class="card-body">
         {{ comment.text }}
       </div>
-      <div class="card-footer text-muted">
-        {{ comment.timestamp | naturaltime }}
+      <div class="card-footer">
+        <small class="text-muted">{{ comment.timestamp | naturaltime }}</small>
         {% if comment.author.user == user %}
           <button class="btn btn-danger btn-sm float-right" type="button"
             name="delete-comment-button"
