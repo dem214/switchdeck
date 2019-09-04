@@ -123,6 +123,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+MEDIA_URL = '/media/'
 
 LOGOUT_REDIRECT_URL = 'index'
 AUTH_USER_MODEL = 'switchdeck.User'

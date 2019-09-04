@@ -73,7 +73,7 @@ class Profile(models.Model):
 
 
 def games_images_path(instance, filename):
-    return "games_images" + instance.underscored_name + "/" + filename
+    return "games_images/" + instance.underscored_name + "/" + filename
 
 class Game(models.Model):
     name = models.CharField(max_length=50, unique=True)
