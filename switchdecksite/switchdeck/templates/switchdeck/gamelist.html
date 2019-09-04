@@ -15,6 +15,37 @@
   {{ object.game.name }}
 </a>
  for {{ object.price }}
+ <p>{{object.desc}}</p>
+ {% if user.is_authenticated and user == object.profile.user %}
+  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#changeDescModal">
+    Change decription
+  </button>
+
+  <!-- Change description modal -->
+  <div class="modal fade" id="changeDescModal" tabindex="-1" role="dialog" aria-labelledby="changeDescModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="changeDescModalLabel">Change Description</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form action="#" method="post" id="change_desc_id">
+            {{ change_desc_form|crispy }}
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">
+            Close
+          </button>
+          <input class="btn btn-primary" type="submit" form="change_desc_form">
+        </div>
+      </div>
+    </div>
+  </div>
+ {% endif %}
 
 <p>Added {{object.public_date}}</p>
 <!-- Delete button -->
@@ -89,7 +120,7 @@
       {% csrf_token %}
       {{ form| crispy }}
       <br>
-      <input type="submit" name="submit_btn">
+      <input type="submit" class="btn btn-primary">
     </form>
   {% endif %}
 {% endif %}

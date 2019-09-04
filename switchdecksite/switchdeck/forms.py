@@ -30,3 +30,8 @@ class SignUpForm(UserCreationForm):
     class Meta:
         model = User
         fields = ('username', 'email', 'password1', 'password2')
+
+class ChangeDescGamelistForm(forms.ModelForm):
+    class Meta():
+        model = GameList
+        fields = ['desc']

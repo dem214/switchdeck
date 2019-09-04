@@ -12,8 +12,8 @@ from django.views.generic import DetailView, ListView, CreateView
 from django.views.generic.edit import FormMixin
 
 from .models import Game, GameList, Comment, Place
-from .forms import CommentForm, GameListForm, GameListReducedForm,\
-SetGameListForm
+from .forms import CommentForm, GameListForm, GameListReducedForm, \
+SetGameListForm, ChangeDescGamelistForm
 
 COMMENTS_PER_PAGE=10
 GAMELISTS_PER_PAGE=15
@@ -61,6 +61,7 @@ def gamelist_view(request, glid: int):
     paginator = Paginator(gamelist_item.comments.all(), cpp)
     page = request.GET.get('page', 1)
     context['comments'] = paginator.get_page(page)
+    context['change_desc_form'] = ChangeDescGamelistForm()
     if int(request.GET.get('objects-per-page', 0)) > 0:
         context['objects_per_page'] = request.GET['objects-per-page']
     return render(request, 'switchdeck/gamelist.html', context)
