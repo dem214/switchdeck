@@ -23,28 +23,28 @@
 <!--Set buttons-->
 <div class="btn-group" role="group" aria-label="Set button group">
   {% if object.prop != 'k' %}
-  <button type="button" class="btn btn-outline-primary"
-    href="{% url 'set_game_to_keep' glid=object.id %}">Set to keep</button>
+  <a class="btn btn-outline-primary"
+    href="{% url 'set_game_to_keep' glid=object.id %}">Set to keep</a>
   {% endif %}
   {% if object.prop != 's' %}
-  <button type="button" class="btn btn-outline-primary"
-    href="{% url 'set_game_to_sell' glid=object.id %}">Set to sell</button>
+  <a class="btn btn-outline-primary"
+    href="{% url 'set_game_to_sell' glid=object.id %}">Set to sell</a>
   {% endif %}
   {% if object.prop != 'b' %}
-  <button type="button" class="btn btn-outline-primary"
-    href="{% url 'set_game_to_buy' glid=object.id %}">Set to buy</button>
+  <a class="btn btn-outline-primary"
+    href="{% url 'set_game_to_buy' glid=object.id %}">Set to buy</a>
   {% endif %}
   {% if object.prop != 'w' %}
-  <button type="button" class="btn btn-outline-primary"
-    href="{% url 'set_game_to_wish' glid=object.id %}">Set to wish</button>
+  <a class="btn btn-outline-primary"
+    href="{% url 'set_game_to_wish' glid=object.id %}">Set to wish</a>
   {% endif %}
 </div>
-<button type="button" class="btn btn-danger "onclick="delete_func()">Delete</button>
+<button type="button" class="btn btn-danger" onclick="delete_func()">Delete</button>
 <script type="text/javascript">
   function delete_func() {
-    var answer = confirm("Delete {{object.game.name}}.\nAre you sure?")
+    var answer = confirm("Delete {{object.game.name.title}}.\nAre you sure?")
     if (answer == true) {
-      window.open("{% url 'delete_game' object.id %}")
+      window.location.replace("{% url 'delete_game' object.id %}")
     }
   }
 </script>
@@ -66,11 +66,11 @@
       <div class="card-footer">
         <small class="text-muted">{{ comment.timestamp | naturaltime }}</small>
         {% if comment.author.user == user %}
-          <button class="btn btn-danger btn-sm float-right" type="button"
+          <a class="btn btn-danger btn-sm float-right"
             name="delete-comment-button"
             href="{% url 'delete_comment' comment.id %}?next={{ request.path }}">
             Delete comment
-          </button>
+          </a>
         {% endif %}
       </div>
     </div>

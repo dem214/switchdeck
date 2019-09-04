@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib import messages
 from django.http import Http404
 from django.http.response import HttpResponseForbidden
 from django.urls import reverse
@@ -100,6 +101,9 @@ def add_game_reduced(request, prop):
                 prop=prop,
             )
             gl.save()
+            messages.success(request,
+                f"{gl.game.name.title()} added to your {gl.get_prop_display()} list"
+            )
             return redirect(gl)
     else:
         context['form'] = GameListReducedForm()
@@ -113,6 +117,7 @@ def delete_game(request, glid: int):
     gamelist_item = get_object_or_404(GameList, id=glid)
     if request.user == gamelist_item.profile.user:
         gamelist_item.delete()
+        messages.success(request, f"{gamelist_item.game.name.title()} removed")
         return redirect(request.user.profile)
     else:
         return HttpResponseForbidden
@@ -158,6 +163,7 @@ class GameBuyListView(GameBaseList):
 def delete_comment(request, cid: int):
     comment = get_object_or_404(Comment, id=cid)
     next=request.GET.get('next', reverse('index'))
+    messages.success(request, 'Comment removed')
     if request.user == comment.author.user:
         comment.delete()
         return redirect(next)
@@ -175,6 +181,8 @@ def set_game(request, glid: int, set_prop: str):
         gamelist.price = 0
         gamelist.comments.all().delete()
         gamelist.save()
+        messages.success(request,
+            f"{gamelist.game.name.title()} setted to {gamelist.get_prop_display()} list")
         return redirect(gamelist)
     elif set_prop == 's' or set_prop == 'b':
         if request.method == 'POST':
@@ -186,6 +194,8 @@ def set_game(request, glid: int, set_prop: str):
                 gamelist.public_date = timezone.now()
                 gamelist.up_time = timezone.now()
                 gamelist.save()
+                messages.success(request,
+                    f"{gamelist.game.name.title()} setted to {gamelist.get_prop_display()} list")
             return redirect(gamelist)
         else:
             form = SetGameListForm()
