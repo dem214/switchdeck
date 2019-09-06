@@ -35,3 +35,8 @@ class ChangeDescGamelistForm(forms.ModelForm):
     class Meta():
         model = GameList
         fields = ['desc']
+
+class ChangePriceGamelistForm(forms.ModelForm):
+    class Meta():
+        model = GameList
+        fields = ['price']

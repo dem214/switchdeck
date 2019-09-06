@@ -46,5 +46,7 @@ urlpatterns = [
     path('place/', views.PlacesListView.as_view(), name='places'),
     path('accounts/', profile_views.UsersListView.as_view(), name = 'users'),
     path('lot/<int:glid>/change-description/', views.change_description,
-        name='change_description')
+        name='change_description'),
+    path('lot/<int:glid>/change-price/', views.change_price, 
+    name='change_price')
 ]

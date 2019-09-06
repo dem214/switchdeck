@@ -15,9 +15,39 @@
   {{ object.game.name }}
 </a>
  for {{ object.price }}
+ {% if user.is_authenticated and user == object.profile.user %}
+ <!-- Change price modal -->
+ <button type="button" class="badge badge-primary" data-toggle="modal" data-target="#changePriceModal">
+   Change price
+ </button>
+ <div class="modal fade" id="changePriceModal" tabindex="-1" role="dialog" aria-labelledby="changePriceModalLabel" aria-hidden="true">
+   <div class="modal-dialog" role="document">
+     <div class="modal-content">
+       <div class="modal-header">
+         <h5 class="modal-title" id="changePriceModalLabel">Change Price</h5>
+         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+           <span aria-hidden="true">&times;</span>
+         </button>
+       </div>
+       <div class="modal-body">
+         <form action="{% url 'change_price' object.id %}" method="post" id="change_price_form">
+           {% csrf_token %}
+           {{ change_price_form|crispy }}
+         </form>
+       </div>
+       <div class="modal-footer">
+         <button type="button" class="btn btn-secondary" data-dismiss="modal">
+           Close
+         </button>
+         <input class="btn btn-primary" type="submit" form="change_price_form">
+       </div>
+     </div>
+   </div>
+ </div>
+ {% endif %}
  <p>{{object.desc}}</p>
  {% if user.is_authenticated and user == object.profile.user %}
-  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#changeDescModal">
+  <button type="button" class="badge badge-primary" data-toggle="modal" data-target="#changeDescModal">
     Change decription
   </button>
 

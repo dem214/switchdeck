@@ -14,7 +14,7 @@ from django.views.decorators.http import require_POST
 
 from .models import Game, GameList, Comment, Place
 from .forms import CommentForm, GameListForm, GameListReducedForm, \
-SetGameListForm, ChangeDescGamelistForm
+SetGameListForm, ChangeDescGamelistForm, ChangePriceGamelistForm
 
 COMMENTS_PER_PAGE=10
 GAMELISTS_PER_PAGE=15
@@ -62,7 +62,12 @@ def gamelist_view(request, glid: int):
     paginator = Paginator(gamelist_item.comments.all(), cpp)
     page = request.GET.get('page', 1)
     context['comments'] = paginator.get_page(page)
-    context['change_desc_form'] = ChangeDescGamelistForm({'desc': gamelist_item.desc})
+    context['change_desc_form'] = ChangeDescGamelistForm(
+        {'desc': gamelist_item.desc}
+    )
+    context['change_price_form'] = ChangePriceGamelistForm(
+        {'price': gamelist_item.price}
+    )
     if int(request.GET.get('objects-per-page', 0)) > 0:
         context['objects_per_page'] = request.GET['objects-per-page']
     return render(request, 'switchdeck/gamelist.html', context)
@@ -225,6 +230,21 @@ def change_description(request, glid):
     form = ChangeDescGamelistForm(request.POST)
     if form.is_valid():
         gl.desc = form.cleaned_data['desc']
+        gl.update_up_time()
         gl.save()
         messages.success(request, message='Description has been changed')
+    return redirect(gl.get_absolute_url())
+
+@require_POST
+@login_required
+def change_price(request, glid):
+    gl = get_object_or_404(GameList, id=glid)
+    if gl.profile != request.user.profile:
+        return HttpResponseForbidden
+    form = ChangePriceGamelistForm(request.POST)
+    if form.is_valid():
+        gl.price = form.cleaned_data['price']
+        gl.update_up_time()
+        gl.save()
+        messages.success(request, message='Price has been changed')
     return redirect(gl.get_absolute_url())
