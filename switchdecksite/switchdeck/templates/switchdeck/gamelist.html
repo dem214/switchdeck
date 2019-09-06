@@ -32,7 +32,8 @@
           </button>
         </div>
         <div class="modal-body">
-          <form action="#" method="post" id="change_desc_id">
+          <form action="{% url 'change_description' object.id %}" method="post" id="change_desc_form">
+            {% csrf_token %}
             {{ change_desc_form|crispy }}
           </form>
         </div>

@@ -269,3 +269,20 @@ on succsess')
     def test_user_list_page(self):
         resp = self.c.get("/accounts/")
         self.assertEqual(200, resp.status_code, 'Accounts list is not accessable')
+
+    def test_change_description(self):
+        gl = GameList.objects.create(profile=self.john, game=self.tloz,
+            prop='s', desc="FOO")
+        gl.save()
+        c = Client()
+        resp = c.get(f"/lot/{gl.id}/")
+        self.assertIn("FOO", str(resp.content),
+            'Gamelist page dont content description')
+        c.login(username=self.john.user.username,
+            password=self.john.user.password)
+        resp = c.post(f"/lot/{gl.id}/change-description/",
+            desc="bar", follow=True)
+        self.assertEqual(302, resp.redirect_chain[0][1], 'Not redirectin')
+        redirected_resp = c.get(str(resp.redirect_chain[0][0]))
+        self.assertIn("bar", str(redirected_resp.content),
+            'Description havent changed')

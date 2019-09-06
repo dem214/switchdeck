@@ -56,10 +56,10 @@
       {% for message in messages %}
       <div class="alert alert-{{message.level_tag}}">
         {{ message.message }}
-      {% endfor %}
       </div>
+      {% endfor %}
       {% endif %}
-      
+
       {% block content %}{% endblock content %}
     </div>
 

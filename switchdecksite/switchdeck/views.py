@@ -10,6 +10,7 @@ from django.core.paginator import Paginator
 from django.utils import timezone
 from django.views.generic import DetailView, ListView, CreateView
 from django.views.generic.edit import FormMixin
+from django.views.decorators.http import require_POST
 
 from .models import Game, GameList, Comment, Place
 from .forms import CommentForm, GameListForm, GameListReducedForm, \
@@ -61,7 +62,7 @@ def gamelist_view(request, glid: int):
     paginator = Paginator(gamelist_item.comments.all(), cpp)
     page = request.GET.get('page', 1)
     context['comments'] = paginator.get_page(page)
-    context['change_desc_form'] = ChangeDescGamelistForm()
+    context['change_desc_form'] = ChangeDescGamelistForm({'desc': gamelist_item.desc})
     if int(request.GET.get('objects-per-page', 0)) > 0:
         context['objects_per_page'] = request.GET['objects-per-page']
     return render(request, 'switchdeck/gamelist.html', context)
@@ -214,3 +215,16 @@ class PlaceView(DetailView):
 
 class PlacesListView(ListView):
     model=Place
+
+@require_POST
+@login_required
+def change_description(request, glid):
+    gl = get_object_or_404(GameList, id=glid)
+    if gl.profile != request.user.profile:
+        return HttpResponseForbidden
+    form = ChangeDescGamelistForm(request.POST)
+    if form.is_valid():
+        gl.desc = form.cleaned_data['desc']
+        gl.save()
+        messages.success(request, message='Description has been changed')
+    return redirect(gl.get_absolute_url())
