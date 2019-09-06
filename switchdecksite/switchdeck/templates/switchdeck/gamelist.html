@@ -117,7 +117,7 @@
   <p>Comments</p>
   {% if comments %}
     {% for comment in comments %}
-    <div class="card">
+    <div class="card" id="comment_{{comment.id}}">
       <div class="card-header">
         <a href="{{ comment.author.get_absolute_url }}">
           {{ comment.author.get_username }}</a>
@@ -151,6 +151,9 @@
       {% csrf_token %}
       {{ form| crispy }}
       <br>
+      {% if objects_per_page %}
+      <input type="hidden" name="objects_per_page" value="{{ objects_per_page }}">
+      {% endif %}
       <input type="submit" class="btn btn-primary">
     </form>
   {% endif %}

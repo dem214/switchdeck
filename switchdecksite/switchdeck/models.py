@@ -7,6 +7,8 @@ from django.utils import timezone
 from django.urls import reverse
 from django.conf import settings
 
+#from .views import COMMENTS_PER_PAGE
+
 class User(AbstractUser):
 
     def get_absolute_url(self):
@@ -200,5 +202,29 @@ class Comment(models.Model):
             said = said + "'"
         return said
 
-    def get_absolute_url(self):
-        return self.game_instance.get_absolute_url()
+    def get_absolute_url(self, opp=None):
+        if opp is None:
+            opp = settings.COMMENTS_PER_PAGE
+            opp_query = False
+        else:
+            opp_query = "&objects-per-page=" + str(opp)
+        comment_query = "#comment_" + str(self.id)
+        gamelist_query = self.game_instance.get_absolute_url()
+        comment_index = list(self.game_instance.comments.all()).index(self)
+        page = comment_index // opp + 1
+        if page > 1:
+            page_query = "page=" + str(page)
+        else:
+            page_query = False
+
+        query = gamelist_query
+        if opp_query or page_query:
+            query += '?'
+            if page_query:
+                query += page_query
+                if opp_query:
+                    query += '&'
+            if opp_query:
+                query += opp_query
+        query += comment_query
+        return query

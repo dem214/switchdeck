@@ -16,7 +16,8 @@ from .models import Game, GameList, Comment, Place
 from .forms import CommentForm, GameListForm, GameListReducedForm, \
 SetGameListForm, ChangeDescGamelistForm, ChangePriceGamelistForm
 
-COMMENTS_PER_PAGE=10
+from django.conf import settings
+COMMENTS_PER_PAGE = settings.COMMENTS_PER_PAGE
 GAMELISTS_PER_PAGE=15
 
 def index(request):
@@ -53,7 +54,8 @@ def gamelist_view(request, glid: int):
                     text = form.cleaned_data['text'])
                 comm.save()
                 gamelist_item.update_up_time()
-                return redirect('gamelist_item', gamelist_item.id)
+                opp = request.POST.get('objects_per_page', None)
+                return redirect(comm.get_absolute_url(int(opp)))
             else:
                 return redirect('login')
     else:
