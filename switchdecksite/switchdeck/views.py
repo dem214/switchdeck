@@ -172,9 +172,9 @@ class GameBuyListView(GameBaseList):
 def delete_comment(request, cid: int):
     comment = get_object_or_404(Comment, id=cid)
     next=request.GET.get('next', reverse('index'))
-    messages.success(request, 'Comment removed')
     if request.user == comment.author.user:
         comment.delete()
+        messages.success(request, 'Comment removed')
         return redirect(next)
     else:
         return HttpResponseForbidden
@@ -207,10 +207,9 @@ def set_game(request, glid: int, set_prop: str):
                     f"{gamelist.game.name.title()} setted to {gamelist.get_prop_display()} list")
             return redirect(gamelist)
         else:
-            form = SetGameListForm()
-            form.desc = gamelist.desc
-            form.price = gamelist.price
-            context['form'] = form
+            context['form'] = SetGameListForm(
+                {'desc': gamelist.desc, 'price': gamelist.price}
+            )
             context['set_prop'] = set_prop
             context['gamelist'] = gamelist
         return render(request, 'switchdeck/set_game.html', context)

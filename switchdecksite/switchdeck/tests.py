@@ -78,7 +78,7 @@ class ModelsTest(TestCase):
         self.assertEqual(game.underscored_name, "some_great_name")
 
     def test_game_absolute_url(self):
-        self.assertEqual("/game-id/1/", self.tloz.get_absolute_url(),
+        self.assertEqual("/game/1/", self.tloz.get_absolute_url(),
             'game page now is not "/game-id/<game.id>/"')
 
     def test_game_oredered_objects_by_sell(self):
@@ -179,7 +179,7 @@ on succsess')
         resp.redirect_chain[0][0], 'next arg setted wrong')
 
     def test_game_id(self):
-        resp = self.c.get(f"/game-id/{self.tloz.id}/")
+        resp = self.c.get(f"/game/{self.tloz.id}/")
         self.assertEqual(200,
             resp.status_code,
             'game page is not reachable by id')

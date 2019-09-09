@@ -7,11 +7,13 @@ from . import profile_views
 
 urlpatterns = [
     path('', views.index, name='index'),
-    path('game-id/<int:gid>/', views.game_id, name='game_id'),
-    path('game-id/<int:gid>/sell-list/', views.GameSellListView.as_view(),
-        name='game_sell_list'),
-    path('game-id/<int:gid>/buy-list/', views.GameBuyListView.as_view(),
-        name='game_buy_list'),
+    path('game/<int:gid>/', include([
+        path('', views.game_id, name='game_id'),
+        path('sell-list/', views.GameSellListView.as_view(),
+            name='game_sell_list'),
+        path('buy-list/', views.GameBuyListView.as_view(),
+            name='game_buy_list')
+    ])),
     path('lot/<int:glid>/', views.gamelist_view, name='gamelist_item'),
     path('add-game/keep/', views.add_game_reduced, {'prop': 'k'},
         name='add_game_keep'),
@@ -47,6 +49,6 @@ urlpatterns = [
     path('accounts/', profile_views.UsersListView.as_view(), name = 'users'),
     path('lot/<int:glid>/change-description/', views.change_description,
         name='change_description'),
-    path('lot/<int:glid>/change-price/', views.change_price, 
+    path('lot/<int:glid>/change-price/', views.change_price,
     name='change_price')
 ]

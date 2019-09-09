@@ -14,6 +14,7 @@
 <a href="{{ object.game.get_absolute_url }}">
   {{ object.game.name }}
 </a>
+{% if object.prop == 'b' or object.prop == 's' %}
  for {{ object.price }}
  {% if user.is_authenticated and user == object.profile.user %}
  <!-- Change price modal -->
@@ -45,6 +46,7 @@
    </div>
  </div>
  {% endif %}
+{% endif %}
  <p>{{object.desc}}</p>
  {% if user.is_authenticated and user == object.profile.user %}
   <button type="button" class="badge badge-primary" data-toggle="modal" data-target="#changeDescModal">
