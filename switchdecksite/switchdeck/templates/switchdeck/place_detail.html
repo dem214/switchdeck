@@ -10,4 +10,31 @@
 
 <h1>{{ object.name.title }}</h1>
 
+{% if profiles %}
+<h3>Users</h3>
+<ul>
+  {% for profile in profiles %}
+  <li><a href="{{ profile.get_absolute_url }}">{{ profile.get_username }}</a></li>
+  {% endfor %}
+</ul>
+{% endif %}
+
+{% if sell_list %}
+<h3>Sell list</h3>
+<ul>
+  {% for gl in sell_list %}
+  <li><a href="{{ gl.get_absolute_url }}">{{ gl }}</a></li>
+  {% endfor %}
+</ul>
+{% endif %}
+
+{% if buy_list %}
+<h3>Buy list</h3>
+<ul>
+  {% for gl in buy_list %}
+  <li><a href="{{ gl.get_absolute_url }}">{{ gl }}</a></li>
+  {% endfor %}
+</ul>
+{% endif %}
+
 {% endblock %}

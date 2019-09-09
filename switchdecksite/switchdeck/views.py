@@ -12,7 +12,7 @@ from django.views.generic import DetailView, ListView, CreateView
 from django.views.generic.edit import FormMixin
 from django.views.decorators.http import require_POST
 
-from .models import Game, GameList, Comment, Place
+from .models import Game, GameList, Comment, Place, Profile
 from .forms import CommentForm, GameListForm, GameListReducedForm, \
 SetGameListForm, ChangeDescGamelistForm, ChangePriceGamelistForm
 
@@ -219,6 +219,15 @@ class PlaceView(DetailView):
     model = Place
     slug_field = 'name'
     slug_url_kwarg = 'name'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['profiles'] = Profile.objects.filter(place=self.object)\
+            .order_by("user__username")
+        gl_query = GameList.objects.filter(profile__place=self.object)
+        context['sell_list'] = gl_query.filter(prop='s')
+        context['buy_list'] = gl_query.filter(prop='b')
+        return context
 
 class PlacesListView(ListView):
     model=Place
