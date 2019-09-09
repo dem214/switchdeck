@@ -117,6 +117,10 @@ class ModelsTest(TestCase):
             self.john.get_absolute_url(),
             'profile page is not "/accounts/profile/<username>"')
 
+    def test_gamelist_place(self):
+        gl = GameList(profile=self.john, game=self.tloz)
+        self.assertEqual('minsk', gl.place.name, 'Place of gamelist not equal')
+
 
     # TODO: _list methods of GameList
 

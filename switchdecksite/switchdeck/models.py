@@ -15,6 +15,7 @@ class User(AbstractUser):
         return reverse('profile', args=[self.get_username()])
 
 class Place(models.Model):
+    """Represent place for convinient searching"""
     name = models.CharField(max_length=20, unique=True)
 
     def __str__(self):
@@ -142,6 +143,10 @@ class GameList(models.Model):
         symmetrical = False,
         limit_choices_to = (models.Q(prop='b') | models.Q(prop='w')) & \
             models.Q(profile=models.F("profile")))
+
+    @property
+    def place(self):
+        return self.profile.place
 
     class Meta:
         #last upped - first
