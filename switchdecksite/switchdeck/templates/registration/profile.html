@@ -12,7 +12,14 @@
 {% block content %}
 
 <h1>{{ userprof.username }}</h1>
+{% if userprof.get_full_name %}
+<p>{{ userprof.get_full_name }}</p>
+{% endif %}
+<p>from <a href="{% url 'place' name=userprof.profile.place.name %}">{{ userprof.profile.place.name|title }}</a></p>
 
+{% if user.is_authenticated and user == userprof %}
+<p><a href="{% url 'update_profile' username=userprof.get_username %}">Update profile</a></p>
+{% endif %}
 
 {% if user.is_authenticated and user == userprof %}
 <!-- Add game href -->

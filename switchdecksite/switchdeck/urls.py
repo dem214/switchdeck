@@ -56,4 +56,7 @@ urlpatterns = [
         path('deactivate/', views.change_activation, {'activate': False},
             name='change_deactivate')
     ])),
+    path('accounts/profile/<str:username>/update/',
+    profile_views.UpdateProfileView.as_view(),
+    name = 'update_profile'),
 ]

@@ -3,15 +3,18 @@ from django.views.generic import DetailView, ListView, CreateView, FormView, \
 UpdateView
 from django.contrib.auth import get_user_model, login
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http.response import HttpResponseForbidden
 from django.urls import reverse_lazy
 from django.core.mail import send_mail
+from django.core.exceptions import PermissionDenied
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes, force_text
 from django.template.loader import render_to_string
 from django.contrib.auth import get_user_model
 from django.contrib.sites.shortcuts import get_current_site
 
-from .forms import SignUpForm
+from .forms import SignUpForm, UpdateProfileForm
 from .models import Profile
 from .token_generator import account_activation_token
 
@@ -94,9 +97,28 @@ class UsersListView(ListView):
     model = Profile
     template_name = 'registration/profile_list.html'
 
-class UpdateProfileView(UpdateView):
+class UpdateProfileView(LoginRequiredMixin, UpdateView):
     model = Profile
     slug_field = 'user__username'
     slug_url_kwarg = 'username'
-    fields = ['place']
+    form_class = UpdateProfileForm
     template_name = 'registration/user_form.html'
+
+    def get_initial(self):
+        initial = super().get_initial()
+        initial['first_name'] = self.object.user.first_name
+        initial['last_name'] = self.object.user.last_name
+        return initial
+
+    def form_valid(self, form):
+        userprof = self.object.user
+        userprof.first_name = form.cleaned_data['first_name']
+        userprof.last_name = form.cleaned_data['last_name']
+        userprof.save()
+        return super().form_valid(form)
+
+    def setup(self, request, *args, **kwargs):
+        super().setup(request, *args, **kwargs)
+        if request.user.is_authenticated and \
+            not request.user.username == kwargs['username']:
+            raise PermissionDenied

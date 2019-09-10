@@ -7,7 +7,7 @@
 <form action="{% url 'update_profile' object.get_username%}" method="post">
   {% csrf_token %}
   {{ form|crispy }}
-  <input type="submit">
+  <input type="submit" class="btn btn-success">
 </form>
 
 {% endblock %}

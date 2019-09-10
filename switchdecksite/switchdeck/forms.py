@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.conf import settings
 
-from .models import Comment, GameList, User
+from .models import Comment, GameList, User, Profile
 
 class CommentForm(forms.ModelForm):
     class Meta():
@@ -40,3 +40,10 @@ class ChangePriceGamelistForm(forms.ModelForm):
     class Meta():
         model = GameList
         fields = ['price']
+
+class UpdateProfileForm(forms.ModelForm):
+    first_name = forms.CharField(max_length=30, strip=True, required=False)
+    last_name = forms.CharField(max_length=150, strip=True, required=False)
+    class Meta():
+        model = Profile
+        fields = ['place']
