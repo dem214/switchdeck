@@ -83,7 +83,7 @@
     <small>This is now <b>active</b></small>
     <a href="{% url 'change_deactivate' glid=object.id %}" class="badge badge-primary">Deactivate</a>
     {% else %}
-    <small>This is now <b>unactive</b></small>
+    <small>This is now <b>inactive</b></small>
     <a href="{% url 'change_activate' glid=object.id %}" class="badge badge-primary">Activate</a>
     {% endif %}
   </p>

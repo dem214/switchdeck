@@ -22,43 +22,57 @@
 
 
 {% if keep_list %}
-<h2>Keep list</h2>
+<h3>Keep list</h3>
 <ul>
   {% for game_item in keep_list %}
-  <li><a href="{% url 'gamelist_item' game_item.id %}">
+  <li>
+    <a href="{% url 'gamelist_item' game_item.id %}">
     {{ game_item.game.name }}
-    {% if game_item.prop == 's' %} [for sell]{% endif %}
-  </a></li>
+    </a>
+    {% if game_item.prop == 's' %} <span class="badge badge-secondary">for sell</span>{% endif %}
+    {% if not game_item.active %}<span class="badge badge-warning">inactive</span> {% endif %}
+  </li>
   {% endfor %}
 </ul>
 {% endif %}
 
 {% if wish_list %}
-<h2>Wish list</h2>
+<h3>Wish list</h3>
 <ul>
   {% for game_item in wish_list %}
-  <li><a href="{% url 'gamelist_item' game_item.id %}">
+  <li>
+    <a href="{% url 'gamelist_item' game_item.id %}">
     {{ game_item.game.name }}
-    {% if game_item.prop == 'b' %} [ready to buy]{% endif %}
-  </a></li>
+    </a>
+    {% if game_item.prop == 'b' %} <span class="badge badge-secondary">ready to buy</span>{% endif %}
+    {% if not game_item.active %}<span class="badge badge-warning">inactive</span> {% endif %}
+  </li>
   {% endfor %}
 </ul>
 {% endif %}
 
 {% if sell_list %}
-<h2>Sell list</h2>
+<h3>Sell list</h3>
 <ul>
   {% for game_item in sell_list %}
-  <li><a href="{% url 'gamelist_item' game_item.id %}">{{ game_item.game.name }}</a></li>
+  <li>
+    <a href="{% url 'gamelist_item' game_item.id %}">{{ game_item.game.name }}
+    </a>
+    {% if not game_item.active %}<span class="badge badge-warning">inactive</span> {% endif %}
+  </li>
   {% endfor %}
 </ul>
 {% endif %}
 
 {% if buy_list %}
-<h2>Buy list</h2>
+<h3>Buy list</h3>
 <ul>
   {% for game_item in buy_list %}
-  <li><a href="{% url 'gamelist_item' game_item.id %}">{{ game_item.game.name }}</a></li>
+  <li>
+    <a href="{% url 'gamelist_item' game_item.id %}">{{ game_item.game.name }}
+    </a>
+    {% if not game_item.active %}<span class="badge badge-warning">inactive</span> {% endif %}
+  </li>
   {% endfor %}
 </ul>
 {% endif %}
