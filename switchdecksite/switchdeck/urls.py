@@ -47,8 +47,13 @@ urlpatterns = [
     path('place/<str:name>/', views.PlaceView.as_view(), name='place'),
     path('place/', views.PlacesListView.as_view(), name='places'),
     path('accounts/', profile_views.UsersListView.as_view(), name = 'users'),
-    path('lot/<int:glid>/change-description/', views.change_description,
-        name='change_description'),
-    path('lot/<int:glid>/change-price/', views.change_price,
-    name='change_price')
+    path('lot/<int:glid>/change/', include([
+        path('description/', views.change_description,
+            name='change_description'),
+        path('price/', views.change_price, name='change_price'),
+        path('activate/', views.change_activation, {'activate': True},
+            name='change_activate'),
+        path('deactivate/', views.change_activation, {'activate': False},
+            name='change_deactivate')
+    ])),
 ]

@@ -258,3 +258,16 @@ def change_price(request, glid):
         gl.save()
         messages.success(request, message='Price has been changed')
     return redirect(gl.get_absolute_url())
+
+@login_required
+def change_activation(request, glid, activate):
+    gl = get_object_or_404(GameList, id=glid)
+    if gl.profile != request.user.profile:
+        return HttpResponseForbidden
+    if activate and not gl.active:
+        gl.active = True
+        gl.save(update_fields=['active'])
+    elif not activate and gl.active:
+        gl.active = False
+        gl.save(update_fields=['active'])
+    return redirect(gl.get_absolute_url())

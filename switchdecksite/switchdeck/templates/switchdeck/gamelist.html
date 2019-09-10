@@ -78,6 +78,15 @@
       </div>
     </div>
   </div>
+  <p>
+    {% if object.active %}
+    <small>This is now <b>active</b></small>
+    <a href="{% url 'change_deactivate' glid=object.id %}" class="badge badge-primary">Deactivate</a>
+    {% else %}
+    <small>This is now <b>unactive</b></small>
+    <a href="{% url 'change_activate' glid=object.id %}" class="badge badge-primary">Activate</a>
+    {% endif %}
+  </p>
  {% endif %}
 
 <p>Added {{object.public_date}}</p>
