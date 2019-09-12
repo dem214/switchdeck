@@ -1,0 +1,14 @@
+{% extends "switchdeck/_base.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %}SwitchDeck: Change To game{% endblock %}
+
+{% block content %}
+
+<form class="" action="{% url 'gamelist_change_to' object.pk %}" method="post">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <input type="submit" name="submit" class="btn btn-primary">
+
+</form>
+{% endblock %}

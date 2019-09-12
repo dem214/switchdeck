@@ -20,6 +20,7 @@ class ModelsTest(TestCase):
         self.only_one_to_sell_and_buy = Game.objects.create(name='SSBU')
 
         minsk = Place.objects.create(name='minsk')
+        self.minsk = minsk
 
         self.mary = Profile.create_profile('mary', 'mary@example.com',
             'passwordmary', place=minsk)
@@ -121,9 +122,18 @@ class ModelsTest(TestCase):
     def test_gamelist_place(self):
         gl = GameList(profile=self.john, game=self.tloz)
         self.assertEqual('minsk', gl.place.name, 'Place of gamelist not equal')
-
-
     # TODO: _list methods of GameList
+
+    def test_change_to_games_choices(self):
+        mariah = Profile.create_profile('mariah', 'm@m.m', 'passwordmariah',
+            place=self.minsk)
+        tloz = GameList.objects.create(profile=mariah, game=self.tloz, prop='k')
+        smo = GameList.objects.create(profile=mariah, game=self.smo, prop='s')
+        smk = GameList.objects.create(profile=mariah, game=self.smk, prop='w')
+        self.assertIn(smk, tloz.get_change_to_choices(),
+            'w gamelist not in choices')
+        self.assertNotIn(smo, tloz.get_change_to_choices(), 's game in choices')
+        mariah.delete()
 
 class ViewTest(TestCase):
     def setUp(self):

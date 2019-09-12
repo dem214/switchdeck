@@ -8,13 +8,13 @@ from django.http.response import HttpResponseForbidden
 from django.urls import reverse
 from django.core.paginator import Paginator
 from django.utils import timezone
-from django.views.generic import DetailView, ListView, CreateView
+from django.views.generic import DetailView, ListView, CreateView, UpdateView
 from django.views.generic.edit import FormMixin
 from django.views.decorators.http import require_POST
 
 from .models import Game, GameList, Comment, Place, Profile
 from .forms import CommentForm, GameListForm, GameListReducedForm, \
-SetGameListForm, ChangeDescGamelistForm, ChangePriceGamelistForm
+SetGameListForm, ChangeDescGamelistForm, ChangePriceGamelistForm, ChangeToForm
 
 from django.conf import settings
 COMMENTS_PER_PAGE = settings.COMMENTS_PER_PAGE
@@ -276,3 +276,10 @@ class GamesView(ListView):
     model = Game
     template_name = 'switchdeck/games.html'
     ordering = ['name']
+
+class UpdateChangeToView(LoginRequiredMixin, UpdateView):
+    model = GameList
+    pk_url_kwarg='glid'
+    form_class = ChangeToForm
+    template_name = 'switchdeck/gamelist_change_to.html'
+    # TODO: Limit user, add link to page, think about limit choices, decide how to user change and ready_to_change

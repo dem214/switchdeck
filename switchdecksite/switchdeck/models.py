@@ -185,6 +185,10 @@ class GameList(models.Model):
         self.up_time = timezone.now()
         self.save()
 
+    def get_change_to_choices(self):
+        return self.profile.gamelist_set.filter(
+            models.Q(prop='b') | models.Q(prop='w'))
+
 
 class Comment(models.Model):
     author = models.ForeignKey(Profile, on_delete=models.CASCADE,

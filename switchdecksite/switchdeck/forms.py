@@ -47,3 +47,12 @@ class UpdateProfileForm(forms.ModelForm):
     class Meta():
         model = Profile
         fields = ['place']
+
+class ChangeToForm(forms.ModelForm):
+    class Meta():
+        model = GameList
+        fields = ['change_to']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['change_to'].queryset = kwargs['instance'].get_change_to_choices()

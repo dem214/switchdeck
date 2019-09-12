@@ -54,10 +54,12 @@ urlpatterns = [
         path('activate/', views.change_activation, {'activate': True},
             name='change_activate'),
         path('deactivate/', views.change_activation, {'activate': False},
-            name='change_deactivate')
+            name='change_deactivate'),
+        path('change-to/', views.UpdateChangeToView.as_view(),
+            name='gamelist_change_to')
     ])),
     path('accounts/update-profile/',
     profile_views.UpdateProfileView.as_view(),
     name = 'update_profile'),
-    path('games/', views.GamesView.as_view(), name='games')
+    path('games/', views.GamesView.as_view(), name='games'),
 ]
