@@ -99,10 +99,11 @@ class UsersListView(ListView):
 
 class UpdateProfileView(LoginRequiredMixin, UpdateView):
     model = Profile
-    slug_field = 'user__username'
-    slug_url_kwarg = 'username'
     form_class = UpdateProfileForm
     template_name = 'registration/user_form.html'
+
+    def get_object(self):
+        return self.request.user.profile
 
     def get_initial(self):
         initial = super().get_initial()
@@ -116,9 +117,3 @@ class UpdateProfileView(LoginRequiredMixin, UpdateView):
         userprof.last_name = form.cleaned_data['last_name']
         userprof.save()
         return super().form_valid(form)
-
-    def setup(self, request, *args, **kwargs):
-        super().setup(request, *args, **kwargs)
-        if request.user.is_authenticated and \
-            not request.user.username == kwargs['username']:
-            raise PermissionDenied

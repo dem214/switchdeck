@@ -18,7 +18,7 @@
 <p>from <a href="{% url 'place' name=userprof.profile.place.name %}">{{ userprof.profile.place.name|title }}</a></p>
 
 {% if user.is_authenticated and user == userprof %}
-<p><a href="{% url 'update_profile' username=userprof.get_username %}">Update profile</a></p>
+<p><a href="{% url 'update_profile' %}">Update profile</a></p>
 {% endif %}
 
 {% if user.is_authenticated and user == userprof %}
