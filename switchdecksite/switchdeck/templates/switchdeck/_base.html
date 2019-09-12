@@ -14,10 +14,14 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'places' %}">Places</a>
-          </li><li class="nav-item">
-            <a class="nav-link" href="{% url 'users' %}">Users</a>
+          <li class="nav-item" id="places-nav-item">
+            <a class="nav-link" href="{% url 'places' %}" id="places-nav-link">
+              Places
+            </a>
+          </li><li class="nav-item" id="users-nav-item">
+            <a class="nav-link" href="{% url 'users' %}" id="users-nav-link">
+              Users
+            </a>
           </li>
         </ul>
         <ul class="navbar-nav ml-auto">
@@ -31,8 +35,9 @@
             {% block admin_link %}{% endblock %}
           </form>
           {% endif %}
-          <li class="nav-item">
-            <a class="nav-link" href="{{ user.profile.get_absolute_url }}">
+          <li class="nav-item" id="user-nav-item">
+            <a class="nav-link" href="{{ user.profile.get_absolute_url }}"
+              id="user-nav-link">
             {{ user.get_username }}
           </a></li>
           <li class="nav-item">
@@ -41,10 +46,11 @@
             </a></li>
           {% else %}
           <!-- Unauthenticated header bar info -->
-          <li class="nav-item">
+          <li class="nav-item" id="signup-nav-item">
             <a class="nav-link" href="{% url 'signup' %}">Sign Up</a></li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'login'%}?next={{request.path}}">
+          <li class="nav-item" id="login-nav-item">
+            <a class="nav-link" href="{% url 'login'%}?next={{request.path}}"
+              id="login-nav-link">
               Login</a></li>
           {% endif %}
         </ul>
