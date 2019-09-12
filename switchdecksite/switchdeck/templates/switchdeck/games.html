@@ -1,0 +1,29 @@
+{% extends "switchdeck/_base.html" %}
+
+{% block title %}SwitchDeck: Games{% endblock %}
+
+{% block content %}
+<div class="row">
+  {% for game in object_list %}
+  <div class="col-md-4">
+    <div class="card">
+      {% if game.cover %}
+      <a href="{{game.get_absolute_url}}">
+        <img class="card-img-top" src="{{game.cover.url}}"
+          alt="{{ game.name }} cover">
+      </a>
+      {% endif %}
+      <div class="card-body">
+        <div class="card-text">
+          <a  href="{{game.get_absolute_url}}">{{ game.name|title }}</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+<script>
+  document.getElementById("games-nav-item").classList.add("active")
+</script>
+{% endblock %}

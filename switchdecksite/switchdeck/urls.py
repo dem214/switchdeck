@@ -59,4 +59,5 @@ urlpatterns = [
     path('accounts/update-profile/',
     profile_views.UpdateProfileView.as_view(),
     name = 'update_profile'),
+    path('games/', views.GamesView.as_view(), name='games')
 ]

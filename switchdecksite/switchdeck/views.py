@@ -271,3 +271,8 @@ def change_activation(request, glid, activate):
         gl.active = False
         gl.save(update_fields=['active'])
     return redirect(gl.get_absolute_url())
+
+class GamesView(ListView):
+    model = Game
+    template_name = 'switchdeck/games.html'
+    ordering = ['name']

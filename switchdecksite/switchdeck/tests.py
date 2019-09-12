@@ -329,3 +329,8 @@ on succsess')
         resp = c.post(f"/accounts/profile/{prof.get_username()}",
             {'first_name':'mary', 'last_name':'elizabeth'}, follow=True)
         #not working self.assertEqual('elizabeth', prof.user.last_name, 'last name not changed')
+
+    def test_games_access(self):
+        resp = Client().get("/games/")
+        self.assertEqual(200, resp.status_code,
+            'page with games is not accessable')
