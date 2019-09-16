@@ -17,6 +17,12 @@ class User(AbstractUser):
 class Place(models.Model):
     """Represent place for convinient searching"""
     name = models.CharField(max_length=20, unique=True)
+    popularity = models.IntegerField(default=0,
+        help_text="Popularity of place. The higher popularity - the higher this place in place list")
+
+    class Meta():
+        #order of descending popularity
+        ordering = ['-popularity']
 
     def __str__(self):
         return self.name

@@ -45,10 +45,10 @@ class GamelistAdmin(admin.ModelAdmin):
 
 @admin.register(Place)
 class PlaceAdmin(admin.ModelAdmin):
-    list_display = ['pk', 'name']
-    ordering = ['pk']
-    list_display_links = list_display
+    list_display = ['popularity', 'name',]
+    list_display_links = ['name']
     search_fields = ['name']
+    list_editable = ['popularity']
 
 @admin.register(Game)
 class GameAdmin(admin.ModelAdmin):
