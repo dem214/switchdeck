@@ -120,7 +120,6 @@ class GameList(models.Model):
     PROPS = (
         ('k', 'keep'),
         ('s', 'sell'),
-        ('c', 'change'),
         ('b', 'buy'),
         ('w', 'wish')
     )
