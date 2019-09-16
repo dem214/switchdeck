@@ -34,7 +34,8 @@ update_up_time.short_description = "Update all up_time to now"
 @admin.register(GameList)
 class GamelistAdmin(admin.ModelAdmin):
     readonly_fields = ['profile',]
-    exclude = ['change_to']
+    #exclude = ['change_to']
+    list_display_links = ['profile', 'prop', 'game']
     date_hierarchy = 'public_date'
     list_display = ['profile', 'prop', 'game', 'public_date', 'up_time',
         'active']

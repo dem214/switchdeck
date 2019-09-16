@@ -4,6 +4,19 @@
 {% block title %}SwitchDeck: Change To game{% endblock %}
 
 {% block content %}
+{% if is_ready_to_change %}
+<h3>Which games do you ready to change
+  <a href="{{ object.get_absolute_url }}">
+    {{ object.game.name }}
+  </a>?
+</h3>
+{% endif %}
+{% if is_wanna_change %}
+<h3>Which games you wannt to change to
+  <a href="{{ object.game.get_absolute_url }}">
+    {{ object.game.name }}</a>?
+</h3>
+{% endif %}
 
 <form class="" action="{% url 'gamelist_change_to' object.pk %}" method="post">
     {% csrf_token %}

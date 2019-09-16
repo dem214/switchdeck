@@ -48,11 +48,29 @@ class UpdateProfileForm(forms.ModelForm):
         model = Profile
         fields = ['place']
 
-class ChangeToForm(forms.ModelForm):
-    class Meta():
-        model = GameList
-        fields = ['change_to']
+#class ChangeToForm(forms.ModelForm):
+#    class Meta():
+#        model = GameList
+#        fields = ['change_to']
+#
+#    def __init__(self, *args, **kwargs):
+#        super().__init__(*args, **kwargs)
+#        gl = kwargs['instance']
+#        if gl.prop == 'w' or gl.prop == 'b':
+#            self.fields['change_to'].queryset = gl.get_change_to_choices()
+#        elif gl.prop == 'k' or gl.prop == 's':
+#            self.fields['change_to'].queryset = gl.get_ready_to_change_choices()
 
-    def __init__(self, *args, **kwargs):
+class ChangeToForm(forms.Form):
+    changelets = forms.ModelMultipleChoiceField(queryset=None, required=False)
+
+    def __init__(self, *args, instance, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['change_to'].queryset = kwargs['instance'].get_change_to_choices()
+        if instance.prop == 'w' or instance.prop == 'b':
+            self.fields['changelets'].queryset = \
+                instance.get_change_to_choices()
+            self.fields['changelets'].initial = instance.change_to.all()
+        elif instance.prop == 'k' or instance.prop == 's':
+            self.fields['changelets'].queryset = \
+                instance.get_ready_to_change_choices()
+            self.fields['changelets'].initial = instance.ready_change_to.all()

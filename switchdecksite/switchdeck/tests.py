@@ -130,9 +130,9 @@ class ModelsTest(TestCase):
         tloz = GameList.objects.create(profile=mariah, game=self.tloz, prop='k')
         smo = GameList.objects.create(profile=mariah, game=self.smo, prop='s')
         smk = GameList.objects.create(profile=mariah, game=self.smk, prop='w')
-        self.assertIn(smk, tloz.get_change_to_choices(),
-            'w gamelist not in choices')
-        self.assertNotIn(smo, tloz.get_change_to_choices(), 's game in choices')
+        self.assertIn(smo, tloz.get_change_to_choices(),
+            's gamelist not in choices')
+        self.assertNotIn(smk, tloz.get_change_to_choices(), 'w game in choices')
         mariah.delete()
 
 class ViewTest(TestCase):

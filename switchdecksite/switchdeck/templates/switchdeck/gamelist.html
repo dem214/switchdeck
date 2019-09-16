@@ -47,6 +47,30 @@
  </div>
  {% endif %}
 {% endif %}
+
+{% if object.change_to.count > 0 %}
+<h3>Change to list</h3>
+<ul>
+  {% for gl in object.change_to.all %}
+  <li><a href="{{ gl.get_absolute_url }}">{{ gl.game.name }}</a></li>
+  {% endfor %}
+</ul>
+{% endif %}
+
+{% if object.ready_change_to.count > 0 %}
+<h3>ready to change to</h3>
+<ul>
+  {% for gl in object.ready_change_to.all %}
+  <li><a href="{{ gl.get_absolute_url }}">{{ gl.game.name }}</a></li>
+  {% endfor %}
+</ul>
+{% endif %}
+
+<!-- Change-to button -->
+{% if user.is_authenticated and user == object.profile.user %}
+<p><a href="{% url 'gamelist_change_to' object.id%}" class="btn btn-primary">Set changing</a></p>
+{% endif %}
+
  <p>{{object.desc}}</p>
  {% if user.is_authenticated and user == object.profile.user %}
   <button type="button" class="badge badge-primary" data-toggle="modal" data-target="#changeDescModal">

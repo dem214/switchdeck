@@ -8,9 +8,10 @@ from django.http.response import HttpResponseForbidden
 from django.urls import reverse
 from django.core.paginator import Paginator
 from django.utils import timezone
-from django.views.generic import DetailView, ListView, CreateView, UpdateView
+from django.views.generic import DetailView, ListView, CreateView, UpdateView, FormView
 from django.views.generic.edit import FormMixin
 from django.views.decorators.http import require_POST
+from django.core.exceptions import PermissionDenied
 
 from .models import Game, GameList, Comment, Place, Profile
 from .forms import CommentForm, GameListForm, GameListReducedForm, \
@@ -185,6 +186,15 @@ def set_game(request, glid: int, set_prop: str):
     gamelist = get_object_or_404(GameList, id=glid)
     if request.user != gamelist.profile.user:
         return HttpResponseForbidden
+
+    #cleared change_to fields per change of prop
+    if (set_prop == 'k' or set_prop == 'w') and (gamelist.prop == 's' or gamelist.prop == 'b'):
+        gamelist.change_to.clear()
+        messages.info("Change list cleared")
+    if (set_prop == 's' or set_prop == 'b') and (gamelist.prop == 'k' or gamelist.prop == 'w'):
+        gamelist.ready_change_to.clear()
+        messages.info("Change list cleared")
+
     if set_prop == 'k' or set_prop == 'w':
         gamelist.prop = set_prop
         gamelist.price = 0
@@ -272,14 +282,48 @@ def change_activation(request, glid, activate):
         gl.save(update_fields=['active'])
     return redirect(gl.get_absolute_url())
 
+
 class GamesView(ListView):
     model = Game
     template_name = 'switchdeck/games.html'
     ordering = ['name']
 
-class UpdateChangeToView(LoginRequiredMixin, UpdateView):
-    model = GameList
-    pk_url_kwarg='glid'
-    form_class = ChangeToForm
+
+class UpdateChangeToView(LoginRequiredMixin, FormView):
     template_name = 'switchdeck/gamelist_change_to.html'
-    # TODO: Limit user, add link to page, think about limit choices, decide how to user change and ready_to_change
+    form_class = ChangeToForm
+
+    def setup(self, request, *args, **kwargs):
+        super().setup(request, *args, **kwargs)
+        self.object = get_object_or_404(GameList, pk=kwargs['glid'])
+        if request.user.is_authenticated and \
+            self.object.profile.user != request.user:
+            raise PermissionDenied
+
+    def get_form_kwargs(self):
+        kw = super().get_form_kwargs()
+        kw['instance'] = self.object
+        return kw
+
+    def form_valid(self, form):
+        prop = self.object.prop
+        changelets = list(form.cleaned_data['changelets'])
+        if prop == 'w' or prop == 'b':
+            self.object.change_to.set(changelets)
+        elif prop == 'k' or prop == 's':
+            self.object.ready_change_to.set(changelets)
+        messages.success(self.request, "Change list updated")
+        return super().form_valid(form)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        prop = self.object.prop
+        context['object'] = self.object
+        if prop == 'k' or prop == 's':
+            context['is_ready_to_change'] = True
+        elif prop == 'w' or prop == 'b':
+            context['is_wanna_change'] = True
+        return context
+
+    def get_success_url(self):
+        return self.object.get_absolute_url()

@@ -145,9 +145,8 @@ class GameList(models.Model):
     change_to = models.ManyToManyField("self",
         related_name="ready_change_to",
         blank=True,
-        symmetrical = False,
-        limit_choices_to = (models.Q(prop='b') | models.Q(prop='w')) & \
-            models.Q(profile=models.F("profile")))
+        symmetrical=False,
+        limit_choices_to=(models.Q(prop='b') | models.Q(prop='w')))
 
     @property
     def place(self):
@@ -172,17 +171,6 @@ class GameList(models.Model):
         self.price = 0.0
         self.change_to.clear()
 
-    def set_change_to(self, *args):
-        self.change_to.clear()
-        for a in args:
-            if a.profile == self.profile and \
-                (a.prop == 'b' or a.prop == 'w'):
-                a.change_to.add(a)
-
-    def get_can_change_to(self):
-        return self.profile.games.filter(models.Q(prop='b') | \
-            models.Q(prop='w'))
-
     def get_absolute_url(self):
         return reverse('gamelist_item', args=[self.id,])
 
@@ -191,6 +179,10 @@ class GameList(models.Model):
         self.save()
 
     def get_change_to_choices(self):
+        return self.profile.gamelist_set.filter(
+            models.Q(prop='k') | models.Q(prop='s'))
+
+    def get_ready_to_change_choices(self):
         return self.profile.gamelist_set.filter(
             models.Q(prop='b') | models.Q(prop='w'))
 
