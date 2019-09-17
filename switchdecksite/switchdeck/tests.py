@@ -275,7 +275,7 @@ on succsess')
         mariah.user.delete()
 
     def test_place_list_accessable(self):
-        resp = self.c.get("/place/")
+        resp = Client().get("/place/")
         self.assertEqual(200, resp.status_code, 'places list is not accessable')
 
     def test_place_accessable(self):
