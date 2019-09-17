@@ -5,6 +5,13 @@
 
 {% block title %}Lot {{ object.id }} | Place | SwitchDeck{% endblock %}
 
+{% block admin_link %}<li>
+  <a class="btn btn-outline-danger" href="{% url 'admin:switchdeck_gamelist_change' object.id%}">
+    {% trans "Change on admin site" %}
+  </a>
+</li>
+{% endblock %}
+
 {% block content %}
 
 <!-- Gamelist item info -->
@@ -115,7 +122,7 @@
     {% else %}
     <small>{% trans "This is now" %} <b>{% trans "inactive" %}</b></small>
     <a href="{% url 'change_activate' glid=object.id %}" class="badge badge-primary">
-      {% trans "Activate" %}Activate
+      {% trans "Activate" %}
     </a>
     {% endif %}
   </p>

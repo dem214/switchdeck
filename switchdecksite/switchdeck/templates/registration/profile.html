@@ -5,7 +5,7 @@
 
 {% block admin_link %}<li>
   <a class="btn btn-outline-danger" href="{% url 'admin:switchdeck_user_change' userprof.id%}">
-    Change on admin site
+    {% trans "Change on admin site" %}
   </a>
 </li>
 {% endblock %}
