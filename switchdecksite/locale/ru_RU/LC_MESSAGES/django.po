@@ -1,0 +1,42 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-09-17 12:05+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: .\switchdeck\templates\switchdeck\_base.html:19
+msgid "Places"
+msgstr "Места"
+
+#: .\switchdeck\templates\switchdeck\_base.html:24
+msgid "Users"
+msgstr "Пользователи"
+
+#: .\switchdeck\templates\switchdeck\_base.html:29
+msgid "Games"
+msgstr "Игры"
+
+#: .\switchdeck\templates\switchdeck\_base.html:39
+msgid "Admin Site"
+msgstr "Администрация"
+
+#: .\switchdeck\templates\switchdeck\_base.html:51
+msgid "Logout"
+msgstr "Выход"
+
+#: .\switchdeck\templates\switchdeck\_base.html:60
+msgid "Login"
+msgstr "Вход"

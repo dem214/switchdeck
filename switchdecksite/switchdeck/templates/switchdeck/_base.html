@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+{% load i18n %}<!DOCTYPE html>
 <html>
   <!-- Base template -->
   <head>
@@ -16,16 +16,18 @@
         <ul class="navbar-nav">
           <li class="nav-item" id="places-nav-item">
             <a class="nav-link" href="{% url 'places' %}" id="places-nav-link">
-              Places
+              {% trans "Places" %}
             </a>
           </li>
           <li class="nav-item" id="users-nav-item">
             <a class="nav-link" href="{% url 'users' %}" id="users-nav-link">
-              Users
+              {% trans "Users" %}
             </a>
           </li>
           <li class="nav-item" id="games-nav-item">
-            <a class="nav-link" href="{% url 'games' %}">Games</a>
+            <a class="nav-link" href="{% url 'games' %}">
+              {% trans "Games" %}
+            </a>
           </li>
         </ul>
         <ul class="navbar-nav ml-auto">
@@ -34,7 +36,7 @@
           {% if user.is_staff %}
           <form class="form-inline">
             <a class="btn btn-outline-danger" href="{% url 'admin:index' %}" role="button">
-              Admin site
+              {% trans "Admin Site" %}
             </a>
             {% block admin_link %}{% endblock %}
           </form>
@@ -46,7 +48,7 @@
           </a></li>
           <li class="nav-item">
             <a class="nav-link" href="{% url 'logout'%}?next={{request.path}}">
-              Logout
+              {% trans "Logout" %}
             </a></li>
           {% else %}
           <!-- Unauthenticated header bar info -->
@@ -55,7 +57,7 @@
           <li class="nav-item" id="login-nav-item">
             <a class="nav-link" href="{% url 'login'%}?next={{request.path}}"
               id="login-nav-link">
-              Login</a></li>
+              {% trans "Login" %}</a></li>
           {% endif %}
         </ul>
       </div>
