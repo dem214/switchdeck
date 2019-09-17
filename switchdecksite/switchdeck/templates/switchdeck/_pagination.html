@@ -4,12 +4,12 @@
     {% if page_obj.has_previous %}
     <li class="page-item">
       <a class="page-link" href="?page=1{% if objects_per_page %}&objects-per-page={{ objects_per_page }}{% endif %}">
-        &laquo; first
+        &laquo; {% trans "first" %}
       </a>
     </li>
     <li class="page-item">
       <a class="page-link" href="?page={{ page_obj.previous_page_number}}{% if objects_per_page %}&objects-per-page={{ objects_per_page }}{% endif %}">
-        previous
+        {% trans "previous" %}
       </a>
     </li>
     {% endif %}
@@ -19,12 +19,12 @@
     {% if page_obj.has_next %}
     <li class="page-item">
       <a class="page-link" href="?page={{page_obj.next_page_number}}{% if objects_per_page %}&objects-per-page={{ objects_per_page }}{% endif %}">
-        next
+        {% trans "next" %}
       </a>
     </li>
     <li class="page-item">
       <a class="page-link" href="?page={{page_obj.paginator.num_pages}}{% if objects_per_page %}&objects-per-page={{ objects_per_page }}{% endif %}">
-        last &raquo
+        {% trans "last" %}last &raquo
       </a>
     </li>
     {% endif %}

@@ -12,7 +12,7 @@
   <input type="submit" name="Login" class="btn btn-primary">
   <input type="hidden" name="next" value="{{ next }}">
 </form>
-<p><a href="{% url 'password_reset' %}">Forgot password?</a></p>
+<p><a href="{% url 'password_reset' %}">{% trans "Forgot password?" %}</a></p>
 
 <script>
   document.getElementById("login-nav-item").classList.add("active")

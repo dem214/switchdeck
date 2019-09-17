@@ -20,13 +20,13 @@
  {% if user.is_authenticated and user == object.profile.user %}
  <!-- Change price modal -->
  <button type="button" class="badge badge-primary" data-toggle="modal" data-target="#changePriceModal">
-   Change price
+   {% trans "Change price" %}
  </button>
  <div class="modal fade" id="changePriceModal" tabindex="-1" role="dialog" aria-labelledby="changePriceModalLabel" aria-hidden="true">
    <div class="modal-dialog" role="document">
      <div class="modal-content">
        <div class="modal-header">
-         <h5 class="modal-title" id="changePriceModalLabel">Change Price</h5>
+         <h5 class="modal-title" id="changePriceModalLabel">{% trans "Change price" %}</h5>
          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
            <span aria-hidden="true">&times;</span>
          </button>
@@ -39,7 +39,7 @@
        </div>
        <div class="modal-footer">
          <button type="button" class="btn btn-secondary" data-dismiss="modal">
-           Close
+           {% trans "Close" %}
          </button>
          <input class="btn btn-primary" type="submit" form="change_price_form">
        </div>
@@ -78,7 +78,7 @@
  <p>{{object.desc}}</p>
  {% if user.is_authenticated and user == object.profile.user %}
   <button type="button" class="badge badge-primary" data-toggle="modal" data-target="#changeDescModal">
-    Change decription
+    {% trans "Change decription" %}
   </button>
 
   <!-- Change description modal -->
@@ -86,7 +86,7 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="changeDescModalLabel">Change Description</h5>
+          <h5 class="modal-title" id="changeDescModalLabel">{% trans "Change decription" %}</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -99,7 +99,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">
-            Close
+            {% trans "Close" %}
           </button>
           <input class="btn btn-primary" type="submit" form="change_desc_form">
         </div>
@@ -108,16 +108,20 @@
   </div>
   <p>
     {% if object.active %}
-    <small>This is now <b>active</b></small>
-    <a href="{% url 'change_deactivate' glid=object.id %}" class="badge badge-primary">Deactivate</a>
+    <small>{% trans "This is now" %} <b>{% trans "active" %}</b></small>
+    <a href="{% url 'change_deactivate' glid=object.id %}" class="badge badge-primary">
+      {% trans "Deactivate" %}
+    </a>
     {% else %}
-    <small>This is now <b>inactive</b></small>
-    <a href="{% url 'change_activate' glid=object.id %}" class="badge badge-primary">Activate</a>
+    <small>{% trans "This is now" %} <b>{% trans "inactive" %}</b></small>
+    <a href="{% url 'change_activate' glid=object.id %}" class="badge badge-primary">
+      {% trans "Activate" %}Activate
+    </a>
     {% endif %}
   </p>
  {% endif %}
 
-<p>Added {{object.public_date}}</p>
+<p>{% trans "Added" %} {{object.public_date}}</p>
 <!-- Delete button -->
 {% if user.is_authenticated and user == object.profile.user %}
 
@@ -140,7 +144,9 @@
     href="{% url 'set_game_to_wish' glid=object.id %}">Set to wish</a>
   {% endif %}
 </div>
-<button type="button" class="btn btn-danger" onclick="delete_func()">Delete</button>
+<button type="button" class="btn btn-danger" onclick="delete_func()">
+  {% trans "Delete" %}
+</button>
 <script type="text/javascript">
   function delete_func() {
     var answer = confirm("Delete {{object.game.name.title}}.\nAre you sure?")
@@ -153,7 +159,7 @@
 
 {% if object.prop != 'k' and object != 'w' %}
   <!-- Comments list -->
-  <p>Comments</p>
+  <p>{% trans "Comments" %}</p>
   {% if comments %}
     {% for comment in comments %}
     <div class="card" id="comment_{{comment.id}}">
@@ -170,7 +176,7 @@
           <a class="btn btn-danger btn-sm float-right"
             name="delete-comment-button"
             href="{% url 'delete_comment' comment.id %}?next={{ request.path }}">
-            Delete comment
+            {% trans "Delete" %} {% trans "comment" %}
           </a>
         {% endif %}
       </div>
