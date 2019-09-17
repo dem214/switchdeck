@@ -1,14 +1,14 @@
 # SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# Copyright (C) 2019
 # This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Dzmitry Izaitka <dem214overlord@gmail.com>, YEAR.
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-09-17 12:05+0300\n"
+"POT-Creation-Date: 2019-09-17 13:44+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,7 +17,42 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
+#: .\switchdeck\templates\registration\confirmation_error.html:3
+#: .\switchdeck\templates\registration\need_confirm_email.html:3
+msgid "Need Confirmation"
+msgstr "Нужно подтверждение"
+
+#: .\switchdeck\templates\registration\confirmation_ok.html:3
+msgid "Email confirmed"
+msgstr "Электронная почта подтверждена"
+
+#: .\switchdeck\templates\registration\login.html:5
+#: .\switchdeck\templates\switchdeck\_base.html:60
+msgid "Login"
+msgstr "Вход"
+
+#: .\switchdeck\templates\registration\login.html:15
+msgid "Forgot password?"
+msgstr "Забыли пароль?"
+
+#: .\switchdeck\templates\registration\profile.html:4
+msgid "Profile"
+msgstr "Профиль"
+
+#: .\switchdeck\templates\registration\profile_list.html:3
+msgid "Profiles"
+msgstr "Профили"
+
+#: .\switchdeck\templates\registration\register.html:3
+msgid "Register"
+msgstr "Регистрация"
+
+#: .\switchdeck\templates\registration\signup.html:4
+msgid "SignUp"
+msgstr "Зарегестрироваться"
+
 #: .\switchdeck\templates\switchdeck\_base.html:19
+#: .\switchdeck\templates\switchdeck\place_list.html:4
 msgid "Places"
 msgstr "Места"
 
@@ -26,6 +61,7 @@ msgid "Users"
 msgstr "Пользователи"
 
 #: .\switchdeck\templates\switchdeck\_base.html:29
+#: .\switchdeck\templates\switchdeck\games.html:4
 msgid "Games"
 msgstr "Игры"
 
@@ -37,6 +73,100 @@ msgstr "Администрация"
 msgid "Logout"
 msgstr "Выход"
 
-#: .\switchdeck\templates\switchdeck\_base.html:60
-msgid "Login"
-msgstr "Вход"
+#: .\switchdeck\templates\switchdeck\_pagination.html:7
+msgid "first"
+msgstr "первая"
+
+#: .\switchdeck\templates\switchdeck\_pagination.html:12
+msgid "previous"
+msgstr "предыдущая"
+
+#: .\switchdeck\templates\switchdeck\_pagination.html:22
+msgid "next"
+msgstr "следующая"
+
+#: .\switchdeck\templates\switchdeck\_pagination.html:27
+msgid "last"
+msgstr "последняя"
+
+#: .\switchdeck\templates\switchdeck\add_game_reduced.html:5
+msgid "Add game"
+msgstr "Добавить игру"
+
+#: .\switchdeck\templates\switchdeck\game.html:23
+msgid "Link to eshop"
+msgstr "Ссылка на eshop"
+
+#: .\switchdeck\templates\switchdeck\game.html:36
+#: .\switchdeck\templates\switchdeck\game.html:46
+msgid "more..."
+msgstr "далее..."
+
+#: .\switchdeck\templates\switchdeck\game_base_list.html:4
+msgid "list"
+msgstr "список"
+
+#: .\switchdeck\templates\switchdeck\gamelist.html:23
+#: .\switchdeck\templates\switchdeck\gamelist.html:29
+msgid "Change price"
+msgstr "Изменить цену"
+
+#: .\switchdeck\templates\switchdeck\gamelist.html:42
+#: .\switchdeck\templates\switchdeck\gamelist.html:102
+msgid "Close"
+msgstr "Закрыть"
+
+#: .\switchdeck\templates\switchdeck\gamelist.html:81
+#: .\switchdeck\templates\switchdeck\gamelist.html:89
+msgid "Change decription"
+msgstr "Изменить описание"
+
+#: .\switchdeck\templates\switchdeck\gamelist.html:111
+#: .\switchdeck\templates\switchdeck\gamelist.html:116
+msgid "This is now"
+msgstr "Сейчас"
+
+#: .\switchdeck\templates\switchdeck\gamelist.html:111
+msgid "active"
+msgstr "активно"
+
+#: .\switchdeck\templates\switchdeck\gamelist.html:113
+msgid "Deactivate"
+msgstr "Деактивировать"
+
+#: .\switchdeck\templates\switchdeck\gamelist.html:116
+msgid "inactive"
+msgstr "не активно"
+
+#: .\switchdeck\templates\switchdeck\gamelist.html:118
+msgid "Activate"
+msgstr "активировать"
+
+#: .\switchdeck\templates\switchdeck\gamelist.html:124
+msgid "Added"
+msgstr "Добавлено"
+
+#: .\switchdeck\templates\switchdeck\gamelist.html:148
+#: .\switchdeck\templates\switchdeck\gamelist.html:179
+msgid "Delete"
+msgstr "Удалить"
+
+#: .\switchdeck\templates\switchdeck\gamelist.html:162
+msgid "Comments"
+msgstr "Комментарии"
+
+#: .\switchdeck\templates\switchdeck\gamelist.html:179
+msgid "comment"
+msgstr "комментарий"
+
+#: .\switchdeck\templates\switchdeck\gamelist_change_to.html:5
+msgid "Update change list"
+msgstr "Обновить список на обмен"
+
+#: .\switchdeck\templates\switchdeck\place_detail.html:8
+msgid "Change on admin site"
+msgstr "Изменить через админ."
+
+#: .\switchdeck\templates\switchdeck\set_game.html:5
+msgid "Set game"
+msgstr ""
