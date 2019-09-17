@@ -1,6 +1,7 @@
 {% extends "switchdeck/_base.html" %}
+{% load i18n %}
 
-{% block title %}SwitchDeck profile: {{ userprof.get_username }} {% endblock %}
+{% block title %}{{ userprof.get_username }} | {% trans "Profile" %} | SwitchDeck{{ userprof.get_username }} {% endblock %}
 
 {% block admin_link %}<li>
   <a class="btn btn-outline-danger" href="{% url 'admin:switchdeck_user_change' userprof.id%}">
@@ -83,4 +84,11 @@
   {% endfor %}
 </ul>
 {% endif %}
+{% if user.is_authenticated and user == userprof %}
+<!-- User navigation highlighting-->
+<script>
+  document.getElementById("user-nav-item").classList.add("active")
+</script>
+{% endif %}
+
 {% endblock %}

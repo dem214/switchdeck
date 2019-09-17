@@ -1,15 +1,17 @@
 {% extends 'switchdeck/_base.html' %}
-{% block title %}Switchdeck: {{object.name.title }}{% endblock %}
+{% load i18n %}
+
+{% block title %}{{object.name.title }} | Switchdeck{% endblock %}
+
 {% block admin_link %}<li>
   <a class="btn btn-outline-danger" href="{% url 'admin:switchdeck_place_change' object.id%}">
     Change on admin site
   </a>
 </li>
 {% endblock %}
+
 {% block content %}
-
 <h1>{{ object.name.title }}</h1>
-
 {% if profiles %}
 <h3>Users</h3>
 <ul>

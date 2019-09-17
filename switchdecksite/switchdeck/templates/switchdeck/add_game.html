@@ -1,8 +1,10 @@
 {% extends "switchdeck/_base.html" %}
+{% load i18n %}
 
 {% block title %}SwitchDeck: Add game{% endblock %}
 
 {% block content %}
+<h1>DEPRECATED</h1>
 <form class="" action="{% url 'add_game' %}" method="post">
   {% csrf_token %}
   {{form.as_ul}}

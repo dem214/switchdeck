@@ -1,6 +1,7 @@
 {% extends 'switchdeck/_base.html' %}
+{% load i18n %}
 
-{% block title %}Switchdeck: {{game.name}}: {{proposition|title}} list{% endblock %}
+{% block title %}{{proposition|title}} list | {{game.name}} | Switchdeck{% endblock %}
 
 {% block content %}
 <h2>{{game.name}}: {{proposition|title}} list</h2>

@@ -1,7 +1,8 @@
 {% extends "switchdeck/_base.html" %}
 {% load crispy_forms_tags %}
+{% load i18n %}
 
-{% block title %}SwitchDeck: Set game{% endblock %}
+{% block title %}{% trans "Set game" %} | SwitchDeck{% endblock %}
 
 {% block content %}
 <h2>Wanna set {{ gamelist.game.name}} to {{set_prop}}?</h2>

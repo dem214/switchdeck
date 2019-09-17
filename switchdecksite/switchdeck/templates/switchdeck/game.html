@@ -1,6 +1,6 @@
 {% extends "switchdeck/_base.html" %}
 
-{% block title %}SwitchDeck: {{game.name}}{% endblock %}
+{% block title %}{{game.name}} | SwitchDeck{% endblock %}
 
 {% block admin_link %}<li>
   <a class="btn btn-outline-danger" href="{% url 'admin:switchdeck_game_change' game.id%}">

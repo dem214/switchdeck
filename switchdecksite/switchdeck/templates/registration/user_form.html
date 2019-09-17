@@ -1,9 +1,10 @@
 {% extends "switchdeck/_base.html" %}
+{% load i18n %}
 {% load crispy_forms_tags %}
 {% block title %}Switchdeck update profile{% endblock %}
 
 {% block content %}
-
+<h1>DEPRECATED</h1>
 <form action="{% url 'update_profile'%}" method="post">
   {% csrf_token %}
   {{ form|crispy }}

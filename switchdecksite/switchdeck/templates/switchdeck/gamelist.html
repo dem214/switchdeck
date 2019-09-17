@@ -1,8 +1,9 @@
 {% extends "switchdeck/_base.html" %}
 {% load crispy_forms_tags %}
 {% load humanize %}
+{% load i18n %}
 
-{% block title %}SwitchDeck lot# {{ object.id }} {% endblock %}
+{% block title %}Lot {{ object.id }} | Place | SwitchDeck{% endblock %}
 
 {% block content %}
 
@@ -48,22 +49,25 @@
  {% endif %}
 {% endif %}
 
+<!-- Change lists -->
 {% if object.change_to.count > 0 %}
-<h3>Change to list</h3>
-<ul>
+<p><a href="{{ object.profile.get_absolute_url }}">{{ object.profile.get_username }}</a>
+  also wants to change this game on
   {% for gl in object.change_to.all %}
-  <li><a href="{{ gl.get_absolute_url }}">{{ gl.game.name }}</a></li>
+  <a href="{{ gl.get_absolute_url }}">{{ gl.game.name }}</a>
+  {% if not forloop.last %}, {% endif %}
   {% endfor %}
-</ul>
+</p>
 {% endif %}
 
 {% if object.ready_change_to.count > 0 %}
-<h3>ready to change to</h3>
-<ul>
+<p><a href="{{ object.profile.get_absolute_url }}">{{ object.profile.get_username }}</a>
+  alse ready to change this game on
   {% for gl in object.ready_change_to.all %}
-  <li><a href="{{ gl.get_absolute_url }}">{{ gl.game.name }}</a></li>
+  <a href="{{ gl.get_absolute_url }}">{{ gl.game.name }}</a>
+  {% if not forloop.last %}, {% endif %}
   {% endfor %}
-</ul>
+</p>
 {% endif %}
 
 <!-- Change-to button -->
