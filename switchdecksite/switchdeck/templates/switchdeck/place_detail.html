@@ -24,8 +24,8 @@
 {% if sell_list %}
 <h3>Sell list</h3>
 <ul>
-  {% for gl in sell_list %}
-  <li><a href="{{ gl.get_absolute_url }}">{{ gl }}</a></li>
+  {% for gamelist in sell_list %}
+  {% include "switchdeck/_gamelist_card.html" %}
   {% endfor %}
 </ul>
 {% endif %}
@@ -33,8 +33,8 @@
 {% if buy_list %}
 <h3>Buy list</h3>
 <ul>
-  {% for gl in buy_list %}
-  <li><a href="{{ gl.get_absolute_url }}">{{ gl }}</a></li>
+  {% for gamelist in buy_list %}
+  {% include "switchdeck/_gamelist_card.html" %}
   {% endfor %}
 </ul>
 {% endif %}
