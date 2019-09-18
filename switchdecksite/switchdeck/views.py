@@ -56,7 +56,9 @@ def gamelist_view(request, glid: int):
                 comm.save()
                 gamelist_item.update_up_time()
                 opp = request.POST.get('objects_per_page', None)
-                return redirect(comm.get_absolute_url(int(opp)))
+                if opp is not None:
+                    opp = int(opp)
+                return redirect(comm.get_absolute_url(opp))
             else:
                 return redirect('login')
     else:
