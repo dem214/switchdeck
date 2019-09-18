@@ -4,7 +4,8 @@
 {% block title %}{{ userprof.get_username }} | {% trans "Profile" %} | SwitchDeck{{ userprof.get_username }} {% endblock %}
 
 {% block admin_link %}<li>
-  <a class="btn btn-outline-danger" href="{% url 'admin:switchdeck_user_change' userprof.id%}">
+  <a class="btn btn-outline-danger"
+    href="{% url 'admin:switchdeck_user_change' userprof.id%}">
     {% trans "Change on admin site" %}
   </a>
 </li>
@@ -16,10 +17,14 @@
 {% if userprof.get_full_name %}
 <p>{{ userprof.get_full_name }}</p>
 {% endif %}
-<p>from <a href="{% url 'place' name=userprof.profile.place.name %}">{{ userprof.profile.place.name|title }}</a></p>
+<p>from <a href="{% url 'place' name=userprof.profile.place.name %}">
+  {{ userprof.profile.place.name|title }}
+</a></p>
 
 {% if user.is_authenticated and user == userprof %}
-<p><a href="{% url 'update_profile' %}">Update profile</a></p>
+<p><a href="{% url 'update_profile' %}">
+  {% trans "Update" %} {% trans "profile" %}
+</a></p>
 {% endif %}
 
 {% if user.is_authenticated and user == userprof %}
@@ -31,59 +36,134 @@
 
 {% if keep_list %}
 <h3>Keep list</h3>
-<ul>
-  {% for game_item in keep_list %}
-  <li>
-    <a href="{% url 'gamelist_item' game_item.id %}">
-    {{ game_item.game.name }}
-    </a>
-    {% if game_item.prop == 's' %} <span class="badge badge-secondary">for sell</span>{% endif %}
-    {% if not game_item.active %}<span class="badge badge-warning">inactive</span> {% endif %}
-  </li>
+<div class="row">
+  {% for gamelist in keep_list %}
+  <div class="col-md-3">
+    <div class="card">
+      {% if gamelist.game.cover %}
+      <img src="{{ gamelist.game.cover.url }}"
+        alt="{{ gamelist.game.name }} {% trans 'cover' %}"
+        class="card-img-top"
+        href="{{ gamelist.game.get_absolute_url }}">
+      {% endif %}
+      <div class="card-body">
+        <p class="card-text">
+          <a href="{{ gamelist.game.get_absolute_url }}">
+            {{ gamelist.game.name }}
+          </a>
+          {% if gamelist.prop == 's' %}<span class="badge badge-secondary">
+            {% trans "for sell" %}
+          </span>{% endif %}
+          {% if not gamelist.active %}<span class="badge badge-warning">
+            {% trans "inactive" %}
+          </span> {% endif %}
+        </p>
+        <a href="{{ gamelist.get_absolute_url }}" class="btn btn-primary">
+          {% trans "View more" %}
+        </a>
+      </div>
+    </div>
+  </div>
   {% endfor %}
-</ul>
+</div>
 {% endif %}
 
 {% if wish_list %}
 <h3>Wish list</h3>
-<ul>
-  {% for game_item in wish_list %}
-  <li>
-    <a href="{% url 'gamelist_item' game_item.id %}">
-    {{ game_item.game.name }}
-    </a>
-    {% if game_item.prop == 'b' %} <span class="badge badge-secondary">ready to buy</span>{% endif %}
-    {% if not game_item.active %}<span class="badge badge-warning">inactive</span> {% endif %}
-  </li>
+<div class="row">
+  {% for gamelist in wish_list %}
+  <div class="col-md-3">
+    <div class="card">
+      {% if gamelist.game.cover %}
+      <img src="{{ gamelist.game.cover.url }}"
+        alt="{{ gamelist.game.name }} {% trans 'cover' %}"
+        class="card-img-top"
+        href="{{ gamelist.game.get_absolute_url }}">
+      {% endif %}
+      <div class="card-body">
+        <p class="card-text">
+          <a href="{{ gamelist.game.get_absolute_url }}">
+            {{ gamelist.game.name }}
+          </a>
+          {% if gamelist.prop == 'b' %}<span class="badge badge-secondary">
+            {% trans "ready to buy" %}
+          </span>{% endif %}
+          {% if not gamelist.active %}<span class="badge badge-warning">
+            {% trans "inactive" %}
+          </span> {% endif %}
+        </p>
+        <a href="{{ gamelist.get_absolute_url }}" class="btn btn-primary">
+          {% trans "View more" %}
+        </a>
+      </div>
+    </div>
+  </div>
   {% endfor %}
-</ul>
+</div>
 {% endif %}
 
 {% if sell_list %}
 <h3>Sell list</h3>
-<ul>
-  {% for game_item in sell_list %}
-  <li>
-    <a href="{% url 'gamelist_item' game_item.id %}">{{ game_item.game.name }}
-    </a>
-    {% if not game_item.active %}<span class="badge badge-warning">inactive</span> {% endif %}
-  </li>
+<div class="row">
+  {% for gamelist in sell_list %}
+  <div class="col-md-3">
+    <div class="card" style="width: 18rem;">
+      {% if gamelist.game.cover %}
+      <img src="{{ gamelist.game.cover.url }}"
+        alt="{{ gamelist.game.name }} {% trans 'cover' %}"
+        class="card-img-top"
+        href="{{ gamelist.game.get_absolute_url }}">
+      {% endif %}
+      <div class="card-body">
+        <p class="card-text">
+          <a href="{{ gamelist.game.get_absolute_url }}">
+            {{ gamelist.game.name }}
+          </a>
+          {% if not gamelist.active %}<span class="badge badge-warning">
+            {% trans "inactive" %}
+          </span>{% endif %}
+        </p>
+        <a href="{{ gamelist.get_absolute_url }}" class="btn btn-primary">
+          {% trans "View more" %}
+        </a>
+      </div>
+    </div>
+  </div>
   {% endfor %}
-</ul>
+</div>
 {% endif %}
 
 {% if buy_list %}
 <h3>Buy list</h3>
-<ul>
-  {% for game_item in buy_list %}
-  <li>
-    <a href="{% url 'gamelist_item' game_item.id %}">{{ game_item.game.name }}
-    </a>
-    {% if not game_item.active %}<span class="badge badge-warning">inactive</span> {% endif %}
-  </li>
+<div class="row">
+  {% for gamelist in buy_list %}
+  <div class="col-md-3">
+    <div class="card" style="width: 18rem;">
+      {% if gamelist.game.cover %}
+      <img src="{{ gamelist.game.cover.url }}"
+        alt="{{ gamelist.game.name }} {% trans 'cover' %}"
+        class="card-img-top"
+        href="{{ gamelist.game.get_absolute_url }}">
+      {% endif %}
+      <div class="card-body">
+        <p class="card-text">
+          <a href="{{ gamelist.game.get_absolute_url }}">
+            {{ gamelist.game.name }}
+          </a>
+          {% if not gamelist.active %}<span class="badge badge-warning">
+            {% trans "inactive" %}
+          </span>{% endif %}
+        </p>
+        <a href="{{ gamelist.get_absolute_url }}" class="btn btn-primary">
+          {% trans "View more" %}
+        </a>
+      </div>
+    </div>
+  </div>
   {% endfor %}
-</ul>
+</div>
 {% endif %}
+
 {% if user.is_authenticated and user == userprof %}
 <!-- User navigation highlighting-->
 <script>

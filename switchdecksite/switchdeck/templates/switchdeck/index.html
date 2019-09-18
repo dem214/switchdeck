@@ -1,4 +1,5 @@
 {% extends "switchdeck/_base.html" %}
+{% load i18n %}
 
 {% block title %}SwitchDeck{% endblock %}
 
@@ -11,7 +12,7 @@
       {% if game.cover %}
       <a href="{{game.get_absolute_url}}">
         <img class="card-img-top" src="{{game.cover.url}}"
-          alt="{{ game.name }} cover">
+          alt="{{ game.name }} {% trans 'cover' %}">
       </a>
       {% endif %}
       <div class="card-body">
