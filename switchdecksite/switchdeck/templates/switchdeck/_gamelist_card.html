@@ -1,0 +1,48 @@
+{% load i18n %}
+<div class="card mb-3" style="max-width:540px">
+  <div class="row no-gutters">
+    <div class="col-md-4">
+      {% if gamelist.cover %}
+      <img src="{{ gamelist.game.cover.url }}"
+        alt="{{ gamelist.game.name }} {% trans "cover" %}"
+        class="card-img"
+        >
+      {% endif %}
+    </div>
+    <div class="col-md-8">
+      <div class="card-header
+      {% if gamelist.prop == 'k' %}
+      bg-succsess
+      {% elif gamelist.prop == 'w' %}
+      bg-primary
+      {% elif gamelist.prop == 's' %}
+      bg-danger
+      {% elif gamelist.prop == 'b' %}
+      bg-warning
+      {% endif %}">
+        <a href="{{ gamelist.get_absolute_url }}"
+          {% if not gamelist.prop == 'b' %}class="text-white"{% else %}class="text-dark"{% endif %}>
+          {{ gamelist.game.name }}
+        </a>
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">
+          <a href="{{ gamelist.profile.get_absolute_url }}">
+            {{ gamelist.profile.get_username }}
+          </a>
+          {{ gamelist.get_prop_display }}
+          {% if gamelist.prop == 's' or gamelist.prop == 'b' %}
+          for {{gamelist.price}}
+          {% endif %}
+        </h5>
+        <p class="card-text">{{ gamelist.description }}</p>
+        <a href="{{ gamelist.get_absolute_url }}" class="btn btn-primary">{% trans "View more" %}</a>
+      </div>
+      <div class="card-footer">
+        <small class="text-muted">
+          {% trans "Added" %} {{ gamelist.public_date }}
+        </small>
+      </div>
+    </div>
+  </div>
+</div>

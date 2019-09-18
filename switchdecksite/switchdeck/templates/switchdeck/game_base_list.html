@@ -6,11 +6,12 @@
 {% block content %}
 <h2>{{game.name}}: {{proposition|title}} list</h2>
 <!-- list-->
-<ul>
-  {% for gamelist in object_list %}
-  <li><a href="{{gamelist.get_absolute_url}}">{{gamelist}}</a></li>
-  {% endfor %}
-</ul>
+<div class="card-group">
+
+</div>
+{% for gamelist in object_list %}
+{% include 'switchdeck/_gamelist_card.html'%}
+{% endfor %}
 <!--Pagination-->
 {% if is_paginated %}
 {% include "switchdeck/_pagination.html" %}

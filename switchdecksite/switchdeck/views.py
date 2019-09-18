@@ -193,7 +193,7 @@ def set_game(request, glid: int, set_prop: str):
         messages.info("Change list cleared")
     if (set_prop == 's' or set_prop == 'b') and (gamelist.prop == 'k' or gamelist.prop == 'w'):
         gamelist.ready_change_to.clear()
-        messages.info("Change list cleared")
+        messages.info(request, "Change list cleared")
 
     if set_prop == 'k' or set_prop == 'w':
         gamelist.prop = set_prop
