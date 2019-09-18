@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-09-18 12:15+0300\n"
+"POT-Creation-Date: 2019-09-18 12:17+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -23,7 +23,7 @@ msgstr "Имя"
 
 #: .\switchdeck\models.py:21
 msgid "Name of the region or city."
-msgstr ""
+msgstr "Название региона или города"
 
 #: .\switchdeck\models.py:23
 #, fuzzy
@@ -224,7 +224,7 @@ msgstr "Дата публикации"
 
 #: .\switchdeck\models.py:240
 msgid "Date of publication."
-msgstr ""
+msgstr "Дата публикации"
 
 #: .\switchdeck\models.py:241
 msgid "Text"
@@ -274,7 +274,7 @@ msgstr "Изменить через админ."
 #, fuzzy
 #| msgid "Update uptime"
 msgid "Update"
-msgstr "Обновить ап тайм"
+msgstr "Обновить"
 
 #: .\switchdeck\templates\registration\profile.html:26
 #, fuzzy
@@ -295,7 +295,7 @@ msgstr "Обложка"
 
 #: .\switchdeck\templates\registration\profile.html:55
 msgid "for sell"
-msgstr ""
+msgstr "на продажу"
 
 #: .\switchdeck\templates\registration\profile.html:58
 #: .\switchdeck\templates\registration\profile.html:92
@@ -311,11 +311,11 @@ msgstr "не активно"
 #: .\switchdeck\templates\registration\profile.html:158
 #: .\switchdeck\templates\switchdeck\_gamelist_card.html:39
 msgid "View more"
-msgstr ""
+msgstr "Более"
 
 #: .\switchdeck\templates\registration\profile.html:89
 msgid "ready to buy"
-msgstr ""
+msgstr "готов купить"
 
 #: .\switchdeck\templates\registration\register.html:3
 msgid "Register"
