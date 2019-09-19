@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.conf import settings
 
-from .models import Comment, GameList, User, Profile
+from .models import Comment, GameList, User, Profile, Game, Place
 
 class CommentForm(forms.ModelForm):
     class Meta():
@@ -62,3 +62,41 @@ class ChangeToForm(forms.Form):
             self.fields['changelets'].queryset = \
                 instance.get_ready_to_change_choices()
             self.fields['changelets'].initial = instance.ready_change_to.all()
+
+
+class DatalistWidget(forms.TextInput):
+    def __init__(self, datalist, name, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self._name = name
+        self._datalist = datalist
+        self.attrs.update({'list':'list_%s' % self._name})
+
+    def render(self, name, value, attrs=None, renderer=None):
+        text_html = super().render(name, value, attrs=attrs)
+        datalist = f'<datalist id="list_{self._name}">'
+        for item in self._datalist:
+            datalist += f'<option value="{item}">'
+        datalist += '</datalist>'
+        return (text_html + datalist)
+
+class SearchForm(forms.Form):
+    game = forms.CharField(required=False)
+    place = forms.CharField(required=False)
+    proposition = forms.ChoiceField(choices=(
+        ('b', 'buy'),
+        ('s', 'sell'),
+        ('a', 'all')
+    ))
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        list_game = [game.name for game in Game.objects.all()]
+        list_game.sort()
+        self.fields['game'].widget = DatalistWidget(
+            datalist=list_game,
+            name='game'
+        )
+        self.fields['place'].widget = DatalistWidget(
+            datalist=[place.name for place in Place.objects.all()],
+            name='place'
+        )

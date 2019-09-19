@@ -3,7 +3,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
-from django.http import Http404
+from django.http import Http404, QueryDict, HttpResponseRedirect
 from django.http.response import HttpResponseForbidden
 from django.urls import reverse
 from django.core.paginator import Paginator
@@ -12,10 +12,12 @@ from django.views.generic import DetailView, ListView, CreateView, UpdateView, F
 from django.views.generic.edit import FormMixin
 from django.views.decorators.http import require_POST
 from django.core.exceptions import PermissionDenied
+from django.db import models
 
 from .models import Game, GameList, Comment, Place, Profile
 from .forms import CommentForm, GameListForm, GameListReducedForm, \
 SetGameListForm, ChangeDescGamelistForm, ChangePriceGamelistForm, ChangeToForm
+from . import forms
 
 from django.conf import settings
 COMMENTS_PER_PAGE = settings.COMMENTS_PER_PAGE
@@ -329,3 +331,58 @@ class UpdateChangeToView(LoginRequiredMixin, FormView):
 
     def get_success_url(self):
         return self.object.get_absolute_url()
+
+def search(request):
+    if request.method == 'GET':
+        context = dict()
+        context['form'] = forms.SearchForm
+        if request.GET.get('query', False):
+            context['search_posted'] = True
+            query = GameList.objects.filter(active=True)
+            if request.GET.get('game', '') != '':
+                try:
+                    game = Game.objects.get(name=request.GET['game'])
+                except Game.DoesNotExist:
+                    context['no_game'] = request.GET['game']
+                else:
+                    query = query.filter(game=game)
+                    context['game'] = game
+            else:
+                context['all_game'] = True
+
+            if request.GET.get('place', '') != '':
+                try:
+                    place = Place.objects.get(name=request.GET['place'])
+                except Place.DoesNotExist:
+                    context['no_place'] = request.GET['place']
+                else:
+                    query = query.filter(profile__place=place)
+                    context['place'] = place
+            else:
+                context['all_place'] = True
+
+            prop = request.GET.get('proposition', 'a')
+            if prop == 's' or prop == 'b':
+                context['prop'] = prop
+                query = query.filter(prop=prop)
+            else:
+                context['prop'] = 'a'
+                query = query.filter(models.Q(prop='s') | models.Q(prop='b'))
+
+            context['gamelists'] = query
+
+            context['form'] = forms.SearchForm({
+                'game': request.GET.get('game', ''),
+                'place': request.GET.get('place', ''),
+                'proposition': request.GET.get('proposition', 's')
+            })
+        return render(request, 'switchdeck/search.html', context)
+    elif request.method == 'POST':
+        form = forms.SearchForm(request.POST)
+        if form.is_valid():
+            q = QueryDict(mutable=True)
+            q['query'] = True
+            q['game'] = form.cleaned_data['game']
+            q['place'] = form.cleaned_data['place']
+            q['proposition'] = form.cleaned_data['proposition']
+            return HttpResponseRedirect(reverse('search') + '?' + q.urlencode())

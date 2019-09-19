@@ -1,0 +1,61 @@
+{% extends "switchdeck/_base.html" %}
+{% load crispy_forms_tags %}
+{% load i18n %}
+
+{% block title %}{% trans "Search" %} | SwitchDeck{% endblock %}
+
+{% block content %}
+<form class="" action="{% url 'search' %}" method="post">
+      {% csrf_token %}
+    {{ form|crispy }}
+    <input type="submit" name="submit" class="btn btn-primary">
+</form>
+
+{% if search_posted == True %}
+  {% if no_game %}
+    <p>You typed not exisiting game: <strong>{{ no_game }}</strong>.</p>
+  {% elif all_game %}
+    <p>You picked <strong>all</strong> games.</p>
+  {% elif game %}
+    <p>Your picked game: <strong>
+      <a href="{{ game.get_absolute_url }}">
+        {{ game.name }}
+      </a>
+    </strong>.</p>
+  {% endif %}
+
+  {% if no_place %}
+    <p>You typed not exisiting place: <strong>{{ no_game }}</strong>.</p>
+  {% elif all_place %}
+    <p>You picked <strong>all</strong> places.</p>
+  {% elif place %}
+    <p>Your picked place: <strong>
+      <a href="{{ place.get_absolute_url }}">
+        {{ place.name }}
+      </a>
+    </strong>.</p>
+  {% endif %}
+  <p>Proposition: <strong>
+    {% if prop == 's' %}
+      sell
+    {% elif prop == 'b' %}
+      buy
+    {% else %}
+      all
+    {% endif %}
+  </strong></p>
+  <p>Results: {{ gamelists.count }}</p>
+  {% if gamelists.count > 0 %}
+    {% for gamelist in gamelists %}
+      {% include "switchdeck/_gamelist_card.html" %}
+    {% endfor %}
+  {% else %}
+    <p>Sorry, but no results. Try again.</p>
+  {% endif %}
+{% endif %}
+
+
+<script>
+  document.getElementById("search-nav-item").classList.add("active")
+</script>
+{% endblock %}
