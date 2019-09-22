@@ -1,12 +1,13 @@
 language: python
-# versions of python (3.6 - stable and common, 3.7 - more fresh)
 python:
-  - "3.6"
-  - "3.7"
- # instalation of requirements
- install:
-  pip install -r requirements.txt
- # django test script run
- script:
-  python manage.py test
- after-success: coverall
+  - "3.6"      # current default Python on Travis CI
+  - "3.7"      # current python
+  - "nightly"  # nightly build
+# command to install dependencies
+install:
+  - pip install -r requirements.txt
+# command to run django test
+script:
+  - python manage.py test
+# coverage instruction
+after-success: coverall
