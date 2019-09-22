@@ -9,3 +9,4 @@ python:
  # django test script run
  script:
   python manage.py test
+ after-success: coverall
