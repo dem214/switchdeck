@@ -1,0 +1,11 @@
+language: python
+# versions of python (3.6 - stable and common, 3.7 - more fresh)
+python:
+  - "3.6"
+  - "3.7"
+ # instalation of requirements
+ install:
+  pip install -r requirements.txt
+ # django test script run
+ script:
+  python manage.py test
