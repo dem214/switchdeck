@@ -16,7 +16,35 @@ from .token_generator import account_activation_token
 
 
 class UserProfileView(DetailView):
-    """Class view represents profile page"""
+    """
+    Show details of profile page.
+
+    **Arguments**
+
+    ``username: str``
+        Username of profile.
+
+    **Context**
+
+    ``userprof``
+        Related :model:`switchdeck.Profile` instances.
+    ``keep_list``
+        List of profile's :model:`switchdeck/GameList` instances marked as
+        ``keep`` and ``sell``.
+    ``wish_list``
+        List of profile's :model:`switchdeck/GameList` instances marked as
+        ``wish`` and ``buy``.
+    ``sell_list``
+        List of profile's :model:`switchdeck/GameList` instances marked as
+        ``sell``.
+    ``buy_list``
+        List of profile's :model:`switchdeck/GameList` instances marked as
+        ``buy``.
+
+    **Template**
+
+    :template:`registration/profile.html`
+    """
     model = get_user_model()
     # search in db by 'username' field and from 'username' kwarg
     slug_field = 'username'
@@ -45,6 +73,18 @@ def profile_redirect(request):
 
 
 class SignUpView(FormView):
+    """
+    View there anonymous user can sign up (registrate).
+
+    **Context**
+
+    ``from``
+        Form using for registration.
+
+    **Template**
+
+    :template:`registration/signup.html`
+    """
     template_name = 'registration/signup.html'
     form_class = SignUpForm
     success_url = reverse_lazy('need_confirmation')
@@ -71,6 +111,7 @@ class SignUpView(FormView):
 
 
 def activate(request, uid, token):
+    """Profile activation view"""
     try:
         uid = force_text(urlsafe_base64_decode(uid))
         user = get_user_model().objects.get(pk=uid)
@@ -87,11 +128,36 @@ def activate(request, uid, token):
 
 
 class UsersListView(ListView):
+    """
+    Show the list of all available Profiles.
+
+    **Context**
+
+    ``objects``
+        List of all available :model:`switchdeck.Profile` instances.
+
+    **Template**
+
+    :template:`registration/profile_list.html`
+    """
     model = Profile
     template_name = 'registration/profile_list.html'
 
 
 class UpdateProfileView(LoginRequiredMixin, UpdateView):
+    """
+    Update the info about Porfile and related User.
+
+    **Context**
+
+    ``object``
+        Related :model:`switchdeck.Profile` instance.
+    ``form``
+        Form to update.
+
+    **Template**
+    :template:`registration/user_form.html`
+    """
     model = Profile
     form_class = UpdateProfileForm
     template_name = 'registration/user_form.html'

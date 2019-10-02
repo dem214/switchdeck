@@ -12,11 +12,15 @@ from django.conf import settings
 class User(AbstractUser):
 
     def get_absolute_url(self):
+        """
+        Return the URL of User. Refer to the related
+        :model:``switchdeck.Profile`` instance.
+        """
         return reverse('profile', args=[self.get_username()])
 
 
 class Place(models.Model):
-    """Represent place for convinient searching"""
+    """Represent place for convinient searching."""
     name = models.CharField(
         max_length=20,
         unique=True,
@@ -35,14 +39,17 @@ class Place(models.Model):
         verbose_name = _('Place')
         verbose_name_plural = _('Places')
 
-    def __str__(self):
+    def __str__(self) -> str:
+        """Return string representation of the Place (Place name)."""
         return self.name
 
-    def get_absolute_url(self):
+    def get_absolute_url(self) -> str:
+        """Return URL, there placed the info about a Place."""
         return reverse('place', args=[self.name])
 
 
 class Profile(models.Model):
+    """Profile have link to User identity and additional information"""
     user = models.OneToOneField(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
@@ -68,16 +75,23 @@ class Profile(models.Model):
         verbose_name = _("Profile"),
         verbose_name_plural = _("Profiles")
 
-    def __str__(self):
+    def __str__(self) -> str:
+        """Return the string representation of Profile (Profile username)."""
         return self.user.get_username()
 
-    def get_absolute_url(self):
+    def get_absolute_url(self) -> str:
+        """Return URL there placed info about Profile."""
         return reverse('profile', args=[self.user.username])
 
-    def get_username(self):
+    def get_username(self) -> str:
+        """Username of Profile."""
         return self.user.get_username()
 
-    def keep_list(self, with_inactive=False):
+    def keep_list(self, with_inactive: bool = False):
+        """
+        Retrun the list of related :model:`switchdeck.GameList` instances
+        marked as ``keep`` or ``sell``.
+        """
         query = self.gamelist_set.filter(
             models.Q(prop='k') | models.Q(prop='s')
         )
@@ -85,36 +99,57 @@ class Profile(models.Model):
             query = query.filter(active=True)
         return query.order_by('game__name')
 
-    def wish_list(self, with_inactive=False):
+    def wish_list(self, with_inactive: bool = False):
+        """
+        Retrun the list of related :model:`switchdeck.GameList` instances
+        marked as ``wish`` or ``buy``.
+        """
         query = self.gamelist_set.filter(
             models.Q(prop='w') | models.Q(prop='b'))
         if not with_inactive:
             query = query.filter(active=True)
         return query.order_by('game__name')
 
-    def sell_list(self, with_inactive=False):
+    def sell_list(self, with_inactive: bool = False):
+        """
+        Retrun the list of related :model:`switchdeck.GameList` instances
+        marked as ``sell``.
+        """
         query = self.gamelist_set.filter(prop='s')
         if not with_inactive:
             query = query.filter(active=True)
         return query.order_by('-public_date')
 
-    def buy_list(self, with_inactive=False):
+    def buy_list(self, with_inactive: bool = False):
+        """
+        Retrun the list of related :model:`switchdeck.GameList` instances
+        marked as ``buy``.
+        """
         query = self.gamelist_set.filter(prop='b')
         if not with_inactive:
             query = query.filter(active=True)
         return query.order_by('-public_date')
 
     @classmethod
-    def create_profile(cls, *args, place, **kwargs):
+    def create_profile(cls, *args, place: Place, **kwargs):
         user = get_user_model().objects.create_user(*args, **kwargs)
         return cls.objects.create(user=user, place=place)
 
 
-def games_images_path(instance, filename):
+def games_images_path(instance, filename: str) -> str:
+    """Generator of fs path to save image file.
+
+    :param instance: Related Game instance.
+    :param filename: Name of the posted file.
+    :type filename: str
+    :returns: Path to save the file.
+    :rtype: str
+    """
     return "games_images/" + instance.underscored_name + "/" + filename
 
 
 class Game(models.Model):
+    """Stores the information about available games"""
     name = models.CharField(
         max_length=50,
         unique=True,
@@ -143,30 +178,46 @@ class Game(models.Model):
         verbose_name_plural = _('Games')
 
     def gamelists_to_sell(self):
+        """
+        Get list of related :model:`switchdeck.GameList` instances marked as
+        ``sell``.
+        """
         return self.gamelist_set.filter(active__exact=True).\
             filter(public_date__lte=timezone.now()).\
             filter(prop='s')
 
     def gamelists_to_buy(self):
+        """
+        Get list of related :model:`switchdeck.GameList` instances marked as
+        ``buy``.
+        """
         return self.gamelist_set.filter(active__exact=True).\
             filter(public_date__lte=timezone.now()).\
             filter(prop='b')
 
     @property
-    def underscored_name(self):
+    def underscored_name(self) -> str:
+        """
+        Return lowerscale name of game and replaced ' ' to '_' (fs friendly).
+        """
         return self.name.replace(" ", "_").lower()
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return f"<Game: '{self.name}'>"
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.name
 
-    def get_absolute_url(self):
+    def get_absolute_url(self) -> str:
+        """Returns the URL there this ``Game`` can founded."""
         return reverse('game_id', args=[self.id])
 
     @classmethod
     def objects_ordered_by_sell(cls):
+        """
+        Get list of all games ordered by ammount of active GameLists marked
+        as ``sell``.
+        """
         return cls.objects.annotate(
             num_of_sales=models.Count(
                 'gamelist',
@@ -177,6 +228,12 @@ class Game(models.Model):
 
 
 class GameList(models.Model):
+    """
+    ``GameList`` represent the relation between ``Profile``
+    (:model:`switchdeck.Profile`) and `Game` (:model:`switchdeck.Game`)
+    such as keep (added to library), wish, sell (setted to sell), buy
+    (setted to buy).
+    """
     PROPS = (
         ('k', 'keep'),
         ('s', 'sell'),
@@ -186,7 +243,9 @@ class GameList(models.Model):
     profile = models.ForeignKey(
         Profile,
         on_delete=models.CASCADE,
-        verbose_name=_('Profile'))
+        verbose_name=_('Profile'),
+        help_text=_("Related Profile. Represent the owner of ``GameList`` "
+                    "instance"))
     game = models.ForeignKey(
         Game,
         on_delete=models.CASCADE,
@@ -240,10 +299,14 @@ class GameList(models.Model):
         verbose_name_plural = _('GameLists')
 
     @property
-    def place(self):
+    def place(self) -> Place:
+        """
+        Related :model:`switchdeck.Place` instance. Setted by ``Profile``
+        field instance
+        """
         return self.profile.place
 
-    def __str__(self):
+    def __str__(self) -> str:
         return f"{self.profile.user} {self.get_prop_display()} " +\
             f"{self.game.name}"
 
@@ -252,29 +315,43 @@ class GameList(models.Model):
         return self.prop == 's' and self.active and \
             self.public_date < timezone.now()
 
-    def set_keep(self):
+    def set_keep(self) -> None:
         self.prop = 'k'
         self.price = 0.0
         self.change_to.clear()
 
-    def get_absolute_url(self):
+    def get_absolute_url(self) -> str:
+        """The url there leaved info about instance."""
         return reverse('gamelist_item', args=[self.id])
 
-    def update_up_time(self):
+    def update_up_time(self) -> None:
+        """Method to update ``up_time`` to now."""
         self.up_time = timezone.now()
         self.save()
     update_up_time.short_description = _("Update uptime")
 
     def get_change_to_choices(self):
+        """
+        Returns all :model:`switchdeck.GameList` instances of related
+        ``Profile`` ready to set to change (marked as ``keep`` and ``sell``).
+        """
         return self.profile.gamelist_set.filter(
             models.Q(prop='k') | models.Q(prop='s'))
 
     def get_ready_to_change_choices(self):
+        """
+        Returns all :model:`switchdeck.GameList` instances of related
+        ``Profile`` ready to set as changable (marked as ``buy`` and ``want``).
+        """
         return self.profile.gamelist_set.filter(
             models.Q(prop='b') | models.Q(prop='w'))
 
 
 class Comment(models.Model):
+    """
+    Comment there users can leave comment on the page of
+    :view:`switchdeck.views.gamelist_view`.
+    """
     author = models.ForeignKey(
         Profile,
         on_delete=models.CASCADE,
@@ -303,7 +380,7 @@ class Comment(models.Model):
         verbose_name = _('Comment')
         verbose_name_plural = _('Comments')
 
-    def __str__(self, length=50):
+    def __str__(self, length: int = 50) -> str:
         said = f"'{self.author.get_username()}' says '{self.text}"
         if len(said) > length - 1:
             said = said[:length-47] + "...'"
@@ -311,7 +388,10 @@ class Comment(models.Model):
             said = said + "'"
         return said
 
-    def get_absolute_url(self, opp=None):
+    def get_absolute_url(self, opp:int = None) -> str:
+        """
+        Return the URL of page there comment is placed.
+        """
         if opp is None:
             opp = settings.COMMENTS_PER_PAGE
             opp_query = False

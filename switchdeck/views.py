@@ -24,13 +24,49 @@ GAMELISTS_PER_PAGE = 15
 
 
 def index(request):
-    """Index page view"""
+    """
+    Index page view.
+
+    **Context**
+
+    ``games``
+        List of available :model:`switchdeck.Game`, ordered by sell popularity.
+
+    **Template**
+
+    :template:`switchdeck/index.html`
+    """
     context = {'games': Game.objects_ordered_by_sell()}
     return render(request, 'switchdeck/index.html', context)
 
 
 def game_id(request, gid):
-    """Page with game info"""
+    """
+    Page with game info.
+
+    **Arguments**
+
+    ``gid: int``
+        Primary key of the :model:`switchdeck.Game` instance in database.
+
+    **Context**
+
+    ``game``
+        An instanse of :model:`switchdeck.Game`.
+    ``sell_list``
+        Related :model:`switchdeck.GameList` instances, ready to sell.
+    ``buy_list``
+        Related :model:`switchdeck.GameList` instances, ready to buy.
+    ``sell_list_count``
+        Amount of related :model:`switchdeck.GameList` instances, ready to
+        sell.
+    ``buy_list_count``
+        Amount of related :model:`switchdeck.GameList` instances, ready to buy.
+
+    **Template**
+
+    :template:`switchdeck/game.html`
+    """
     game = get_object_or_404(Game, pk=gid)
     context = {'game': game}
     gamelists_to_sell = game.gamelists_to_sell()
@@ -43,9 +79,32 @@ def game_id(request, gid):
 
 
 def gamelist_view(request, glid: int):
-    """Gamelist view with controls and comments
+    """
+    Gamelist view with controls and comments
 
-    glid: gamelist id (GameList.id)
+    **Arguments**
+
+    ``glid: int``
+        Primary kay of the :model:`switchdeck.GameList` instance in database.
+
+    **Context**
+
+    ``object``
+        An instance of represented :model:`switchdeck.Gamelist`.
+    ``form``
+        Comment (:model:`switchdeck.Comment`) post form.
+    ``comments``
+        List of related comments (:model:`switchdeck.Comment`). Paginated.
+    ``change_desc_form``
+        Form to change description.
+    ``change_price_form``
+        Form to change price.
+    ``objects_per_page``
+        Ammount of queried comments per page.
+
+    **Template**
+
+    :template:`switchdeck/gamelist.html`
     """
     gamelist_item = get_object_or_404(GameList, id=glid)
     context = {'object': gamelist_item}
@@ -130,7 +189,10 @@ def add_game_reduced(request, prop):
 
 @login_required
 def delete_game(request, glid: int):
-    """Delete view. Dont render the template, just delete"""
+    """
+    Delete view. Dont render the template, just delete.
+    Than redirecting to user profile page.
+    """
     gamelist_item = get_object_or_404(GameList, id=glid)
     if request.user == gamelist_item.profile.user:
         gamelist_item.delete()
@@ -164,7 +226,24 @@ class GameBaseList(ListView):
 
 
 class GameSellListView(GameBaseList):
-    '''Class view for list of lots of game to sell'''
+    '''
+    Class view for list of lots of game to sell.
+
+    **Context**
+
+    ``game``
+        Related :model:`switchdeck.Game` instance.
+    ``objects``
+        List of represented :model:`switchdeck.GameList` instances. Paginated.
+    ``objects_per_page``
+        Queried ammount of objects per page (related to pagination).
+    ``proposition``
+        Always is ``sell``.
+
+    **Template**
+
+    :template:`switchdeck/game_base_list.html`
+    '''
     extra_context = {'proposition': 'sell'}
 
     def get_queryset(self):
@@ -172,7 +251,24 @@ class GameSellListView(GameBaseList):
 
 
 class GameBuyListView(GameBaseList):
-    '''Class view for list of lots of game to buy'''
+    '''
+    Class view for list of lots of game to buy.
+
+    **Context**
+
+    ``game``
+        Related :model:`switchdeck.Game` instance.
+    ``objects``
+        List of represented :model:`switchdeck.GameList` instances. Paginated.
+    ``objects_per_page``
+        Queried ammount of objects per page (related to pagination).
+    ``proposition``
+        Always is ``buy``.
+
+    **Template**
+
+    :template:`switchdeck/game_base_list.html`
+    '''
     extra_context = {'proposition': 'buy'}
 
     def get_queryset(self):
@@ -181,6 +277,7 @@ class GameBuyListView(GameBaseList):
 
 @login_required
 def delete_comment(request, cid: int):
+    """Veiw delete comment on GET"""
     comment = get_object_or_404(Comment, id=cid)
     next = request.GET.get('next', reverse('index'))
     if request.user == comment.author.user:
@@ -240,6 +337,31 @@ def set_game(request, glid: int, set_prop: str):
 
 
 class PlaceView(DetailView):
+    """
+    Show the details about Place instance.
+
+    **Arguments**
+
+    ``name: str``
+        Name of the place.
+
+    **Context**
+
+    ``object``
+        Related :model:`switchdeck.Place` instance.
+    ``profiles``
+        List of :model:`switchdeck.Profile` instances related to that place.
+    ``sell_list``
+        List of all available :model:`switchdeck.GameList` objects related to
+        this place, ready to sell.
+    ``buy_list``
+        List of all available :model:`switchdeck.GameList` objects related to
+        this place, ready to buy.
+
+    **Template**
+
+    :template:`switchdeck/place_detail.html`
+    """
     model = Place
     slug_field = 'name'
     slug_url_kwarg = 'name'
@@ -248,13 +370,26 @@ class PlaceView(DetailView):
         context = super().get_context_data(**kwargs)
         context['profiles'] = Profile.objects.filter(place=self.object)\
             .order_by("user__username")
-        gl_query = GameList.objects.filter(profile__place=self.object)
+        gl_query = GameList.objects.filter(profile__place=self.object)\
+            .filter(active=True)
         context['sell_list'] = gl_query.filter(prop='s')
         context['buy_list'] = gl_query.filter(prop='b')
         return context
 
 
 class PlacesListView(ListView):
+    """
+    Show all available Places.
+
+    **Context**
+
+    ``objects``
+        List of all :model:`switchdeck.Place` instances. Ordered.
+
+    **Template**
+
+    :template:`switchdeck/place_list.html`
+    """
     model = Place
 
 
@@ -303,6 +438,19 @@ def change_activation(request, glid, activate):
 
 
 class GamesView(ListView):
+    """
+    Show the list of all available games.
+
+    **Context**
+
+    ``objects``
+        List of all available :model:`switchdeck.Game` instances.
+        Ordered by name.
+
+    **Template**
+
+    :template:`switchdeck/games.html`
+    """
     model = Game
     template_name = 'switchdeck/games.html'
     ordering = ['name']
@@ -349,6 +497,20 @@ class UpdateChangeToView(LoginRequiredMixin, FormView):
 
 
 def search(request):
+    """
+    Page with form to search gamelsites and results of searching
+
+    **Context**
+
+    ``form``
+        Form to search :model:`switchdeck.GameList`.
+    ``gamelists``
+        List of :model:`switchdeck.GameList` instances - result of searching
+
+    **Template**
+
+    :template:`switchdeck/search.html`
+    """
     if request.method == 'GET':
         context = dict()
         context['form'] = forms.SearchForm
