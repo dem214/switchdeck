@@ -1,36 +1,37 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
-from django.http import Http404, QueryDict, HttpResponseRedirect
+from django.http import QueryDict, HttpResponseRedirect
 from django.http.response import HttpResponseForbidden
 from django.urls import reverse
 from django.core.paginator import Paginator
 from django.utils import timezone
-from django.views.generic import DetailView, ListView, CreateView, UpdateView, FormView
-from django.views.generic.edit import FormMixin
+from django.views.generic import DetailView, ListView, CreateView, FormView
 from django.views.decorators.http import require_POST
 from django.core.exceptions import PermissionDenied
 from django.db import models
 
 from .models import Game, GameList, Comment, Place, Profile
 from .forms import CommentForm, GameListForm, GameListReducedForm, \
-SetGameListForm, ChangeDescGamelistForm, ChangePriceGamelistForm, ChangeToForm
+    SetGameListForm, ChangeDescGamelistForm, ChangePriceGamelistForm, \
+    ChangeToForm
 from . import forms
 
 from django.conf import settings
 COMMENTS_PER_PAGE = settings.COMMENTS_PER_PAGE
-GAMELISTS_PER_PAGE=15
+GAMELISTS_PER_PAGE = 15
+
 
 def index(request):
     """Index page view"""
     context = {'games': Game.objects_ordered_by_sell()}
     return render(request, 'switchdeck/index.html', context)
 
+
 def game_id(request, gid):
     """Page with game info"""
-    game = get_object_or_404(Game , pk=gid)
+    game = get_object_or_404(Game, pk=gid)
     context = {'game': game}
     gamelists_to_sell = game.gamelists_to_sell()
     gamelists_to_buy = game.gamelists_to_buy()
@@ -53,8 +54,8 @@ def gamelist_view(request, glid: int):
         if form.is_valid():
             if request.user.is_authenticated:
                 comm = Comment(author=request.user.profile,
-                    game_instance = gamelist_item,
-                    text = form.cleaned_data['text'])
+                               game_instance=gamelist_item,
+                               text=form.cleaned_data['text'])
                 comm.save()
                 gamelist_item.update_up_time()
                 opp = request.POST.get('objects_per_page', None)
@@ -79,6 +80,7 @@ def gamelist_view(request, glid: int):
         context['objects_per_page'] = request.GET['objects-per-page']
     return render(request, 'switchdeck/gamelist.html', context)
 
+
 @login_required
 def add_game(request):
     """Add gamelist method from user"""
@@ -94,13 +96,15 @@ def add_game(request):
                 price=form.cleaned_data['price']
             )
             gl.save()
-            return redirect(gamelist_item)
+            return redirect(gl)
     else:
         context['form'] = GameListForm()
     return render(request, 'switchdeck/add_game.html', context)
 
+
 class AddGameBaseView(CreateView, LoginRequiredMixin):
     template_name = "swithcdeck/add_game_reduced.html"
+
 
 @login_required
 def add_game_reduced(request, prop):
@@ -115,9 +119,8 @@ def add_game_reduced(request, prop):
                 prop=prop,
             )
             gl.save()
-            messages.success(request,
-                f"{gl.game.name.title()} added to your {gl.get_prop_display()} list"
-            )
+            messages.success(request, f"{gl.game.name.title()} added to "
+                             f"your {gl.get_prop_display()} list")
             return redirect(gl)
     else:
         context['form'] = GameListReducedForm()
@@ -159,12 +162,14 @@ class GameBaseList(ListView):
             context['objects_per_page'] = self.request.GET['objects-per-page']
         return context
 
+
 class GameSellListView(GameBaseList):
     '''Class view for list of lots of game to sell'''
     extra_context = {'proposition': 'sell'}
 
     def get_queryset(self):
         return self.game.gamelists_to_sell()
+
 
 class GameBuyListView(GameBaseList):
     '''Class view for list of lots of game to buy'''
@@ -173,16 +178,18 @@ class GameBuyListView(GameBaseList):
     def get_queryset(self):
         return self.game.gamelists_to_buy()
 
+
 @login_required
 def delete_comment(request, cid: int):
     comment = get_object_or_404(Comment, id=cid)
-    next=request.GET.get('next', reverse('index'))
+    next = request.GET.get('next', reverse('index'))
     if request.user == comment.author.user:
         comment.delete()
         messages.success(request, 'Comment removed')
         return redirect(next)
     else:
         return HttpResponseForbidden
+
 
 @login_required
 def set_game(request, glid: int, set_prop: str):
@@ -191,11 +198,13 @@ def set_game(request, glid: int, set_prop: str):
     if request.user != gamelist.profile.user:
         return HttpResponseForbidden
 
-    #cleared change_to fields per change of prop
-    if (set_prop == 'k' or set_prop == 'w') and (gamelist.prop == 's' or gamelist.prop == 'b'):
+    # cleared change_to fields per change of prop
+    if (set_prop == 'k' or set_prop == 'w') and (gamelist.prop == 's'
+                                                 or gamelist.prop == 'b'):
         gamelist.change_to.clear()
         messages.info("Change list cleared")
-    if (set_prop == 's' or set_prop == 'b') and (gamelist.prop == 'k' or gamelist.prop == 'w'):
+    if (set_prop == 's' or set_prop == 'b') and (gamelist.prop == 'k'
+                                                 or gamelist.prop == 'w'):
         gamelist.ready_change_to.clear()
         messages.info(request, "Change list cleared")
 
@@ -204,8 +213,8 @@ def set_game(request, glid: int, set_prop: str):
         gamelist.price = 0
         gamelist.comments.all().delete()
         gamelist.save()
-        messages.success(request,
-            f"{gamelist.game.name.title()} setted to {gamelist.get_prop_display()} list")
+        messages.success(request, f"{gamelist.game.name.title()} setted to "
+                         f"{gamelist.get_prop_display()} list")
         return redirect(gamelist)
     elif set_prop == 's' or set_prop == 'b':
         if request.method == 'POST':
@@ -217,8 +226,9 @@ def set_game(request, glid: int, set_prop: str):
                 gamelist.public_date = timezone.now()
                 gamelist.up_time = timezone.now()
                 gamelist.save()
-                messages.success(request,
-                    f"{gamelist.game.name.title()} setted to {gamelist.get_prop_display()} list")
+                messages.success(request, f"{gamelist.game.name.title()} "
+                                 f"setted to {gamelist.get_prop_display()} "
+                                 "list")
             return redirect(gamelist)
         else:
             context['form'] = SetGameListForm(
@@ -227,6 +237,7 @@ def set_game(request, glid: int, set_prop: str):
             context['set_prop'] = set_prop
             context['gamelist'] = gamelist
         return render(request, 'switchdeck/set_game.html', context)
+
 
 class PlaceView(DetailView):
     model = Place
@@ -242,8 +253,10 @@ class PlaceView(DetailView):
         context['buy_list'] = gl_query.filter(prop='b')
         return context
 
+
 class PlacesListView(ListView):
-    model=Place
+    model = Place
+
 
 @require_POST
 @login_required
@@ -259,6 +272,7 @@ def change_description(request, glid):
         messages.success(request, message='Description has been changed')
     return redirect(gl.get_absolute_url())
 
+
 @require_POST
 @login_required
 def change_price(request, glid):
@@ -272,6 +286,7 @@ def change_price(request, glid):
         gl.save()
         messages.success(request, message='Price has been changed')
     return redirect(gl.get_absolute_url())
+
 
 @login_required
 def change_activation(request, glid, activate):
@@ -300,8 +315,8 @@ class UpdateChangeToView(LoginRequiredMixin, FormView):
     def setup(self, request, *args, **kwargs):
         super().setup(request, *args, **kwargs)
         self.object = get_object_or_404(GameList, pk=kwargs['glid'])
-        if request.user.is_authenticated and \
-            self.object.profile.user != request.user:
+        if request.user.is_authenticated\
+                and self.object.profile.user != request.user:
             raise PermissionDenied
 
     def get_form_kwargs(self):
@@ -331,6 +346,7 @@ class UpdateChangeToView(LoginRequiredMixin, FormView):
 
     def get_success_url(self):
         return self.object.get_absolute_url()
+
 
 def search(request):
     if request.method == 'GET':
@@ -385,4 +401,5 @@ def search(request):
             q['game'] = form.cleaned_data['game']
             q['place'] = form.cleaned_data['place']
             q['proposition'] = form.cleaned_data['proposition']
-            return HttpResponseRedirect(reverse('search') + '?' + q.urlencode())
+            return HttpResponseRedirect(reverse('search') + '?'
+                                        + q.urlencode())

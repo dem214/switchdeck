@@ -1,27 +1,24 @@
 from django.shortcuts import render, redirect
-from django.views.generic import DetailView, ListView, CreateView, FormView, \
-UpdateView
+from django.views.generic import DetailView, ListView, FormView, UpdateView
 from django.contrib.auth import get_user_model, login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http.response import HttpResponseForbidden
 from django.urls import reverse_lazy
 from django.core.mail import send_mail
-from django.core.exceptions import PermissionDenied
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes, force_text
 from django.template.loader import render_to_string
-from django.contrib.auth import get_user_model
 from django.contrib.sites.shortcuts import get_current_site
 
 from .forms import SignUpForm, UpdateProfileForm
 from .models import Profile
 from .token_generator import account_activation_token
 
+
 class UserProfileView(DetailView):
     """Class view represents profile page"""
     model = get_user_model()
-    #search in db by 'username' field and from 'username' kwarg
+    # search in db by 'username' field and from 'username' kwarg
     slug_field = 'username'
     slug_url_kwarg = 'username'
     template_name = 'registration/profile.html'
@@ -61,21 +58,15 @@ class SignUpView(FormView):
 
         send_mail(
             subject="SwitchDeck: Account Verification",
-            message = render_to_string(
-                'registration/email_confirm_email.html',
-                {
+            message=render_to_string(
+                'registration/email_confirm_email.html', {
                     'user': user,
                     'domain': get_current_site(self.request).domain,
                     'uid': urlsafe_base64_encode(force_bytes(user.pk)),
-                    'token': account_activation_token.make_token(user)
-                }
-            ),
+                    'token': account_activation_token.make_token(user)}),
             from_email="verify@switchdeck.net",
-            recipient_list = [form.cleaned_data['email'],]
+            recipient_list=[form.cleaned_data['email']]
         )
-
-        token = account_activation_token.make_token(user)
-
         return super().form_valid(form)
 
 
@@ -83,7 +74,8 @@ def activate(request, uid, token):
     try:
         uid = force_text(urlsafe_base64_decode(uid))
         user = get_user_model().objects.get(pk=uid)
-    except(TypeError, ValueError, OverflowError, User.DoesNotExist):
+    except(TypeError, ValueError, OverflowError,
+           get_user_model().DoesNotExist):
         user = None
     if user is not None and account_activation_token.check_token(user, token):
         user.is_active = True
@@ -93,9 +85,11 @@ def activate(request, uid, token):
     else:
         return render(request, 'registration/confirmation_error.html')
 
+
 class UsersListView(ListView):
     model = Profile
     template_name = 'registration/profile_list.html'
+
 
 class UpdateProfileView(LoginRequiredMixin, UpdateView):
     model = Profile

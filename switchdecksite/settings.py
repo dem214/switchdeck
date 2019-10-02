@@ -92,16 +92,20 @@ DATABASES = {
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+        'NAME': 'django.contrib.auth.password_validation.'
+        'UserAttributeSimilarityValidator',
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        'NAME': 'django.contrib.auth.password_validation.'
+        'MinimumLengthValidator',
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+        'NAME': 'django.contrib.auth.password_validation.'
+        'CommonPasswordValidator',
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+        'NAME': 'django.contrib.auth.password_validation.'
+        'NumericPasswordValidator',
     },
 ]
 
@@ -129,17 +133,17 @@ MEDIA_URL = '/media/'
 LOGOUT_REDIRECT_URL = 'index'
 AUTH_USER_MODEL = 'switchdeck.User'
 
-#Email wirting to file
+# Email wirting to file
 EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
 EMAIL_FILE_PATH = os.path.join(BASE_DIR, 'emails')
 
-#crispy bootstrap forms
+# crispy bootstrap forms
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
-#path for localization files
+# path for localization files
 LOCALE_PATHS = ['locale']
 
 COMMENTS_PER_PAGE = 10
 
-#Activate django-heroku
+# Activate django-heroku
 django_heroku.settings(locals())

@@ -1,49 +1,56 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from django.conf import settings
 
 from .models import Comment, GameList, User, Profile, Game, Place
+
 
 class CommentForm(forms.ModelForm):
     class Meta():
         model = Comment
         fields = ['text']
 
+
 class GameListForm(forms.ModelForm):
     class Meta():
         model = GameList
         fields = ['game', 'desc', 'prop', 'price']
+
 
 class GameListReducedForm(forms.ModelForm):
     class Meta():
         model = GameList
         fields = ['game', 'desc']
 
+
 class SetGameListForm(forms.ModelForm):
     class Meta():
         model = GameList
         fields = ['desc', 'price']
 
+
 class SignUpForm(UserCreationForm):
-    #email = forms.EmailField(max_length=200, help_text='Requiered')
 
     class Meta:
         model = User
         fields = ('username', 'email', 'password1', 'password2')
+
 
 class ChangeDescGamelistForm(forms.ModelForm):
     class Meta():
         model = GameList
         fields = ['desc']
 
+
 class ChangePriceGamelistForm(forms.ModelForm):
     class Meta():
         model = GameList
         fields = ['price']
 
+
 class UpdateProfileForm(forms.ModelForm):
     first_name = forms.CharField(max_length=30, strip=True, required=False)
     last_name = forms.CharField(max_length=150, strip=True, required=False)
+
     class Meta():
         model = Profile
         fields = ['place']
@@ -69,7 +76,7 @@ class DatalistWidget(forms.TextInput):
         super().__init__(*args, **kwargs)
         self._name = name
         self._datalist = datalist
-        self.attrs.update({'list':'list_%s' % self._name})
+        self.attrs.update({'list': 'list_%s' % self._name})
 
     def render(self, name, value, attrs=None, renderer=None):
         text_html = super().render(name, value, attrs=attrs)
@@ -78,6 +85,7 @@ class DatalistWidget(forms.TextInput):
             datalist += f'<option value="{item}">'
         datalist += '</datalist>'
         return (text_html + datalist)
+
 
 class SearchForm(forms.Form):
     game = forms.CharField(required=False)
