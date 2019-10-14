@@ -1,8 +1,7 @@
 from django.urls import path, include, re_path
 from django.views.generic.base import TemplateView
 
-from . import views
-from . import profile_views
+from . import views, profile_views, api_urls
 
 
 urlpatterns = [
@@ -64,5 +63,6 @@ urlpatterns = [
          profile_views.UpdateProfileView.as_view(),
          name='update_profile'),
     path('games/', views.GamesView.as_view(), name='games'),
-    path('search/', views.search, name='search')
+    path('search/', views.search, name='search'),
+    path('api/v1/', include(api_urls.urlpatterns))
 ]

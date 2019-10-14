@@ -34,6 +34,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'switchdeck.apps.SwitchdeckConfig',
     'crispy_forms',
+    'rest_framework',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.admindocs',
@@ -147,3 +148,10 @@ COMMENTS_PER_PAGE = 10
 
 # Activate django-heroku
 django_heroku.settings(locals())
+
+# settings for REST service
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS':
+        'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10
+}
