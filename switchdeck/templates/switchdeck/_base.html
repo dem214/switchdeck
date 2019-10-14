@@ -1,14 +1,21 @@
-{% load i18n %}<!DOCTYPE html>
+<!DOCTYPE html>
+{% load i18n %}
+{% load static %}
 <html>
   <!-- Base template -->
   <head>
     <title>{% block title %}{% endblock %}</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="icon" href="{% static 'switchdeck/img/switchdeck_logo_red.png' %}" type="image/png">
+    <link rel="shortcut icon" href="{% static 'switchdeck/img/switchdeck_logo_red.png' %}" type="image/png">
   </head>
   <body>
     <!-- Navigation bar -->
     <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-      <a class="navbar-brand" href="{% url 'index' %}">SwitchDeck</a>
+      <a class="navbar-brand" href="{% url 'index' %}">
+        <img src="{% static 'switchdeck/img/switchdeck_logo_red.svg' %}" width="30" height="30" alt="">
+        SwitchDeck
+      </a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>

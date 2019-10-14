@@ -388,7 +388,7 @@ class Comment(models.Model):
             said = said + "'"
         return said
 
-    def get_absolute_url(self, opp:int = None) -> str:
+    def get_absolute_url(self, opp: int = None) -> str:
         """
         Return the URL of page there comment is placed.
         """
