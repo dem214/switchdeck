@@ -143,7 +143,7 @@ EMAIL_FILE_PATH = os.path.join(BASE_DIR, 'emails')
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 # path for localization files
-LOCALE_PATHS = ['locale']
+LOCALE_PATHS = [os.path.join(BASE_DIR, 'locale')]
 
 COMMENTS_PER_PAGE = 10
 

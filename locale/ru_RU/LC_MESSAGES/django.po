@@ -1,14 +1,14 @@
-# SOME DESCRIPTIVE TITLE.
+# ru_RU (Russian) localization file of SwitchDeck site.
 # Copyright (C) 2019
-# This file is distributed under the same license as the PACKAGE package.
-# Dzmitry Izaitka <dem214overlord@gmail.com>, YEAR.
+# This file is distributed under the same license as the SwitchDeck package.
+# Dzmitry Izaitka <dem214overlord@gmail.com>, 2019.
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-09-18 12:17+0300\n"
+"POT-Creation-Date: 2019-10-15 16:30+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,15 +17,15 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: .\switchdeck\models.py:20 .\switchdeck\models.py:105
+#: .\switchdeck\models.py:27 .\switchdeck\models.py:156
 msgid "Name"
 msgstr "Имя"
 
-#: .\switchdeck\models.py:21
+#: .\switchdeck\models.py:28
 msgid "Name of the region or city."
 msgstr "Название региона или города"
 
-#: .\switchdeck\models.py:23
+#: .\switchdeck\models.py:31
 #, fuzzy
 #| msgid ""
 #| "Popularity of place. The higher popularity - the higher this place in "
@@ -36,145 +36,149 @@ msgid ""
 msgstr ""
 "Популярность места. Чем выше популярность, тем выше это место будет в списке."
 
-#: .\switchdeck\models.py:24
+#: .\switchdeck\models.py:33
 msgid "Popularity"
 msgstr "Популярность"
 
-#: .\switchdeck\models.py:30 .\switchdeck\models.py:50
+#: .\switchdeck\models.py:39 .\switchdeck\models.py:70
 #, fuzzy
 #| msgid "Places"
 msgid "Place"
 msgstr "Место"
 
-#: .\switchdeck\models.py:31 .\switchdeck\templates\switchdeck\_base.html:19
+#: .\switchdeck\models.py:40 .\switchdeck\templates\switchdeck\_base.html:38
 #: .\switchdeck\templates\switchdeck\place_list.html:4
 msgid "Places"
 msgstr "Места"
 
-#: .\switchdeck\models.py:43
+#: .\switchdeck\models.py:57
 #, fuzzy
 #| msgid "Users"
 msgid "User"
 msgstr "Пользователь"
 
-#: .\switchdeck\models.py:44
+#: .\switchdeck\models.py:58
 msgid ""
 "Link to the user instanse, which have authentication methods, email, first "
 "name, last name, etc."
 msgstr ""
-"Ссылка на сущность пользователя, которая реализует методы атуентификации, "
-"хранит имяб фомилию пользователя и прочее."
+"Ссылка на сущность пользователя, которая реализует методы аутентификации, "
+"хранит имя, фамилию пользователя и прочее."
 
-#: .\switchdeck\models.py:47 .\switchdeck\models.py:119
-#: .\switchdeck\templates\switchdeck\_base.html:29
+#: .\switchdeck\models.py:64 .\switchdeck\models.py:178
+#: .\switchdeck\templates\switchdeck\_base.html:48
 #: .\switchdeck\templates\switchdeck\games.html:4
 msgid "Games"
 msgstr "Игры"
 
-#: .\switchdeck\models.py:48
+#: .\switchdeck\models.py:65
 msgid "All games user have"
-msgstr "Все игры, которые епользователь перечислил."
+msgstr "Все игры, которые пользователь перечислил."
 
-#: .\switchdeck\models.py:51
+#: .\switchdeck\models.py:71
 msgid "Place of registration of user. Place of all his gamelists."
 msgstr ""
 "Место, указанное при регистрации пользователем. Также - место нахождения "
 "всех его геймлистов."
 
-#: .\switchdeck\models.py:54 .\switchdeck\models.py:160
+#: .\switchdeck\models.py:75 .\switchdeck\models.py:246
 #: .\switchdeck\templates\registration\profile.html:4
 msgid "Profile"
 msgstr "Профиль"
 
-#: .\switchdeck\models.py:55
+#: .\switchdeck\models.py:76
 #: .\switchdeck\templates\registration\profile_list.html:3
 msgid "Profiles"
 msgstr "Профили"
 
-#: .\switchdeck\models.py:106
+#: .\switchdeck\models.py:157
 msgid "Full name of the game in english (may look from the shop page)."
 msgstr ""
 "Полное название игры на английском (можно подглядеть на странице игры в "
 "интернете)."
 
-#: .\switchdeck\models.py:108
+#: .\switchdeck\models.py:163
 msgid "Cover"
 msgstr "Обложка"
 
-#: .\switchdeck\models.py:109
+#: .\switchdeck\models.py:164
 msgid "Cover of the game box or any related image."
 msgstr "Обложка коробки с игрой или иное связанное изображение."
 
-#: .\switchdeck\models.py:111 .\switchdeck\models.py:166
+#: .\switchdeck\models.py:167 .\switchdeck\models.py:260
 #, fuzzy
 #| msgid "Change decription"
 msgid "Description"
 msgstr "Описание"
 
-#: .\switchdeck\models.py:112
+#: .\switchdeck\models.py:168
 msgid "Description of the game. Related from shop page."
 msgstr "Описание игры. Можно взять со страницы в интернете"
 
-#: .\switchdeck\models.py:114 .\switchdeck\templates\switchdeck\game.html:24
+#: .\switchdeck\models.py:172 .\switchdeck\templates\switchdeck\game.html:24
 msgid "Link to eshop"
 msgstr "Ссылка на eshop"
 
-#: .\switchdeck\models.py:115
+#: .\switchdeck\models.py:173
 msgid "Link to page there can locate additional information (nintendo eshop)."
 msgstr ""
 "Ссылка, где есть подробная информация об игре (ссылка на nintendo eshop)."
 
-#: .\switchdeck\models.py:118 .\switchdeck\models.py:162
+#: .\switchdeck\models.py:177 .\switchdeck\models.py:252
 #, fuzzy
 #| msgid "Games"
 msgid "Game"
 msgstr "Игра"
 
-#: .\switchdeck\models.py:163
+#: .\switchdeck\models.py:247
+msgid "Related Profile. Represent the owner of ``GameList`` instance"
+msgstr ""
+
+#: .\switchdeck\models.py:255
 #, fuzzy
 #| msgid "Activate"
 msgid "Active"
 msgstr "Активация"
 
-#: .\switchdeck\models.py:164
+#: .\switchdeck\models.py:256
 msgid "Set game to can be founded through the global search."
 msgstr "Определяет, будет ли доступна информация об геймлисте через поиск."
 
-#: .\switchdeck\models.py:167
+#: .\switchdeck\models.py:261
 msgid "Description leaved by the user"
 msgstr "Описание, оставленное пользователем."
 
-#: .\switchdeck\models.py:169
+#: .\switchdeck\models.py:266
 msgid "Proposition"
 msgstr "Цель"
 
-#: .\switchdeck\models.py:170
+#: .\switchdeck\models.py:267
 #, fuzzy
 #| msgid "List of games user want to change this game."
 msgid "Proposition of gamelist - what user want to do with this game."
 msgstr "Список игр на которые пользователь хочет обменять эту игру."
 
-#: .\switchdeck\models.py:173
+#: .\switchdeck\models.py:273
 msgid "Price"
 msgstr "Цена"
 
-#: .\switchdeck\models.py:174
+#: .\switchdeck\models.py:274
 msgid "Amount of money user want to buy/sell this game."
 msgstr "Цена, которую пользователь установил за лот."
 
-#: .\switchdeck\models.py:177
+#: .\switchdeck\models.py:278
 msgid "Public date"
 msgstr "Дата публикации"
 
-#: .\switchdeck\models.py:178
+#: .\switchdeck\models.py:279
 msgid "Date of publication. Just additional information."
 msgstr "Дата публикация. Нужна для подробной информации."
 
-#: .\switchdeck\models.py:180
+#: .\switchdeck\models.py:282
 msgid "Up time"
 msgstr "Ап тайм"
 
-#: .\switchdeck\models.py:181
+#: .\switchdeck\models.py:283
 msgid ""
 "Up time show last activity from the gamelist. The newest up time - the "
 "highest this gamelist in lists. Up time update from each comment, updating "
@@ -184,63 +188,63 @@ msgstr ""
 "тайм -- тем выше геймлист в списках. Ап тайм обнавляется при каждом "
 "комментированииб обновлении информации о геймлисте и прочее."
 
-#: .\switchdeck\models.py:187
+#: .\switchdeck\models.py:292
 #, fuzzy
 #| msgid "Change decription"
 msgid "Change to"
 msgstr "На обмен"
 
-#: .\switchdeck\models.py:188
+#: .\switchdeck\models.py:293
 msgid "List of games user want to change this game."
 msgstr "Список игр на которые пользователь хочет обменять эту игру."
 
-#: .\switchdeck\models.py:195 .\switchdeck\models.py:244
+#: .\switchdeck\models.py:298 .\switchdeck\models.py:374
 #, fuzzy
 #| msgid "Games"
 msgid "GameList"
 msgstr "Геймлист"
 
-#: .\switchdeck\models.py:196
+#: .\switchdeck\models.py:299
 #, fuzzy
 #| msgid "Games"
 msgid "GameLists"
 msgstr "Геймлисты"
 
-#: .\switchdeck\models.py:223
+#: .\switchdeck\models.py:331
 msgid "Update uptime"
 msgstr "Обновить ап тайм"
 
-#: .\switchdeck\models.py:236
+#: .\switchdeck\models.py:359
 msgid "Author"
 msgstr "Автор"
 
-#: .\switchdeck\models.py:237
+#: .\switchdeck\models.py:360
 msgid "Author of the comment."
 msgstr "Автор комментария"
 
-#: .\switchdeck\models.py:239
+#: .\switchdeck\models.py:363
 msgid "Timestamp"
 msgstr "Дата публикации"
 
-#: .\switchdeck\models.py:240
+#: .\switchdeck\models.py:364
 msgid "Date of publication."
 msgstr "Дата публикации"
 
-#: .\switchdeck\models.py:241
+#: .\switchdeck\models.py:367
 msgid "Text"
 msgstr "Текст"
 
-#: .\switchdeck\models.py:245
+#: .\switchdeck\models.py:375
 msgid "Related gamelist."
 msgstr "Связанные геймлисты"
 
-#: .\switchdeck\models.py:250
+#: .\switchdeck\models.py:380
 #, fuzzy
 #| msgid "Comments"
 msgid "Comment"
 msgstr "Комментарий"
 
-#: .\switchdeck\models.py:251
+#: .\switchdeck\models.py:381
 #: .\switchdeck\templates\switchdeck\gamelist.html:169
 msgid "Comments"
 msgstr "Комментарии"
@@ -255,7 +259,7 @@ msgid "Email confirmed"
 msgstr "Электронная почта подтверждена"
 
 #: .\switchdeck\templates\registration\login.html:5
-#: .\switchdeck\templates\switchdeck\_base.html:60
+#: .\switchdeck\templates\switchdeck\_base.html:79
 msgid "Login"
 msgstr "Вход"
 
@@ -325,15 +329,24 @@ msgstr "Регистрация"
 msgid "SignUp"
 msgstr "Зарегестрироваться"
 
-#: .\switchdeck\templates\switchdeck\_base.html:24
+#: .\switchdeck\templates\switchdeck\_base.html:10
+msgid "Nintendo Switch games barter and buy/sell."
+msgstr "Обмен и купля-продажа игр для Nintendo Switch."
+
+#: .\switchdeck\templates\switchdeck\_base.html:33
+#: .\switchdeck\templates\switchdeck\search.html:5
+msgid "Search"
+msgstr "Поиск"
+
+#: .\switchdeck\templates\switchdeck\_base.html:43
 msgid "Users"
 msgstr "Пользователи"
 
-#: .\switchdeck\templates\switchdeck\_base.html:39
+#: .\switchdeck\templates\switchdeck\_base.html:58
 msgid "Admin Site"
 msgstr "Администрация"
 
-#: .\switchdeck\templates\switchdeck\_base.html:51
+#: .\switchdeck\templates\switchdeck\_base.html:70
 msgid "Logout"
 msgstr "Выход"
 
@@ -401,7 +414,7 @@ msgstr "Деактивировать"
 
 #: .\switchdeck\templates\switchdeck\gamelist.html:125
 msgid "Activate"
-msgstr "активировать"
+msgstr "Активировать"
 
 #: .\switchdeck\templates\switchdeck\gamelist.html:155
 #: .\switchdeck\templates\switchdeck\gamelist.html:186

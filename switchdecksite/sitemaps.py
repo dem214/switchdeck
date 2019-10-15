@@ -31,7 +31,6 @@ sitemaps = {
         priority=0.5,
         changefreq='always'),
     'profile': GenericSitemap(
-        {'queryset': models.Profile.objects.filter(user__is_active=True),
-         'date_field': 'user__last_login'},
+        {'queryset': models.Profile.objects.filter(user__is_active=True)},
         priority=0.4,
         changefreq='daily')}
