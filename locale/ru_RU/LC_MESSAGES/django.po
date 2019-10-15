@@ -1,14 +1,14 @@
-# SOME DESCRIPTIVE TITLE.
+# ru_RU (Russian) localization file of SwitchDeck site.
 # Copyright (C) 2019
-# This file is distributed under the same license as the PACKAGE package.
-# Dzmitry Izaitka <dem214overlord@gmail.com>, YEAR.
+# This file is distributed under the same license as the SwitchDeck package.
+# Dzmitry Izaitka <dem214overlord@gmail.com>, 2019.
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-09-18 12:17+0300\n"
+"POT-Creation-Date: 2019-10-15 14:53+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,234 +16,6 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-
-#: .\switchdeck\models.py:20 .\switchdeck\models.py:105
-msgid "Name"
-msgstr "Имя"
-
-#: .\switchdeck\models.py:21
-msgid "Name of the region or city."
-msgstr "Название региона или города"
-
-#: .\switchdeck\models.py:23
-#, fuzzy
-#| msgid ""
-#| "Popularity of place. The higher popularity - the higher this place in "
-#| "place list"
-msgid ""
-"Popularity of place. The higher popularity - the higher this place in place "
-"list."
-msgstr ""
-"Популярность места. Чем выше популярность, тем выше это место будет в списке."
-
-#: .\switchdeck\models.py:24
-msgid "Popularity"
-msgstr "Популярность"
-
-#: .\switchdeck\models.py:30 .\switchdeck\models.py:50
-#, fuzzy
-#| msgid "Places"
-msgid "Place"
-msgstr "Место"
-
-#: .\switchdeck\models.py:31 .\switchdeck\templates\switchdeck\_base.html:19
-#: .\switchdeck\templates\switchdeck\place_list.html:4
-msgid "Places"
-msgstr "Места"
-
-#: .\switchdeck\models.py:43
-#, fuzzy
-#| msgid "Users"
-msgid "User"
-msgstr "Пользователь"
-
-#: .\switchdeck\models.py:44
-msgid ""
-"Link to the user instanse, which have authentication methods, email, first "
-"name, last name, etc."
-msgstr ""
-"Ссылка на сущность пользователя, которая реализует методы атуентификации, "
-"хранит имяб фомилию пользователя и прочее."
-
-#: .\switchdeck\models.py:47 .\switchdeck\models.py:119
-#: .\switchdeck\templates\switchdeck\_base.html:29
-#: .\switchdeck\templates\switchdeck\games.html:4
-msgid "Games"
-msgstr "Игры"
-
-#: .\switchdeck\models.py:48
-msgid "All games user have"
-msgstr "Все игры, которые епользователь перечислил."
-
-#: .\switchdeck\models.py:51
-msgid "Place of registration of user. Place of all his gamelists."
-msgstr ""
-"Место, указанное при регистрации пользователем. Также - место нахождения "
-"всех его геймлистов."
-
-#: .\switchdeck\models.py:54 .\switchdeck\models.py:160
-#: .\switchdeck\templates\registration\profile.html:4
-msgid "Profile"
-msgstr "Профиль"
-
-#: .\switchdeck\models.py:55
-#: .\switchdeck\templates\registration\profile_list.html:3
-msgid "Profiles"
-msgstr "Профили"
-
-#: .\switchdeck\models.py:106
-msgid "Full name of the game in english (may look from the shop page)."
-msgstr ""
-"Полное название игры на английском (можно подглядеть на странице игры в "
-"интернете)."
-
-#: .\switchdeck\models.py:108
-msgid "Cover"
-msgstr "Обложка"
-
-#: .\switchdeck\models.py:109
-msgid "Cover of the game box or any related image."
-msgstr "Обложка коробки с игрой или иное связанное изображение."
-
-#: .\switchdeck\models.py:111 .\switchdeck\models.py:166
-#, fuzzy
-#| msgid "Change decription"
-msgid "Description"
-msgstr "Описание"
-
-#: .\switchdeck\models.py:112
-msgid "Description of the game. Related from shop page."
-msgstr "Описание игры. Можно взять со страницы в интернете"
-
-#: .\switchdeck\models.py:114 .\switchdeck\templates\switchdeck\game.html:24
-msgid "Link to eshop"
-msgstr "Ссылка на eshop"
-
-#: .\switchdeck\models.py:115
-msgid "Link to page there can locate additional information (nintendo eshop)."
-msgstr ""
-"Ссылка, где есть подробная информация об игре (ссылка на nintendo eshop)."
-
-#: .\switchdeck\models.py:118 .\switchdeck\models.py:162
-#, fuzzy
-#| msgid "Games"
-msgid "Game"
-msgstr "Игра"
-
-#: .\switchdeck\models.py:163
-#, fuzzy
-#| msgid "Activate"
-msgid "Active"
-msgstr "Активация"
-
-#: .\switchdeck\models.py:164
-msgid "Set game to can be founded through the global search."
-msgstr "Определяет, будет ли доступна информация об геймлисте через поиск."
-
-#: .\switchdeck\models.py:167
-msgid "Description leaved by the user"
-msgstr "Описание, оставленное пользователем."
-
-#: .\switchdeck\models.py:169
-msgid "Proposition"
-msgstr "Цель"
-
-#: .\switchdeck\models.py:170
-#, fuzzy
-#| msgid "List of games user want to change this game."
-msgid "Proposition of gamelist - what user want to do with this game."
-msgstr "Список игр на которые пользователь хочет обменять эту игру."
-
-#: .\switchdeck\models.py:173
-msgid "Price"
-msgstr "Цена"
-
-#: .\switchdeck\models.py:174
-msgid "Amount of money user want to buy/sell this game."
-msgstr "Цена, которую пользователь установил за лот."
-
-#: .\switchdeck\models.py:177
-msgid "Public date"
-msgstr "Дата публикации"
-
-#: .\switchdeck\models.py:178
-msgid "Date of publication. Just additional information."
-msgstr "Дата публикация. Нужна для подробной информации."
-
-#: .\switchdeck\models.py:180
-msgid "Up time"
-msgstr "Ап тайм"
-
-#: .\switchdeck\models.py:181
-msgid ""
-"Up time show last activity from the gamelist. The newest up time - the "
-"highest this gamelist in lists. Up time update from each comment, updating "
-"or etc."
-msgstr ""
-"Ап тайм показывает последню активность на страницы геймлиста. Чем позже ап "
-"тайм -- тем выше геймлист в списках. Ап тайм обнавляется при каждом "
-"комментированииб обновлении информации о геймлисте и прочее."
-
-#: .\switchdeck\models.py:187
-#, fuzzy
-#| msgid "Change decription"
-msgid "Change to"
-msgstr "На обмен"
-
-#: .\switchdeck\models.py:188
-msgid "List of games user want to change this game."
-msgstr "Список игр на которые пользователь хочет обменять эту игру."
-
-#: .\switchdeck\models.py:195 .\switchdeck\models.py:244
-#, fuzzy
-#| msgid "Games"
-msgid "GameList"
-msgstr "Геймлист"
-
-#: .\switchdeck\models.py:196
-#, fuzzy
-#| msgid "Games"
-msgid "GameLists"
-msgstr "Геймлисты"
-
-#: .\switchdeck\models.py:223
-msgid "Update uptime"
-msgstr "Обновить ап тайм"
-
-#: .\switchdeck\models.py:236
-msgid "Author"
-msgstr "Автор"
-
-#: .\switchdeck\models.py:237
-msgid "Author of the comment."
-msgstr "Автор комментария"
-
-#: .\switchdeck\models.py:239
-msgid "Timestamp"
-msgstr "Дата публикации"
-
-#: .\switchdeck\models.py:240
-msgid "Date of publication."
-msgstr "Дата публикации"
-
-#: .\switchdeck\models.py:241
-msgid "Text"
-msgstr "Текст"
-
-#: .\switchdeck\models.py:245
-msgid "Related gamelist."
-msgstr "Связанные геймлисты"
-
-#: .\switchdeck\models.py:250
-#, fuzzy
-#| msgid "Comments"
-msgid "Comment"
-msgstr "Комментарий"
-
-#: .\switchdeck\models.py:251
-#: .\switchdeck\templates\switchdeck\gamelist.html:169
-msgid "Comments"
-msgstr "Комментарии"
 
 #: .\switchdeck\templates\registration\confirmation_error.html:3
 #: .\switchdeck\templates\registration\need_confirm_email.html:3
@@ -255,13 +27,17 @@ msgid "Email confirmed"
 msgstr "Электронная почта подтверждена"
 
 #: .\switchdeck\templates\registration\login.html:5
-#: .\switchdeck\templates\switchdeck\_base.html:60
+#: .\switchdeck\templates\switchdeck\_base.html:79
 msgid "Login"
 msgstr "Вход"
 
 #: .\switchdeck\templates\registration\login.html:15
 msgid "Forgot password?"
 msgstr "Забыли пароль?"
+
+#: .\switchdeck\templates\registration\profile.html:4
+msgid "Profile"
+msgstr "Профиль"
 
 #: .\switchdeck\templates\registration\profile.html:9
 #: .\switchdeck\templates\switchdeck\game.html:8
@@ -317,6 +93,10 @@ msgstr "Более"
 msgid "ready to buy"
 msgstr "готов купить"
 
+#: .\switchdeck\templates\registration\profile_list.html:3
+msgid "Profiles"
+msgstr "Профили"
+
 #: .\switchdeck\templates\registration\register.html:3
 msgid "Register"
 msgstr "Регистрация"
@@ -325,15 +105,34 @@ msgstr "Регистрация"
 msgid "SignUp"
 msgstr "Зарегестрироваться"
 
-#: .\switchdeck\templates\switchdeck\_base.html:24
+#: .\switchdeck\templates\switchdeck\_base.html:10
+msgid "Nintendo Switch games barter and buy/sell."
+msgstr "Обмен и купля-продажа игр для Nintendo Switch."
+
+#: .\switchdeck\templates\switchdeck\_base.html:33
+#: .\switchdeck\templates\switchdeck\search.html:5
+msgid "Search"
+msgstr "Поиск"
+
+#: .\switchdeck\templates\switchdeck\_base.html:38
+#: .\switchdeck\templates\switchdeck\place_list.html:4
+msgid "Places"
+msgstr "Места"
+
+#: .\switchdeck\templates\switchdeck\_base.html:43
 msgid "Users"
 msgstr "Пользователи"
 
-#: .\switchdeck\templates\switchdeck\_base.html:39
+#: .\switchdeck\templates\switchdeck\_base.html:48
+#: .\switchdeck\templates\switchdeck\games.html:4
+msgid "Games"
+msgstr "Игры"
+
+#: .\switchdeck\templates\switchdeck\_base.html:58
 msgid "Admin Site"
 msgstr "Администрация"
 
-#: .\switchdeck\templates\switchdeck\_base.html:51
+#: .\switchdeck\templates\switchdeck\_base.html:70
 msgid "Logout"
 msgstr "Выход"
 
@@ -361,6 +160,10 @@ msgstr "последняя"
 #: .\switchdeck\templates\switchdeck\add_game_reduced.html:5
 msgid "Add game"
 msgstr "Добавить игру"
+
+#: .\switchdeck\templates\switchdeck\game.html:24
+msgid "Link to eshop"
+msgstr "Ссылка на eshop"
 
 #: .\switchdeck\templates\switchdeck\game.html:35
 #: .\switchdeck\templates\switchdeck\game.html:43
@@ -401,12 +204,16 @@ msgstr "Деактивировать"
 
 #: .\switchdeck\templates\switchdeck\gamelist.html:125
 msgid "Activate"
-msgstr "активировать"
+msgstr "Активировать"
 
 #: .\switchdeck\templates\switchdeck\gamelist.html:155
 #: .\switchdeck\templates\switchdeck\gamelist.html:186
 msgid "Delete"
 msgstr "Удалить"
+
+#: .\switchdeck\templates\switchdeck\gamelist.html:169
+msgid "Comments"
+msgstr "Комментарии"
 
 #: .\switchdeck\templates\switchdeck\gamelist.html:186
 msgid "comment"
@@ -419,6 +226,171 @@ msgstr "Обновить список на обмен"
 #: .\switchdeck\templates\switchdeck\set_game.html:5
 msgid "Set game"
 msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\templates\default_urlconf.html:6
+msgid "Django: the Web framework for perfectionists with deadlines."
+msgstr ""
+
+#~ msgid "Name"
+#~ msgstr "Имя"
+
+#~ msgid "Name of the region or city."
+#~ msgstr "Название региона или города"
+
+#, fuzzy
+#~| msgid ""
+#~| "Popularity of place. The higher popularity - the higher this place in "
+#~| "place list"
+#~ msgid ""
+#~ "Popularity of place. The higher popularity - the higher this place in "
+#~ "place list."
+#~ msgstr ""
+#~ "Популярность места. Чем выше популярность, тем выше это место будет в "
+#~ "списке."
+
+#~ msgid "Popularity"
+#~ msgstr "Популярность"
+
+#, fuzzy
+#~| msgid "Places"
+#~ msgid "Place"
+#~ msgstr "Место"
+
+#, fuzzy
+#~| msgid "Users"
+#~ msgid "User"
+#~ msgstr "Пользователь"
+
+#~ msgid ""
+#~ "Link to the user instanse, which have authentication methods, email, "
+#~ "first name, last name, etc."
+#~ msgstr ""
+#~ "Ссылка на сущность пользователя, которая реализует методы аутентификации, "
+#~ "хранит имя, фамилию пользователя и прочее."
+
+#~ msgid "All games user have"
+#~ msgstr "Все игры, которые пользователь перечислил."
+
+#~ msgid "Place of registration of user. Place of all his gamelists."
+#~ msgstr ""
+#~ "Место, указанное при регистрации пользователем. Также - место нахождения "
+#~ "всех его геймлистов."
+
+#~ msgid "Full name of the game in english (may look from the shop page)."
+#~ msgstr ""
+#~ "Полное название игры на английском (можно подглядеть на странице игры в "
+#~ "интернете)."
+
+#~ msgid "Cover"
+#~ msgstr "Обложка"
+
+#~ msgid "Cover of the game box or any related image."
+#~ msgstr "Обложка коробки с игрой или иное связанное изображение."
+
+#, fuzzy
+#~| msgid "Change decription"
+#~ msgid "Description"
+#~ msgstr "Описание"
+
+#~ msgid "Description of the game. Related from shop page."
+#~ msgstr "Описание игры. Можно взять со страницы в интернете"
+
+#~ msgid ""
+#~ "Link to page there can locate additional information (nintendo eshop)."
+#~ msgstr ""
+#~ "Ссылка, где есть подробная информация об игре (ссылка на nintendo eshop)."
+
+#, fuzzy
+#~| msgid "Games"
+#~ msgid "Game"
+#~ msgstr "Игра"
+
+#, fuzzy
+#~| msgid "Activate"
+#~ msgid "Active"
+#~ msgstr "Активация"
+
+#~ msgid "Set game to can be founded through the global search."
+#~ msgstr "Определяет, будет ли доступна информация об геймлисте через поиск."
+
+#~ msgid "Description leaved by the user"
+#~ msgstr "Описание, оставленное пользователем."
+
+#~ msgid "Proposition"
+#~ msgstr "Цель"
+
+#, fuzzy
+#~| msgid "List of games user want to change this game."
+#~ msgid "Proposition of gamelist - what user want to do with this game."
+#~ msgstr "Список игр на которые пользователь хочет обменять эту игру."
+
+#~ msgid "Price"
+#~ msgstr "Цена"
+
+#~ msgid "Amount of money user want to buy/sell this game."
+#~ msgstr "Цена, которую пользователь установил за лот."
+
+#~ msgid "Public date"
+#~ msgstr "Дата публикации"
+
+#~ msgid "Date of publication. Just additional information."
+#~ msgstr "Дата публикация. Нужна для подробной информации."
+
+#~ msgid "Up time"
+#~ msgstr "Ап тайм"
+
+#~ msgid ""
+#~ "Up time show last activity from the gamelist. The newest up time - the "
+#~ "highest this gamelist in lists. Up time update from each comment, "
+#~ "updating or etc."
+#~ msgstr ""
+#~ "Ап тайм показывает последню активность на страницы геймлиста. Чем позже "
+#~ "ап тайм -- тем выше геймлист в списках. Ап тайм обнавляется при каждом "
+#~ "комментированииб обновлении информации о геймлисте и прочее."
+
+#, fuzzy
+#~| msgid "Change decription"
+#~ msgid "Change to"
+#~ msgstr "На обмен"
+
+#~ msgid "List of games user want to change this game."
+#~ msgstr "Список игр на которые пользователь хочет обменять эту игру."
+
+#, fuzzy
+#~| msgid "Games"
+#~ msgid "GameList"
+#~ msgstr "Геймлист"
+
+#, fuzzy
+#~| msgid "Games"
+#~ msgid "GameLists"
+#~ msgstr "Геймлисты"
+
+#~ msgid "Update uptime"
+#~ msgstr "Обновить ап тайм"
+
+#~ msgid "Author"
+#~ msgstr "Автор"
+
+#~ msgid "Author of the comment."
+#~ msgstr "Автор комментария"
+
+#~ msgid "Timestamp"
+#~ msgstr "Дата публикации"
+
+#~ msgid "Date of publication."
+#~ msgstr "Дата публикации"
+
+#~ msgid "Text"
+#~ msgstr "Текст"
+
+#~ msgid "Related gamelist."
+#~ msgstr "Связанные геймлисты"
+
+#, fuzzy
+#~| msgid "Comments"
+#~ msgid "Comment"
+#~ msgstr "Комментарий"
 
 #~ msgid "name"
 #~ msgstr "имя"
