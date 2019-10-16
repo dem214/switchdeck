@@ -1,3 +1,4 @@
+from django.contrib.flatpages.sitemaps import FlatPageSitemap
 from django.contrib.sitemaps import Sitemap, GenericSitemap
 from django.urls import reverse
 
@@ -9,7 +10,7 @@ class StaticViewSitemap(Sitemap):
     changefreq = 'always'
 
     def items(self):
-        return ['index', 'places', 'users', 'games']
+        return ['index', 'places', 'users', 'games', 'search']
 
     def location(self, obj):
         return reverse(obj)
@@ -17,6 +18,7 @@ class StaticViewSitemap(Sitemap):
 
 sitemaps = {
     'static': StaticViewSitemap,
+    'flatpages': FlatPageSitemap,
     'place': GenericSitemap(
         {'queryset': models.Place.objects.all()},
         priority=0.8,

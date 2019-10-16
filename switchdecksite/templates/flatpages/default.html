@@ -1,0 +1,9 @@
+{% extends "switchdeck/_base.html" %}
+{% load i18n %}
+
+{% block title %}{{ flatpage.title }} | SwithcDeck{% endblock %}
+
+{% block content %}
+<h1>{{ flatpage.title }}</h1>
+{{ flatpage.content }}
+{% endblock %}

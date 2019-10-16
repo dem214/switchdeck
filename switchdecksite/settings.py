@@ -33,8 +33,8 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'switchdeck.apps.SwitchdeckConfig',
-    'crispy_forms',
-    'rest_framework',
+    'crispy_forms',                 # Template forms rendering bootstrap-like
+    'rest_framework',               # Framework for REST API
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.admindocs',
@@ -42,8 +42,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django.contrib.humanize',
-    'django.contrib.sitemaps',
+    'django.contrib.humanize',      # Data and time humanization
+    'django.contrib.sitemaps',      # Framework for '/sitemap.xml'
+    'django.contrib.sites',         # site for flatpages
+    'django.contrib.flatpages',      # Flatpages like 'about', 'copyright' etc
 ]
 
 MIDDLEWARE = [
@@ -55,6 +57,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.contrib.admindocs.middleware.XViewMiddleware',
+    'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware'
 ]
 
 ROOT_URLCONF = 'switchdecksite.urls'
@@ -62,7 +65,7 @@ ROOT_URLCONF = 'switchdecksite.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['switchdecksite/templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -156,3 +159,8 @@ REST_FRAMEWORK = {
         'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 10
 }
+
+# Site identification for flat pages processing to store multiple sites in
+# one DB
+
+SITE_ID = 1

@@ -18,6 +18,7 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.sitemaps.views import sitemap
+from django.contrib.flatpages import views as flatpage_views
 
 from .sitemaps import sitemaps
 
@@ -28,6 +29,10 @@ urlpatterns = [
     path('admin/doc/', include('django.contrib.admindocs.urls')),
     path('sitemap.xml', sitemap, {'sitemaps': sitemaps},
          name="django.contrib.sitemaps.views.sitemap"),
+    path('about/', flatpage_views.flatpage, {'url': '/about/'},
+         name='about'),
+    path('license/', flatpage_views.flatpage, {'url': '/license/'},
+         name='license'),
 ]
 
 if settings.DEBUG:
