@@ -8,11 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-<<<<<<< HEAD
 "POT-Creation-Date: 2019-10-15 16:30+0300\n"
-=======
-"POT-Creation-Date: 2019-10-15 14:53+0300\n"
->>>>>>> fdbc32c73dd4aab485e0bc325e597bf3c5b5ca53
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,7 +17,6 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-<<<<<<< HEAD
 #: .\switchdeck\models.py:27 .\switchdeck\models.py:156
 msgid "Name"
 msgstr "Имя"
@@ -254,8 +249,6 @@ msgstr "Комментарий"
 msgid "Comments"
 msgstr "Комментарии"
 
-=======
->>>>>>> fdbc32c73dd4aab485e0bc325e597bf3c5b5ca53
 #: .\switchdeck\templates\registration\confirmation_error.html:3
 #: .\switchdeck\templates\registration\need_confirm_email.html:3
 msgid "Need Confirmation"
@@ -353,26 +346,10 @@ msgstr "Обмен и купля-продажа игр для Nintendo Switch."
 msgid "Search"
 msgstr "Поиск"
 
-<<<<<<< HEAD
-=======
-#: .\switchdeck\templates\switchdeck\_base.html:38
-#: .\switchdeck\templates\switchdeck\place_list.html:4
-msgid "Places"
-msgstr "Места"
-
->>>>>>> fdbc32c73dd4aab485e0bc325e597bf3c5b5ca53
 #: .\switchdeck\templates\switchdeck\_base.html:43
 msgid "Users"
 msgstr "Пользователи"
 
-<<<<<<< HEAD
-=======
-#: .\switchdeck\templates\switchdeck\_base.html:48
-#: .\switchdeck\templates\switchdeck\games.html:4
-msgid "Games"
-msgstr "Игры"
-
->>>>>>> fdbc32c73dd4aab485e0bc325e597bf3c5b5ca53
 #: .\switchdeck\templates\switchdeck\_base.html:58
 msgid "Admin Site"
 msgstr "Администрация"
@@ -589,9 +566,9 @@ msgstr ""
 #~ "highest this gamelist in lists. Up time update from each comment, "
 #~ "updating or etc."
 #~ msgstr ""
-#~ "Ап тайм показывает последню активность на страницы геймлиста. Чем позже "
-#~ "ап тайм -- тем выше геймлист в списках. Ап тайм обнавляется при каждом "
-#~ "комментированииб обновлении информации о геймлисте и прочее."
+#~ "Ап тайм показывает последнюю активность на страницы геймлиста. Чем позже "
+#~ "ап тайм -- тем выше геймлист в списках. Ап тайм обновляется при каждом "
+#~ "комментировании, обновлении информации о геймлисте и прочее."
 
 #, fuzzy
 #~| msgid "Change decription"
