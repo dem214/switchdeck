@@ -75,8 +75,9 @@ class ModelsTest(TestCase):
         self.assertEqual(game.underscored_name, "some_great_name")
 
     def test_game_absolute_url(self):
-        self.assertEqual("/game/1/", self.tloz.get_absolute_url(),
-                         'game page now is not "/game-id/<game.id>/"')
+        self.assertEqual(f"/game/{self.tloz.id}/",
+                         self.tloz.get_absolute_url(),
+                         'game page now is not "/game/<game.id>/"')
 
     def test_game_oredered_objects_by_sell(self):
         gaem2 = Game.objects.create(name='name2')
