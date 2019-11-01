@@ -19,26 +19,29 @@ For localization compilation project needs [GNU gettext].
 
 * Setting local environment
 
-`DATABASE_URL` -  full database url path like
+ `DATABASE_URL` - full database URL path like
 `postgres://USER:PASSWORD@HOST:PORT/NAME`.
 Instead, it's create SQLite3 server named `db.sqlite3` in local directory.
+
+ `SECRET_KEY` - sequence of symbols used by Django in security issues.
+ **It's highly recommended to put something there in production.**
 
 
 * Migrating database.
 
-```bash
+ ```bash
 python manage.py migrate
 ```
 
 * Collecting static files.
 
-```bash
+ ```bash
 python manage.py collectstatic
 ```
 
 * Compile localization files (need [GNU gettext]).
 
-```bash
+ ```bash
 django-admin compilemessages
 ```
 
