@@ -21,10 +21,13 @@ For localization compilation project needs [GNU gettext].
 
  `DATABASE_URL` - full database URL path like
 `postgres://USER:PASSWORD@HOST:PORT/NAME`.
-Instead, it's create SQLite3 server named `db.sqlite3` in local directory.
+ Instead, it's create SQLite3 server named `db.sqlite3` in local directory.
 
  `SECRET_KEY` - sequence of symbols used by Django in security issues.
  **It's highly recommended to put something there in production.**
+
+ `DEBUG=1` - use this to run project in DEBUG mode.
+ Leave untouched or another value in production mode.
 
 
 * Migrating database.
@@ -49,7 +52,7 @@ django-admin compilemessages
 
 * [Django] - The base web framework.
 * [Bootstrap] - Fancy frontend framework.
-* [Crispy-froms] - Useful Bootstrap-like forms addon.
+* [Crispy-forms] - Useful Bootstrap-like forms addon.
 * [Django REST framework] - Help framework for building API.
 
 ## Author
@@ -61,7 +64,7 @@ django-admin compilemessages
 The license of the project is GNU General Public License - see [LICENSE](LICENSE) file for details.
 
 [Bootstrap]: https://getbootstrap.com/ "https://getbootstrap.com/"
-[Crispy-froms]: https://django-crispy-forms.readthedocs.io/en/latest/ "https://django-crispy-forms.readthedocs.io/en/latest/"
+[Crispy-forms]: https://django-crispy-forms.readthedocs.io/en/latest/ "https://django-crispy-forms.readthedocs.io/en/latest/"
 [Django]: https://www.djangoproject.com/ "https://www.djangoproject.com/"
 [Django REST framework]: https://www.django-rest-framework.org/ "https://www.django-rest-framework.org/"
 [GNU gettext]: https://www.gnu.org/software/gettext/ "https://www.gnu.org/software/gettext/"
