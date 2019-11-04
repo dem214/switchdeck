@@ -51,6 +51,7 @@ django-admin compilemessages
 ## Built With
 
 * [Django] - The base web framework.
+* [Gunicorn] - Web server.
 * [Bootstrap] - Fancy frontend framework.
 * [Crispy-forms] - Useful Bootstrap-like forms addon.
 * [Django REST framework] - Help framework for building API.
@@ -68,4 +69,5 @@ The license of the project is GNU General Public License - see [LICENSE](LICENSE
 [Django]: https://www.djangoproject.com/ "https://www.djangoproject.com/"
 [Django REST framework]: https://www.django-rest-framework.org/ "https://www.django-rest-framework.org/"
 [GNU gettext]: https://www.gnu.org/software/gettext/ "https://www.gnu.org/software/gettext/"
+[Gunicorn]: https://gunicorn.org/ "https://gunicorn.org/"
 [Python]: https://www.python.org/ "https://www.python.org/"

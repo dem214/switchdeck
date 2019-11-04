@@ -8,7 +8,7 @@ services:
     environment:
       - DATABASE_URL=postgres@db:5432/postgres
       - DEBUG
-    command: web: gunicorn switchdecksite.wsgi
+    command: gunicorn switchdecksite.wsgi
     volumes:
       - .:/code
     ports:
