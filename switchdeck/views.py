@@ -1,3 +1,4 @@
+"""All common views of the path."""
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -13,9 +14,6 @@ from django.core.exceptions import PermissionDenied
 from django.db import models
 
 from .models import Game, GameList, Comment, Place, Profile
-from .forms import CommentForm, GameListForm, GameListReducedForm, \
-    SetGameListForm, ChangeDescGamelistForm, ChangePriceGamelistForm, \
-    ChangeToForm
 from . import forms
 
 from django.conf import settings
@@ -80,7 +78,7 @@ def game_id(request, gid):
 
 def gamelist_view(request, glid: int):
     """
-    Gamelist view with controls and comments
+    Gamelist view with controls and comments.
 
     **Arguments**
 
@@ -109,7 +107,7 @@ def gamelist_view(request, glid: int):
     gamelist_item = get_object_or_404(GameList, id=glid)
     context = {'object': gamelist_item}
     if request.method == 'POST':
-        form = CommentForm(request.POST)
+        form = forms.CommentForm(request.POST)
         if form.is_valid():
             if request.user.is_authenticated:
                 comm = Comment(author=request.user.profile,
@@ -124,15 +122,15 @@ def gamelist_view(request, glid: int):
             else:
                 return redirect('login')
     else:
-        context['form'] = CommentForm()
+        context['form'] = forms.CommentForm()
     cpp = request.GET.get('objects-per-page', COMMENTS_PER_PAGE)
     paginator = Paginator(gamelist_item.comments.all(), cpp)
     page = request.GET.get('page', 1)
     context['comments'] = paginator.get_page(page)
-    context['change_desc_form'] = ChangeDescGamelistForm(
+    context['change_desc_form'] = forms.ChangeDescGamelistForm(
         {'desc': gamelist_item.desc}
     )
-    context['change_price_form'] = ChangePriceGamelistForm(
+    context['change_price_form'] = forms.ChangePriceGamelistForm(
         {'price': gamelist_item.price}
     )
     if int(request.GET.get('objects-per-page', 0)) > 0:
@@ -142,10 +140,10 @@ def gamelist_view(request, glid: int):
 
 @login_required
 def add_game(request):
-    """Add gamelist method from user"""
+    """Add gamelist method from user."""
     context = dict()
     if request.method == 'POST':
-        form = GameListForm(request.POST)
+        form = forms.GameListForm(request.POST)
         if form.is_valid():
             gl = GameList(
                 profile=request.user.profile,
@@ -157,19 +155,22 @@ def add_game(request):
             gl.save()
             return redirect(gl)
     else:
-        context['form'] = GameListForm()
+        context['form'] = forms.GameListForm()
     return render(request, 'switchdeck/add_game.html', context)
 
 
 class AddGameBaseView(CreateView, LoginRequiredMixin):
+    """View base class for generic add gamelist pages."""
+
     template_name = "swithcdeck/add_game_reduced.html"
 
 
 @login_required
 def add_game_reduced(request, prop):
+    """View func for page to add generic gamelist."""
     context = dict()
     if request.method == 'POST':
-        form = GameListReducedForm(request.POST)
+        form = forms.GameListReducedForm(request.POST)
         if form.is_valid():
             gl = GameList(
                 profile=request.user.profile,
@@ -182,7 +183,7 @@ def add_game_reduced(request, prop):
                              f"your {gl.get_prop_display()} list")
             return redirect(gl)
     else:
-        context['form'] = GameListReducedForm()
+        context['form'] = forms.GameListReducedForm()
         context['prop'] = prop
     return render(request, 'switchdeck/add_game_reduced.html', context)
 
@@ -190,7 +191,9 @@ def add_game_reduced(request, prop):
 @login_required
 def delete_game(request, glid: int):
     """
-    Delete view. Dont render the template, just delete.
+    Delete gamelist view.
+
+    Dont render the template, just delete.
     Than redirecting to user profile page.
     """
     gamelist_item = get_object_or_404(GameList, id=glid)
@@ -203,21 +206,25 @@ def delete_game(request, glid: int):
 
 
 class GameBaseList(ListView):
-    '''Base class for views that return list with sell or buy lots'''
+    '''Base class for views that return list with sell or buy lots.'''
+
     template_name = 'switchdeck/game_base_list.html'
     allow_empty = False
 
     def setup(self, request, *args, **kwargs):
+        """Initialize atributes and return 404 for nonexisting games."""
         super().setup(request, *args, **kwargs)
         self.game = get_object_or_404(Game, pk=self.kwargs['gid'])
 
     def get_paginate_by(self, queryset):
+        """Generate pagination with requested size."""
         if int(self.request.GET.get('objects-per-page', 0)) > 0:
             return self.request.GET['objects-per-page']
         else:
             return GAMELISTS_PER_PAGE
 
     def get_context_data(self, **kwargs):
+        """Get context and add info about game."""
         context = super().get_context_data(**kwargs)
         context["game"] = self.game
         if int(self.request.GET.get('objects-per-page', 0)) > 0:
@@ -244,9 +251,11 @@ class GameSellListView(GameBaseList):
 
     :template:`switchdeck/game_base_list.html`
     '''
+
     extra_context = {'proposition': 'sell'}
 
     def get_queryset(self):
+        """Return queryset of objects to display."""
         return self.game.gamelists_to_sell()
 
 
@@ -269,15 +278,17 @@ class GameBuyListView(GameBaseList):
 
     :template:`switchdeck/game_base_list.html`
     '''
+
     extra_context = {'proposition': 'buy'}
 
     def get_queryset(self):
+        """Return queryset of objects to display."""
         return self.game.gamelists_to_buy()
 
 
 @login_required
 def delete_comment(request, cid: int):
-    """Veiw delete comment on GET"""
+    """Veiw delete comment on GET."""
     comment = get_object_or_404(Comment, id=cid)
     next = request.GET.get('next', reverse('index'))
     if request.user == comment.author.user:
@@ -290,6 +301,7 @@ def delete_comment(request, cid: int):
 
 @login_required
 def set_game(request, glid: int, set_prop: str):
+    """Set new prop to that gamelist."""
     context = dict()
     gamelist = get_object_or_404(GameList, id=glid)
     if request.user != gamelist.profile.user:
@@ -315,7 +327,7 @@ def set_game(request, glid: int, set_prop: str):
         return redirect(gamelist)
     elif set_prop == 's' or set_prop == 'b':
         if request.method == 'POST':
-            form = SetGameListForm(request.POST)
+            form = forms.SetGameListForm(request.POST)
             if form.is_valid():
                 gamelist.prop = set_prop
                 gamelist.desc = form.cleaned_data['desc']
@@ -328,7 +340,7 @@ def set_game(request, glid: int, set_prop: str):
                                  "list")
             return redirect(gamelist)
         else:
-            context['form'] = SetGameListForm(
+            context['form'] = forms.SetGameListForm(
                 {'desc': gamelist.desc, 'price': gamelist.price}
             )
             context['set_prop'] = set_prop
@@ -362,11 +374,16 @@ class PlaceView(DetailView):
 
     :template:`switchdeck/place_detail.html`
     """
+
     model = Place
     slug_field = 'name'
     slug_url_kwarg = 'name'
 
     def get_context_data(self, **kwargs):
+        """Insert related context data.
+
+        Insert `Place `object and lists of related profiles and gamelists.
+        """
         context = super().get_context_data(**kwargs)
         context['profiles'] = Profile.objects.filter(place=self.object)\
             .order_by("user__username")
@@ -390,16 +407,18 @@ class PlacesListView(ListView):
 
     :template:`switchdeck/place_list.html`
     """
+
     model = Place
 
 
 @require_POST
 @login_required
-def change_description(request, glid):
+def change_description(request, glid: int):
+    """View method to change description of gamelist."""
     gl = get_object_or_404(GameList, id=glid)
     if gl.profile != request.user.profile:
         return HttpResponseForbidden
-    form = ChangeDescGamelistForm(request.POST)
+    form = forms.ChangeDescGamelistForm(request.POST)
     if form.is_valid():
         gl.desc = form.cleaned_data['desc']
         gl.update_up_time()
@@ -410,11 +429,12 @@ def change_description(request, glid):
 
 @require_POST
 @login_required
-def change_price(request, glid):
+def change_price(request, glid: int):
+    """View method to price description of gamelist."""
     gl = get_object_or_404(GameList, id=glid)
     if gl.profile != request.user.profile:
         return HttpResponseForbidden
-    form = ChangePriceGamelistForm(request.POST)
+    form = forms.ChangePriceGamelistForm(request.POST)
     if form.is_valid():
         gl.price = form.cleaned_data['price']
         gl.update_up_time()
@@ -424,7 +444,8 @@ def change_price(request, glid):
 
 
 @login_required
-def change_activation(request, glid, activate):
+def change_activation(request, glid: int, activate: bool):
+    """View method to change activation status of gamelist."""
     gl = get_object_or_404(GameList, id=glid)
     if gl.profile != request.user.profile:
         return HttpResponseForbidden
@@ -451,16 +472,20 @@ class GamesView(ListView):
 
     :template:`switchdeck/games.html`
     """
+
     model = Game
     template_name = 'switchdeck/games.html'
     ordering = ['name']
 
 
 class UpdateChangeToView(LoginRequiredMixin, FormView):
+    """Update related change field of gamelist."""
+
     template_name = 'switchdeck/gamelist_change_to.html'
-    form_class = ChangeToForm
+    form_class = forms.ChangeToForm
 
     def setup(self, request, *args, **kwargs):
+        """Initialize atributes or get 404 for nonexisting gamelist."""
         super().setup(request, *args, **kwargs)
         self.object = get_object_or_404(GameList, pk=kwargs['glid'])
         if request.user.is_authenticated\
@@ -468,11 +493,13 @@ class UpdateChangeToView(LoginRequiredMixin, FormView):
             raise PermissionDenied
 
     def get_form_kwargs(self):
+        """Return keyword to install form."""
         kw = super().get_form_kwargs()
         kw['instance'] = self.object
         return kw
 
     def form_valid(self, form):
+        """Change gamelist if form valid."""
         prop = self.object.prop
         changelets = list(form.cleaned_data['changelets'])
         if prop == 'w' or prop == 'b':
@@ -483,6 +510,7 @@ class UpdateChangeToView(LoginRequiredMixin, FormView):
         return super().form_valid(form)
 
     def get_context_data(self, **kwargs):
+        """Initialize context and add additional info there."""
         context = super().get_context_data(**kwargs)
         prop = self.object.prop
         context['object'] = self.object
@@ -493,6 +521,7 @@ class UpdateChangeToView(LoginRequiredMixin, FormView):
         return context
 
     def get_success_url(self):
+        """Return url in succesful case."""
         return self.object.get_absolute_url()
 
 
@@ -511,6 +540,7 @@ def search(request):
 
     :template:`switchdeck/search.html`
     """
+
     if request.method == 'GET':
         context = dict()
         context['form'] = forms.SearchForm

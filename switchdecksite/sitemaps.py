@@ -1,3 +1,8 @@
+"""
+Site sitemap.
+
+XML file with some pages, needed for robots and search services crowlers.
+"""
 from django.contrib.flatpages.sitemaps import FlatPageSitemap
 from django.contrib.sitemaps import Sitemap, GenericSitemap
 from django.urls import reverse
@@ -6,13 +11,17 @@ from switchdeck import models
 
 
 class StaticViewSitemap(Sitemap):
+    """Sitemap for objects and some static pages."""
+
     priority = 0.7
     changefreq = 'always'
 
     def items(self):
+        """Return lis tof sitemapping items."""
         return ['index', 'places', 'users', 'games', 'search']
 
     def location(self, obj):
+        """Return source location of object."""
         return reverse(obj)
 
 

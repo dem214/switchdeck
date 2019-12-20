@@ -1,3 +1,4 @@
+"""List of all used models."""
 import decimal
 
 from django.db import models
@@ -10,17 +11,22 @@ from django.conf import settings
 
 
 class User(AbstractUser):
+    """Class of user.Inherits from AbstractUser login methods and add link
+    to `Profile` instance
+    """
 
     def get_absolute_url(self):
         """
-        Return the URL of User. Refer to the related
-        :model:``switchdeck.Profile`` instance.
+        Return the URL of User.
+
+        Refer to the related :model:``switchdeck.Profile`` instance.
         """
         return reverse('profile', args=[self.get_username()])
 
 
 class Place(models.Model):
     """Represent place for convinient searching."""
+
     name = models.CharField(
         max_length=20,
         unique=True,
@@ -34,6 +40,8 @@ class Place(models.Model):
     )
 
     class Meta():
+        """Meta class for some `Place` class properties."""
+
         # order of descending popularity
         ordering = ['-popularity', 'name']
         verbose_name = _('Place')
@@ -49,7 +57,8 @@ class Place(models.Model):
 
 
 class Profile(models.Model):
-    """Profile have link to User identity and additional information"""
+    """Profile have link to User identity and additional information."""
+
     user = models.OneToOneField(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
@@ -72,6 +81,8 @@ class Profile(models.Model):
                     "gamelists."))
 
     class Meta():
+        """Meta class for some `Profile` class properties."""
+
         verbose_name = _("Profile"),
         verbose_name_plural = _("Profiles")
 
@@ -89,6 +100,8 @@ class Profile(models.Model):
 
     def keep_list(self, with_inactive: bool = False):
         """
+        Return list with keep or sell prop instalnces.
+
         Retrun the list of related :model:`switchdeck.GameList` instances
         marked as ``keep`` or ``sell``.
         """
@@ -101,6 +114,8 @@ class Profile(models.Model):
 
     def wish_list(self, with_inactive: bool = False):
         """
+        Return list with wish or buy prop instances.
+
         Retrun the list of related :model:`switchdeck.GameList` instances
         marked as ``wish`` or ``buy``.
         """
@@ -112,6 +127,8 @@ class Profile(models.Model):
 
     def sell_list(self, with_inactive: bool = False):
         """
+        Return list with sell instances.
+
         Retrun the list of related :model:`switchdeck.GameList` instances
         marked as ``sell``.
         """
@@ -122,6 +139,8 @@ class Profile(models.Model):
 
     def buy_list(self, with_inactive: bool = False):
         """
+        Return list with buy prop instances.
+
         Retrun the list of related :model:`switchdeck.GameList` instances
         marked as ``buy``.
         """
@@ -132,12 +151,16 @@ class Profile(models.Model):
 
     @classmethod
     def create_profile(cls, *args, place: Place, **kwargs):
+        """Create new profile.
+
+        Refers to :model:`swithcdeck.User` `create_user` method
+        """
         user = get_user_model().objects.create_user(*args, **kwargs)
         return cls.objects.create(user=user, place=place)
 
 
 def games_images_path(instance, filename: str) -> str:
-    """Generator of fs path to save image file.
+    """Generate fs path to save image file.
 
     :param instance: Related Game instance.
     :param filename: Name of the posted file.
@@ -149,7 +172,8 @@ def games_images_path(instance, filename: str) -> str:
 
 
 class Game(models.Model):
-    """Stores the information about available games"""
+    """Stores the information about available games."""
+
     name = models.CharField(
         max_length=50,
         unique=True,
@@ -174,11 +198,15 @@ class Game(models.Model):
                     "(nintendo eshop)."))
 
     class Meta():
+        """Meta class for some `Game` class properties."""
+
         verbose_name = _('Game')
         verbose_name_plural = _('Games')
 
     def gamelists_to_sell(self):
         """
+        Return list with gamelists for sell.
+
         Get list of related :model:`switchdeck.GameList` instances marked as
         ``sell``.
         """
@@ -188,6 +216,8 @@ class Game(models.Model):
 
     def gamelists_to_buy(self):
         """
+        Return list with gamelists for buy.
+
         Get list of related :model:`switchdeck.GameList` instances marked as
         ``buy``.
         """
@@ -198,23 +228,29 @@ class Game(models.Model):
     @property
     def underscored_name(self) -> str:
         """
+        Return fs readable names.
+
         Return lowerscale name of game and replaced ' ' to '_' (fs friendly).
         """
         return self.name.replace(" ", "_").lower()
 
     def __repr__(self) -> str:
+        """Readable representation for Game instance."""
         return f"<Game: '{self.name}'>"
 
     def __str__(self) -> str:
+        """Return name of game when printing."""
         return self.name
 
     def get_absolute_url(self) -> str:
-        """Returns the URL there this ``Game`` can founded."""
+        """Return the URL there this ``Game`` can founded."""
         return reverse('game_id', args=[self.id])
 
     @classmethod
     def objects_ordered_by_sell(cls):
         """
+        Return ordered list of all games.
+
         Get list of all games ordered by ammount of active GameLists marked
         as ``sell``.
         """
@@ -234,6 +270,7 @@ class GameList(models.Model):
     such as keep (added to library), wish, sell (setted to sell), buy
     (setted to buy).
     """
+
     PROPS = (
         ('k', 'keep'),
         ('s', 'sell'),
@@ -293,6 +330,8 @@ class GameList(models.Model):
         help_text=_("List of games user want to change this game."))
 
     class Meta:
+        """Meta class for some `Gamelist` class games."""
+
         # last upped - first
         ordering = ['-up_time']
         verbose_name = _('GameList')
@@ -301,37 +340,44 @@ class GameList(models.Model):
     @property
     def place(self) -> Place:
         """
+        Return `Place` property of `Gamelist`.
+
         Related :model:`switchdeck.Place` instance. Setted by ``Profile``
         field instance
         """
         return self.profile.place
 
     def __str__(self) -> str:
+        """Return readable representation of `Gamelist`."""
         return f"{self.profile.user} {self.get_prop_display()} " +\
             f"{self.game.name}"
 
     @property
     def ready_to_sell(self):
+        """Return True, if gamelist ready to sale."""
         return self.prop == 's' and self.active and \
             self.public_date < timezone.now()
 
     def set_keep(self) -> None:
+        """Set `Gamelist` prop to keep."""
         self.prop = 'k'
         self.price = 0.0
         self.change_to.clear()
 
     def get_absolute_url(self) -> str:
-        """The url there leaved info about instance."""
+        """Return url there leaved info about instance."""
         return reverse('gamelist_item', args=[self.id])
 
     def update_up_time(self) -> None:
-        """Method to update ``up_time`` to now."""
+        """Update ``up_time`` to now."""
         self.up_time = timezone.now()
         self.save()
     update_up_time.short_description = _("Update uptime")
 
     def get_change_to_choices(self):
         """
+        Return available variants of change.
+
         Returns all :model:`switchdeck.GameList` instances of related
         ``Profile`` ready to set to change (marked as ``keep`` and ``sell``).
         """
@@ -340,6 +386,8 @@ class GameList(models.Model):
 
     def get_ready_to_change_choices(self):
         """
+        Return available variants of pieces ready to be change.
+
         Returns all :model:`switchdeck.GameList` instances of related
         ``Profile`` ready to set as changable (marked as ``buy`` and ``want``).
         """
@@ -352,6 +400,7 @@ class Comment(models.Model):
     Comment there users can leave comment on the page of
     :view:`switchdeck.views.gamelist_view`.
     """
+
     author = models.ForeignKey(
         Profile,
         on_delete=models.CASCADE,
@@ -375,12 +424,20 @@ class Comment(models.Model):
         help_text=_("Related gamelist."))
 
     class Meta:
+        """Meta properties of class."""
+
         # old first, new last
         ordering = ['timestamp']
         verbose_name = _('Comment')
         verbose_name_plural = _('Comments')
 
     def __str__(self, length: int = 50) -> str:
+        """
+        Return readable presentation of Comment.
+
+        Used for admin pages.
+        Looks like '{Author_name} says {Comment_text}.'
+        """
         said = f"'{self.author.get_username()}' says '{self.text}"
         if len(said) > length - 1:
             said = said[:length-47] + "...'"
@@ -389,9 +446,7 @@ class Comment(models.Model):
         return said
 
     def get_absolute_url(self, opp: int = None) -> str:
-        """
-        Return the URL of page there comment is placed.
-        """
+        """Return the URL of page there comment is placed."""
         if opp is None:
             opp = settings.COMMENTS_PER_PAGE
             opp_query = False

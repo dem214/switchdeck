@@ -1,3 +1,4 @@
+"""All views related to profile user's action such as login logout etc."""
 from django.shortcuts import render, redirect
 from django.views.generic import DetailView, ListView, FormView, UpdateView
 from django.contrib.auth import get_user_model, login
@@ -45,6 +46,7 @@ class UserProfileView(DetailView):
 
     :template:`registration/profile.html`
     """
+
     model = get_user_model()
     # search in db by 'username' field and from 'username' kwarg
     slug_field = 'username'
@@ -53,6 +55,7 @@ class UserProfileView(DetailView):
     context_object_name = 'userprof'
 
     def get_context_data(self, **kwargs):
+        """Insert additional information into context."""
         context = super().get_context_data(**kwargs)
         same_user = (self.object == self.request.user)
         context['keep_list'] = self.object.profile.keep_list(
@@ -68,7 +71,7 @@ class UserProfileView(DetailView):
 
 @login_required
 def profile_redirect(request):
-    """Must to redirect on session user profile page. Rarely use"""
+    """Must to redirect on session user profile page. Rarely use."""
     return redirect(request.user.profile)
 
 
@@ -85,11 +88,13 @@ class SignUpView(FormView):
 
     :template:`registration/signup.html`
     """
+
     template_name = 'registration/signup.html'
     form_class = SignUpForm
     success_url = reverse_lazy('need_confirmation')
 
     def form_valid(self, form):
+        """Save user profile in case of valid form."""
         user = form.save(commit=False)
         user.is_active = False
         user.save()
@@ -111,7 +116,7 @@ class SignUpView(FormView):
 
 
 def activate(request, uid, token):
-    """Profile activation view"""
+    """Profile activation view."""
     try:
         uid = force_text(urlsafe_base64_decode(uid))
         user = get_user_model().objects.get(pk=uid)
@@ -140,6 +145,7 @@ class UsersListView(ListView):
 
     :template:`registration/profile_list.html`
     """
+
     model = Profile
     template_name = 'registration/profile_list.html'
 
@@ -158,20 +164,24 @@ class UpdateProfileView(LoginRequiredMixin, UpdateView):
     **Template**
     :template:`registration/user_form.html`
     """
+
     model = Profile
     form_class = UpdateProfileForm
     template_name = 'registration/user_form.html'
 
     def get_object(self):
+        """Return requested user's `Profile` object."""
         return self.request.user.profile
 
     def get_initial(self):
+        """Prepare form, fill it with needed information."""
         initial = super().get_initial()
         initial['first_name'] = self.object.user.first_name
         initial['last_name'] = self.object.user.last_name
         return initial
 
     def form_valid(self, form):
+        """Save user's `Profile` info in case of valid form."""
         userprof = self.object.user
         userprof.first_name = form.cleaned_data['first_name']
         userprof.last_name = form.cleaned_data['last_name']

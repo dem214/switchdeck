@@ -1,3 +1,4 @@
+"""List and registration of REST api urls."""
 from django.urls import include, path
 from rest_framework import routers
 

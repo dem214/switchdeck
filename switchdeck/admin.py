@@ -1,3 +1,4 @@
+"""Administration method and classes for `switchdeck` app."""
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 
@@ -5,17 +6,23 @@ from .models import Game, GameList, Comment, Profile, Place, User
 
 
 class ProfileInline(admin.StackedInline):
+    """Create profile inlines in user page."""
+
     model = Profile
     can_delete = False
 
 # admin.site.unregister(User)
 @admin.register(User)
 class UserAdmin(BaseUserAdmin):
+    """`User` admin pages with profile inlines."""
+
     inlines = (ProfileInline,)
 
 
 @admin.register(Comment)
 class CommentAdmin(admin.ModelAdmin):
+    """`Comment` class admin pages."""
+
     fields = ['author', 'game_instance', 'text', 'timestamp']
     readonly_fields = ['author', 'game_instance']
     date_hierarchy = 'timestamp'
@@ -27,6 +34,11 @@ class CommentAdmin(admin.ModelAdmin):
 
 
 def update_up_time(modeladmin, request, queryset):
+    """
+    Add method for `CommentAdmin`.
+
+    Add additional button to update uptime of comment.
+    """
     for gl in queryset:
         gl.update_up_time()
 
@@ -36,6 +48,8 @@ update_up_time.short_description = "Update all up_time to now"
 
 @admin.register(GameList)
 class GamelistAdmin(admin.ModelAdmin):
+    """`Gamelist` class admin pages."""
+
     readonly_fields = ['profile']
     # exclude = ['change_to']
     list_display_links = ['profile', 'prop', 'game']
@@ -50,6 +64,8 @@ class GamelistAdmin(admin.ModelAdmin):
 
 @admin.register(Place)
 class PlaceAdmin(admin.ModelAdmin):
+    """`Place` class admin pages."""
+
     list_display = ['popularity', 'name']
     list_display_links = ['name']
     search_fields = ['name']
@@ -58,6 +74,8 @@ class PlaceAdmin(admin.ModelAdmin):
 
 @admin.register(Game)
 class GameAdmin(admin.ModelAdmin):
+    """`Game` class admin pages."""
+
     list_display = ['name']
     ordering = ['name']
     search_fields = ['name']
