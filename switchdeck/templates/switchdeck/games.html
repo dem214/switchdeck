@@ -5,23 +5,27 @@
 
 {% block content %}
 <div class="row">
-  {% for game in object_list %}
-  <div class="col-md-4">
-    <div class="card">
-      {% if game.cover %}
-      <a href="{{game.get_absolute_url}}">
-        <img class="card-img-top" src="{{game.cover.url}}"
-          alt="{{ game.name }} cover">
-      </a>
-      {% endif %}
-      <div class="card-body">
-        <div class="card-text">
-          <a  href="{{game.get_absolute_url}}">{{ game.name|title }}</a>
+  {% if object_list %}
+    {% for game in object_list %}
+    <div class="col-md-4">
+      <div class="card">
+        {% if game.cover %}
+        <a href="{{game.get_absolute_url}}">
+          <img class="card-img-top" src="{{game.cover.url}}"
+            alt="{{ game.name }} cover">
+        </a>
+        {% endif %}
+        <div class="card-body">
+          <div class="card-text">
+            <a  href="{{game.get_absolute_url}}">{{ game.name|title }}</a>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-  {% endfor %}
+    {% endfor %}
+  {% else %}
+    <h2 class="text-muted">{% trans "There are no games :(" %}</h2>
+  {% endif %}
 </div>
 
 <script>

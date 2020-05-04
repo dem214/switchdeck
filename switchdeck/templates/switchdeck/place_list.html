@@ -5,11 +5,15 @@
 
 {% block content %}
 
-<ul>
-  {% for place in object_list %}
-  <li><a href="{{ place.get_absolute_url }}">{{ place.name.title }}</a></li>
-  {% endfor %}
-</ul>
+{% if object_list %}
+  <ul>
+    {% for place in object_list %}
+      <li><a href="{{ place.get_absolute_url }}">{{ place.name.title }}</a></li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <h2 class="text-muted">{% trans "There are no places :(" %}</h2>
+{% endif %}
 
 <script>
   document.getElementById("places-nav-item").classList.add("active")

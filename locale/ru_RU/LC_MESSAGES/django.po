@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-04 14:01+0300\n"
+"POT-Creation-Date: 2020-05-04 15:22+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -128,7 +128,7 @@ msgstr "Устанавливает, можно ли найти лот через
 msgid "Description leaved by the user"
 msgstr "Описание, оставленное пользователем"
 
-#: .\switchdeck\models.py:303
+#: .\switchdeck\models.py:303 .\switchdeck\templates\switchdeck\search.html:38
 msgid "Proposition"
 msgstr "Предложение"
 
@@ -227,7 +227,7 @@ msgid "Email confirmed"
 msgstr "Электронная почта подтверждена"
 
 #: .\switchdeck\templates\registration\login.html:5
-#: .\switchdeck\templates\switchdeck\_base.html:91
+#: .\switchdeck\templates\switchdeck\_base.html:92
 msgid "Login"
 msgstr "Логин"
 
@@ -283,11 +283,16 @@ msgstr "Дополнительно"
 msgid "ready to buy"
 msgstr "для покупки"
 
+#: .\switchdeck\templates\registration\profile_list.html:13
+msgid "There are no users :("
+msgstr "Пользователей здесь нет :("
+
 #: .\switchdeck\templates\registration\register.html:3
 msgid "Register"
 msgstr "Регистрация"
 
 #: .\switchdeck\templates\registration\signup.html:4
+#: .\switchdeck\templates\switchdeck\_base.html:88
 msgid "SignUp"
 msgstr "Войти"
 
@@ -346,6 +351,10 @@ msgstr "больше..."
 msgid "list"
 msgstr "список"
 
+#: .\switchdeck\templates\switchdeck\games.html:27
+msgid "There are no games :("
+msgstr "Игр здесь нет :("
+
 #: .\switchdeck\templates\switchdeck\lot.html:30
 #: .\switchdeck\templates\switchdeck\lot.html:36
 msgid "Change price"
@@ -390,6 +399,49 @@ msgstr "коммент"
 #: .\switchdeck\templates\switchdeck\lot_change_to.html:5
 msgid "Update change list"
 msgstr "Обновить список на обмен"
+
+#: .\switchdeck\templates\switchdeck\place_list.html:15
+msgid "There are no places :("
+msgstr "Местоположений здесь нет :("
+
+#: .\switchdeck\templates\switchdeck\search.html:16
+msgid "You typed not exisiting game name"
+msgstr "Вы напечатали названия игры, которой нет"
+
+#: .\switchdeck\templates\switchdeck\search.html:18
+#: .\switchdeck\templates\switchdeck\search.html:30
+msgid "You picked"
+msgstr "Вы выбрали"
+
+#: .\switchdeck\templates\switchdeck\search.html:18
+#: .\switchdeck\templates\switchdeck\search.html:30
+msgid "all"
+msgstr "все"
+
+#: .\switchdeck\templates\switchdeck\search.html:18
+msgid "games"
+msgstr "игры"
+
+#: .\switchdeck\templates\switchdeck\search.html:20
+#: .\switchdeck\templates\switchdeck\search.html:32
+msgid "Your picked"
+msgstr "Ваш выбор"
+
+#: .\switchdeck\templates\switchdeck\search.html:20
+msgid "game"
+msgstr "игра"
+
+#: .\switchdeck\templates\switchdeck\search.html:28
+msgid "You typed not exisiting place"
+msgstr "Вы напечатали название места, которого нет"
+
+#: .\switchdeck\templates\switchdeck\search.html:32
+msgid "place"
+msgstr "место"
+
+#: .\switchdeck\templates\switchdeck\search.html:47
+msgid "Results"
+msgstr "Результаты"
 
 #: .\switchdeck\templates\switchdeck\set_game.html:5
 msgid "Set game"

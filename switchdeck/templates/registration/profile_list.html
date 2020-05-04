@@ -3,11 +3,15 @@
 {% block title %}{% trans "Profiles" %} | Switchdeck{% endblock %}
 {% block content %}
 
-<ul>
-  {% for profile in object_list %}
-  <li><a href="{{ profile.get_absolute_url }}">{{ profile.get_username }}</a></li>
-  {% endfor %}
-</ul>
+{% if object_list %}
+  <ul>
+    {% for profile in object_list %}
+      <li><a href="{{ profile.get_absolute_url }}">{{ profile.get_username }}</a></li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <h2 class="text-muted">{% trans "There are no users :(" %}</h2>
+{% endif %}
 
 
 <script>
