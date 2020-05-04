@@ -38,14 +38,14 @@ def index(request):
     return render(request, 'switchdeck/index.html', context)
 
 
-def game_id(request, gid):
+def game_slug(request, slug):
     """
     Page with game info.
 
     **Arguments**
 
-    ``gid: int``
-        Primary key of the :model:`switchdeck.Game` instance in database.
+    ``slug: slug``
+        Slug name of the :model:`switchdeck.Game` instance in database.
 
     **Context**
 
@@ -65,7 +65,7 @@ def game_id(request, gid):
 
     :template:`switchdeck/game.html`
     """
-    game = get_object_or_404(Game, pk=gid)
+    game = get_object_or_404(Game, slug=slug)
     context = {'game': game}
     lots_to_sell = game.lots_to_sell()
     lots_to_buy = game.lots_to_buy()
@@ -214,7 +214,7 @@ class GameBaseList(ListView):
     def setup(self, request, *args, **kwargs):
         """Initialize atributes and return 404 for nonexisting games."""
         super().setup(request, *args, **kwargs)
-        self.game = get_object_or_404(Game, pk=self.kwargs['gid'])
+        self.game = get_object_or_404(Game, slug=self.kwargs['slug'])
 
     def get_paginate_by(self, queryset):
         """Generate pagination with requested size."""

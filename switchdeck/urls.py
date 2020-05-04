@@ -9,8 +9,8 @@ urlpatterns = [
     # Index page.
     path('', views.index, name='index'),
     # Page with game info.
-    path('game/<int:gid>/', include([
-        path('', views.game_id, name='game_id'),
+    path('game/<slug:slug>/', include([
+        path('', views.game_slug, name='game_slug'),
         # Additional page with lots to sell
         path('sell-list/', views.GameSellListView.as_view(),
              name='game_sell_list'),

@@ -180,6 +180,11 @@ class Game(models.Model):
         verbose_name=_('Name'),
         help_text=_("Full name of the game in english "
                     "(may look from the shop page)."))
+    slug = models.SlugField(
+        max_length=30,
+        verbose_name="Slug",
+        allow_unicode=False
+    )
     cover = models.ImageField(
         upload_to=games_images_path,
         null=True,
@@ -244,7 +249,7 @@ class Game(models.Model):
 
     def get_absolute_url(self) -> str:
         """Return the URL there this ``Game`` can founded."""
-        return reverse('game_id', args=[self.id])
+        return reverse('game_slug', args=[self.slug])
 
     @classmethod
     def objects_ordered_by_sell(cls):

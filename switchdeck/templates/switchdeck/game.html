@@ -27,20 +27,20 @@
 </div>
 
 {% if sell_list %}
-<a href="{% url 'game_sell_list' game.id%}">
+<a href="{% url 'game_sell_list' game.slug%}">
   Sell list: {{sell_list_count}} lots</a>
 {% for lot in sell_list %}
 {% include 'switchdeck/_lot_card.html'%}
 {% endfor %}
-<p><a href="{% url 'game_sell_list' game.id%}" class="btn btn-primary">{% trans "more..." %}</a></p>
+<p><a href="{% url 'game_sell_list' game.slug%}" class="btn btn-primary">{% trans "more..." %}</a></p>
 {% endif %}
 {% if buy_list %}
-<p><a href="{% url 'game_buy_list' game.id%}"></p>
+<p><a href="{% url 'game_buy_list' game.slug%}"></p>
   Buy list: {{buy_list_count}} lots</a>
 {% for lot in buy_list %}
 {% include 'switchdeck/_lot_card.html'%}
 {% endfor %}
-<p><a href="{% url 'game_buy_list' game.id %}" class="btn btn-primary">{% trans "more..." %}</a></p>
+<p><a href="{% url 'game_buy_list' game.slug %}" class="btn btn-primary">{% trans "more..." %}</a></p>
 {% endif %}
 
 {% endblock %}
