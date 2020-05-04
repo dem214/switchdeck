@@ -50,7 +50,7 @@ update_up_time.short_description = "Update all up_time to now"
 class LotAdmin(admin.ModelAdmin):
     """`Lot` class admin pages."""
 
-    readonly_fields = ['profile']
+    # readonly_fields = ['profile']
     # exclude = ['change_to']
     list_display_links = ['profile', 'prop', 'game']
     date_hierarchy = 'public_date'

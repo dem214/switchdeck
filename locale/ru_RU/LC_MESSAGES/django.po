@@ -29,7 +29,7 @@ msgstr "Название региона или города."
 msgid ""
 "Popularity of place. The higher popularity - the higher this place in place "
 "list."
-msgstr "Популярность места. Чем выше популярность, тем выше место в поиске."
+msgstr "Популярность места. Чем больше популярность, тем выше место в поиске."
 
 #: .\switchdeck\models.py:39
 msgid "Popularity"
@@ -294,7 +294,7 @@ msgstr "Регистрация"
 #: .\switchdeck\templates\registration\signup.html:4
 #: .\switchdeck\templates\switchdeck\_base.html:88
 msgid "SignUp"
-msgstr "Войти"
+msgstr "Регистрация"
 
 #: .\switchdeck\templates\switchdeck\_base.html:10
 msgid "Nintendo Switch games barter and buy/sell."
