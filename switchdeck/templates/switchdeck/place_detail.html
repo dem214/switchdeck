@@ -24,8 +24,8 @@
 {% if sell_list %}
 <h3>Sell list</h3>
 <ul>
-  {% for gamelist in sell_list %}
-  {% include "switchdeck/_gamelist_card.html" %}
+  {% for lot in sell_list %}
+  {% include "switchdeck/_lot_card.html" %}
   {% endfor %}
 </ul>
 {% endif %}
@@ -33,8 +33,8 @@
 {% if buy_list %}
 <h3>Buy list</h3>
 <ul>
-  {% for gamelist in buy_list %}
-  {% include "switchdeck/_gamelist_card.html" %}
+  {% for lot in buy_list %}
+  {% include "switchdeck/_lot_card.html" %}
   {% endfor %}
 </ul>
 {% endif %}

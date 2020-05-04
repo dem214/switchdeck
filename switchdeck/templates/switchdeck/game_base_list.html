@@ -9,12 +9,12 @@
 <div class="card-group">
 
 </div>
-{% for gamelist in object_list %}
-{% include 'switchdeck/_gamelist_card.html'%}
+{% for lot in object_list %}
+    {% include 'switchdeck/_lot_card.html'%}
 {% endfor %}
 <!--Pagination-->
 {% if is_paginated %}
-{% include "switchdeck/_pagination.html" %}
+    {% include "switchdeck/_pagination.html" %}
 {% endif %}
 
 {% endblock %}

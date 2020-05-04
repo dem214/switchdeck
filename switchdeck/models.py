@@ -69,7 +69,7 @@ class Profile(models.Model):
     games = models.ManyToManyField(
         "Game",
         related_name="owners",
-        related_query_name="owner", through="GameList",
+        related_query_name="owner", through="Lot",
         verbose_name=_("Games"),
         help_text=_("All games user have"))
     place = models.ForeignKey(
@@ -78,7 +78,7 @@ class Profile(models.Model):
         default=1,
         verbose_name=_("Place"),
         help_text=_("Place of registration of user. Place of all his "
-                    "gamelists."))
+                    "lots."))
 
     class Meta():
         """Meta class for some `Profile` class properties."""
@@ -102,10 +102,10 @@ class Profile(models.Model):
         """
         Return list with keep or sell prop instalnces.
 
-        Retrun the list of related :model:`switchdeck.GameList` instances
+        Retrun the list of related :model:`switchdeck.Lot` instances
         marked as ``keep`` or ``sell``.
         """
-        query = self.gamelist_set.filter(
+        query = self.lot_set.filter(
             models.Q(prop='k') | models.Q(prop='s')
         )
         if not with_inactive:
@@ -116,10 +116,10 @@ class Profile(models.Model):
         """
         Return list with wish or buy prop instances.
 
-        Retrun the list of related :model:`switchdeck.GameList` instances
+        Retrun the list of related :model:`switchdeck.Lot` instances
         marked as ``wish`` or ``buy``.
         """
-        query = self.gamelist_set.filter(
+        query = self.lot_set.filter(
             models.Q(prop='w') | models.Q(prop='b'))
         if not with_inactive:
             query = query.filter(active=True)
@@ -129,10 +129,10 @@ class Profile(models.Model):
         """
         Return list with sell instances.
 
-        Retrun the list of related :model:`switchdeck.GameList` instances
+        Retrun the list of related :model:`switchdeck.Lot` instances
         marked as ``sell``.
         """
-        query = self.gamelist_set.filter(prop='s')
+        query = self.lot_set.filter(prop='s')
         if not with_inactive:
             query = query.filter(active=True)
         return query.order_by('-public_date')
@@ -141,10 +141,10 @@ class Profile(models.Model):
         """
         Return list with buy prop instances.
 
-        Retrun the list of related :model:`switchdeck.GameList` instances
+        Retrun the list of related :model:`switchdeck.Lot` instances
         marked as ``buy``.
         """
-        query = self.gamelist_set.filter(prop='b')
+        query = self.lot_set.filter(prop='b')
         if not with_inactive:
             query = query.filter(active=True)
         return query.order_by('-public_date')
@@ -203,25 +203,25 @@ class Game(models.Model):
         verbose_name = _('Game')
         verbose_name_plural = _('Games')
 
-    def gamelists_to_sell(self):
+    def lots_to_sell(self):
         """
-        Return list with gamelists for sell.
+        Return list with lots for sell.
 
-        Get list of related :model:`switchdeck.GameList` instances marked as
+        Get list of related :model:`switchdeck.Lot` instances marked as
         ``sell``.
         """
-        return self.gamelist_set.filter(active__exact=True).\
+        return self.lot_set.filter(active__exact=True).\
             filter(public_date__lte=timezone.now()).\
             filter(prop='s')
 
-    def gamelists_to_buy(self):
+    def lots_to_buy(self):
         """
-        Return list with gamelists for buy.
+        Return list with lots for buy.
 
-        Get list of related :model:`switchdeck.GameList` instances marked as
+        Get list of related :model:`switchdeck.Lot` instances marked as
         ``buy``.
         """
-        return self.gamelist_set.filter(active__exact=True).\
+        return self.lot_set.filter(active__exact=True).\
             filter(public_date__lte=timezone.now()).\
             filter(prop='b')
 
@@ -251,21 +251,21 @@ class Game(models.Model):
         """
         Return ordered list of all games.
 
-        Get list of all games ordered by ammount of active GameLists marked
+        Get list of all games ordered by ammount of active Lots marked
         as ``sell``.
         """
         return cls.objects.annotate(
             num_of_sales=models.Count(
-                'gamelist',
-                filter=models.Q(gamelist__prop='s')
-                & models.Q(gamelist__public_date__lte=timezone.now())
-                & models.Q(gamelist__active=True)))\
+                'lot',
+                filter=models.Q(lot__prop='s')
+                & models.Q(lot__public_date__lte=timezone.now())
+                & models.Q(lot__active=True)))\
             .order_by('-num_of_sales')
 
 
-class GameList(models.Model):
+class Lot(models.Model):
     """
-    ``GameList`` represent the relation between ``Profile``
+    ``Lot`` represent the relation between ``Profile``
     (:model:`switchdeck.Profile`) and `Game` (:model:`switchdeck.Game`)
     such as keep (added to library), wish, sell (setted to sell), buy
     (setted to buy).
@@ -281,7 +281,7 @@ class GameList(models.Model):
         Profile,
         on_delete=models.CASCADE,
         verbose_name=_('Profile'),
-        help_text=_("Related Profile. Represent the owner of ``GameList`` "
+        help_text=_("Related Profile. Represent the owner of ``Lot`` "
                     "instance"))
     game = models.ForeignKey(
         Game,
@@ -301,7 +301,7 @@ class GameList(models.Model):
         choices=PROPS,
         default='k',
         verbose_name=_('Proposition'),
-        help_text=_("Proposition of gamelist - what user want to do with this "
+        help_text=_("Proposition of lot - what user want to do with this "
                     "game."))
     price = models.DecimalField(
         max_digits=6,
@@ -317,8 +317,8 @@ class GameList(models.Model):
     up_time = models.DateTimeField(
         default=timezone.now,
         verbose_name=_('Up time'),
-        help_text=_("Up time show last activity from the gamelist. "
-                    "The newest up time - the highest this gamelist in lists. "
+        help_text=_("Up time show last activity from the lot. "
+                    "The newest up time - the highest this lot in lists. "
                     "Up time update from each comment, updating or etc."))
     change_to = models.ManyToManyField(
         "self",
@@ -330,17 +330,17 @@ class GameList(models.Model):
         help_text=_("List of games user want to change this game."))
 
     class Meta:
-        """Meta class for some `Gamelist` class games."""
+        """Meta class for some `Lot` class games."""
 
         # last upped - first
         ordering = ['-up_time']
-        verbose_name = _('GameList')
-        verbose_name_plural = _('GameLists')
+        verbose_name = _('Lot')
+        verbose_name_plural = _('Lots')
 
     @property
     def place(self) -> Place:
         """
-        Return `Place` property of `Gamelist`.
+        Return `Place` property of `Lot`.
 
         Related :model:`switchdeck.Place` instance. Setted by ``Profile``
         field instance
@@ -348,25 +348,25 @@ class GameList(models.Model):
         return self.profile.place
 
     def __str__(self) -> str:
-        """Return readable representation of `Gamelist`."""
+        """Return readable representation of `Lot`."""
         return f"{self.profile.user} {self.get_prop_display()} " +\
             f"{self.game.name}"
 
     @property
     def ready_to_sell(self):
-        """Return True, if gamelist ready to sale."""
+        """Return True, if lot ready to sale."""
         return self.prop == 's' and self.active and \
             self.public_date < timezone.now()
 
     def set_keep(self) -> None:
-        """Set `Gamelist` prop to keep."""
+        """Set `Lot` prop to keep."""
         self.prop = 'k'
         self.price = 0.0
         self.change_to.clear()
 
     def get_absolute_url(self) -> str:
         """Return url there leaved info about instance."""
-        return reverse('gamelist_item', args=[self.id])
+        return reverse('lot_item', args=[self.id])
 
     def update_up_time(self) -> None:
         """Update ``up_time`` to now."""
@@ -378,27 +378,27 @@ class GameList(models.Model):
         """
         Return available variants of change.
 
-        Returns all :model:`switchdeck.GameList` instances of related
+        Returns all :model:`switchdeck.Lot` instances of related
         ``Profile`` ready to set to change (marked as ``keep`` and ``sell``).
         """
-        return self.profile.gamelist_set.filter(
+        return self.profile.lot_set.filter(
             models.Q(prop='k') | models.Q(prop='s'))
 
     def get_ready_to_change_choices(self):
         """
         Return available variants of pieces ready to be change.
 
-        Returns all :model:`switchdeck.GameList` instances of related
+        Returns all :model:`switchdeck.Lot` instances of related
         ``Profile`` ready to set as changable (marked as ``buy`` and ``want``).
         """
-        return self.profile.gamelist_set.filter(
+        return self.profile.lot_set.filter(
             models.Q(prop='b') | models.Q(prop='w'))
 
 
 class Comment(models.Model):
     """
     Comment there users can leave comment on the page of
-    :view:`switchdeck.views.gamelist_view`.
+    :view:`switchdeck.views.lot_view`.
     """
 
     author = models.ForeignKey(
@@ -414,14 +414,14 @@ class Comment(models.Model):
     text = models.TextField(
         max_length=300,
         verbose_name=_('Text'))
-    game_instance = models.ForeignKey(
-        GameList,
+    lot = models.ForeignKey(
+        Lot,
         on_delete=models.CASCADE,
         related_name='comments',
         related_query_name='comment',
         editable=False,
-        verbose_name=_("GameList"),
-        help_text=_("Related gamelist."))
+        verbose_name=_("Lot"),
+        help_text=_("Related lot."))
 
     class Meta:
         """Meta properties of class."""
@@ -453,7 +453,7 @@ class Comment(models.Model):
         else:
             opp_query = "&objects-per-page=" + str(opp)
         comment_query = "#comment_" + str(self.id)
-        gamelist_query = self.game_instance.get_absolute_url()
+        lot_query = self.lot.get_absolute_url()
         comment_index = list(self.game_instance.comments.all()).index(self)
         page = comment_index // opp + 1
         if page > 1:
@@ -461,7 +461,7 @@ class Comment(models.Model):
         else:
             page_query = False
 
-        query = gamelist_query
+        query = lot_query
         if opp_query or page_query:
             query += '?'
             if page_query:

@@ -2,11 +2,11 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 
-from .models import Comment, GameList, User, Profile, Game, Place
+from .models import Comment, Lot, User, Profile, Game, Place
 
 
 class CommentForm(forms.ModelForm):
-    """Form for comments on `Gamelist` page."""
+    """Form for comments on `Lot` page."""
 
     class Meta():
         """Metaclass for `CommentForm` class properties."""
@@ -15,37 +15,37 @@ class CommentForm(forms.ModelForm):
         fields = ['text']
 
 
-class GameListForm(forms.ModelForm):
-    """Form to create new `GameListFrom`."""
+class LotForm(forms.ModelForm):
+    """Form to create new `LotFrom`."""
 
     class Meta():
-        """Metaclass for `GameListForm` class properties."""
+        """Metaclass for `GLotForm` class properties."""
 
-        model = GameList
+        model = Lot
         fields = ['game', 'desc', 'prop', 'price']
 
 
-class GameListReducedForm(forms.ModelForm):
+class LotReducedForm(forms.ModelForm):
     """
-    Reduced form for create `Gamelist`.
+    Reduced form for create `Lot`.
 
     Not include `prop` and `price`
     """
 
     class Meta():
-        """Metaclass for `GameListReducedForm` class properties."""
+        """Metaclass for `LotReducedForm` class properties."""
 
-        model = GameList
+        model = Lot
         fields = ['game', 'desc']
 
 
-class SetGameListForm(forms.ModelForm):
-    """Form of `Gamelist` to set parameters."""
+class SetLotForm(forms.ModelForm):
+    """Form of `Lot` to set parameters."""
 
     class Meta():
-        """Metaclass for `SetGameListForm` class properties."""
+        """Metaclass for `SetLotForm` class properties."""
 
-        model = GameList
+        model = Lot
         fields = ['desc', 'price']
 
 
@@ -59,23 +59,23 @@ class SignUpForm(UserCreationForm):
         fields = ('username', 'email', 'password1', 'password2')
 
 
-class ChangeDescGamelistForm(forms.ModelForm):
-    """Form to change description of `GameList`."""
+class ChangeDescLotForm(forms.ModelForm):
+    """Form to change description of `Lot`."""
 
     class Meta():
-        """Metaclass for `ChangeDescGamelistForm` class properties."""
+        """Metaclass for `ChangeDescLotForm` class properties."""
 
-        model = GameList
+        model = Lot
         fields = ['desc']
 
 
-class ChangePriceGamelistForm(forms.ModelForm):
-    """Form to change price of `Gamelist`."""
+class ChangePriceLotForm(forms.ModelForm):
+    """Form to change price of `Lot`."""
 
     class Meta():
-        """Metaclass for `ChangePriceGamelistForm` class properties."""
+        """Metaclass for `ChangePriceLotForm` class properties."""
 
-        model = GameList
+        model = Lot
         fields = ['price']
 
 
@@ -93,7 +93,7 @@ class UpdateProfileForm(forms.ModelForm):
 
 
 class ChangeToForm(forms.Form):
-    """Form contained by available variants of changable `Gamelists`."""
+    """Form contained by available variants of changable `Lots`."""
 
     changelets = forms.ModelMultipleChoiceField(queryset=None, required=False)
 
@@ -131,7 +131,7 @@ class DatalistWidget(forms.TextInput):
 
 
 class SearchForm(forms.Form):
-    """Form from search of `Gamelists` page."""
+    """Form from search of `Lots` page."""
 
     game = forms.CharField(required=False)
     place = forms.CharField(required=False)

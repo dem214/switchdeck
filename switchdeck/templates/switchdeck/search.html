@@ -44,10 +44,10 @@
       all
     {% endif %}
   </strong></p>
-  <p>Results: {{ gamelists.count }}</p>
-  {% if gamelists.count > 0 %}
-    {% for gamelist in gamelists %}
-      {% include "switchdeck/_gamelist_card.html" %}
+  <p>Results: {{ lots.count }}</p>
+  {% if lots.count > 0 %}
+    {% for lot in lots %}
+      {% include "switchdeck/_lot_card.html" %}
     {% endfor %}
   {% else %}
     <p>Sorry, but no results. Try again.</p>

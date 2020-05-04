@@ -8,7 +8,7 @@ router = routers.DefaultRouter()
 router.register('places', api_views.PlaceViewSet)
 router.register('profiles', api_views.ProfileViewSet)
 router.register('games', api_views.GameViewSet)
-router.register('lots', api_views.GameListViewSet)
+router.register('lots', api_views.LotViewSet)
 router.register('users', api_views.UserViewSet)
 router.register('comments', api_views.CommentViewSet)
 

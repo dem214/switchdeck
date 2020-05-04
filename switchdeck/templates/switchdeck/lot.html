@@ -6,7 +6,7 @@
 {% block title %}Lot {{ object.id }} | Place | SwitchDeck{% endblock %}
 
 {% block admin_link %}<li>
-  <a class="btn btn-outline-danger" href="{% url 'admin:switchdeck_gamelist_change' object.id%}">
+  <a class="btn btn-outline-danger" href="{% url 'admin:switchdeck_lot_change' object.id%}">
     {% trans "Change on admin site" %}
   </a>
 </li>
@@ -14,7 +14,7 @@
 
 {% block content %}
 
-<!-- Gamelist item info -->
+<!-- Lot item info -->
 <a href="{{ object.profile.get_absolute_url }}">
   {{ object.profile.get_username }}
 </a>
@@ -79,7 +79,7 @@
 
 <!-- Change-to button -->
 {% if user.is_authenticated and user == object.profile.user %}
-<p><a href="{% url 'gamelist_change_to' object.id%}" class="btn btn-primary">Set changing</a></p>
+<p><a href="{% url 'lot_change_to' object.id%}" class="btn btn-primary">Set changing</a></p>
 {% endif %}
 
  <p>{{object.desc}}</p>
@@ -199,7 +199,7 @@
 
   <!--Add a comment -->
   {% if user.is_authenticated %}
-    <form action="{% url 'gamelist_item' object.id %}" method="post">
+    <form action="{% url 'lot_item' object.id %}" method="post">
       {% csrf_token %}
       {{ form| crispy }}
       <br>

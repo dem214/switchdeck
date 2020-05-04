@@ -11,24 +11,24 @@ urlpatterns = [
     # Page with game info.
     path('game/<int:gid>/', include([
         path('', views.game_id, name='game_id'),
-        # Additional page with gamelists to sell
+        # Additional page with lots to sell
         path('sell-list/', views.GameSellListView.as_view(),
              name='game_sell_list'),
         # Additional list with gamelsists to buy.
         path('buy-list/', views.GameBuyListView.as_view(),
              name='game_buy_list')
     ])),
-    # Gamelist page.
-    path('lot/<int:glid>/', views.gamelist_view, name='gamelist_item'),
-    # Page to add gamelist to keep list.
+    # Lot page.
+    path('lot/<int:glid>/', views.lot_view, name='lot_item'),
+    # Page to add lot to keep list.
     path('add-game/keep/', views.add_game_reduced, {'prop': 'k'},
          name='add_game_keep'),
-    # Page to add gamelist to wish list.
+    # Page to add lot to wish list.
     path('add-game/wish/', views.add_game_reduced, {'prop': 'w'},
          name='add_game_wish'),
-    # Page to add gamelist to generic list.
+    # Page to add lot to generic list.
     path('add-game/', views.add_game, name='add_game'),
-    # Setting existig gamelist to another prop
+    # Setting existig lot to another prop
     path('set-game/<int:glid>/', include([
         path('to-sell/', views.set_game, {'set_prop': 's'},
              name="set_game_to_sell"),
@@ -39,7 +39,7 @@ urlpatterns = [
         path('to-wish/', views.set_game, {'set_prop': 'w'},
              name="set_game_to_wish")
     ])),
-    # URL to delete gamelist
+    # URL to delete lot
     path('delete-game/<int:glid>/', views.delete_game, name='delete_game'),
     # Page with profile info.
     path('accounts/profile/<str:username>/',
@@ -68,7 +68,7 @@ urlpatterns = [
     path('place/', views.PlacesListView.as_view(), name='places'),
     # Page with list of all accounts.
     path('accounts/', profile_views.UsersListView.as_view(), name='users'),
-    # URL to change some info of gamelist.
+    # URL to change some info of lot.
     path('lot/<int:glid>/change/', include([
         path('description/', views.change_description,
              name='change_description'),
@@ -78,7 +78,7 @@ urlpatterns = [
         path('deactivate/', views.change_activation, {'activate': False},
              name='change_deactivate'),
         path('change-to/', views.UpdateChangeToView.as_view(),
-             name='gamelist_change_to')
+             name='lot_change_to')
     ])),
     # URL to update profile info
     path('accounts/update-profile/',
@@ -86,7 +86,7 @@ urlpatterns = [
          name='update_profile'),
     # Page with all games.
     path('games/', views.GamesView.as_view(), name='games'),
-    # Gamelist search page/
+    # Lots search page/
     path('search/', views.search, name='search'),
     # REST api urls.
     path('api/v1/', include(api_urls.urlpatterns))

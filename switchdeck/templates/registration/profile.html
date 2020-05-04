@@ -37,28 +37,28 @@
 {% if keep_list %}
 <h3>Keep list</h3>
 <div class="row">
-  {% for gamelist in keep_list %}
+  {% for lot in keep_list %}
   <div class="col-md-3">
     <div class="card">
-      {% if gamelist.game.cover %}
-      <img src="{{ gamelist.game.cover.url }}"
-        alt="{{ gamelist.game.name }} {% trans 'cover' %}"
+      {% if lot.game.cover %}
+      <img src="{{ lot.game.cover.url }}"
+        alt="{{ lot.game.name }} {% trans 'cover' %}"
         class="card-img-top"
-        href="{{ gamelist.game.get_absolute_url }}">
+        href="{{ lot.game.get_absolute_url }}">
       {% endif %}
       <div class="card-body">
         <p class="card-text">
-          <a href="{{ gamelist.game.get_absolute_url }}">
-            {{ gamelist.game.name }}
+          <a href="{{ lot.game.get_absolute_url }}">
+            {{ lot.game.name }}
           </a>
-          {% if gamelist.prop == 's' %}<span class="badge badge-secondary">
+          {% if lot.prop == 's' %}<span class="badge badge-secondary">
             {% trans "for sell" %}
           </span>{% endif %}
-          {% if not gamelist.active %}<span class="badge badge-warning">
+          {% if not lot.active %}<span class="badge badge-warning">
             {% trans "inactive" %}
           </span> {% endif %}
         </p>
-        <a href="{{ gamelist.get_absolute_url }}" class="btn btn-primary">
+        <a href="{{ lot.get_absolute_url }}" class="btn btn-primary">
           {% trans "View more" %}
         </a>
       </div>
@@ -71,28 +71,28 @@
 {% if wish_list %}
 <h3>Wish list</h3>
 <div class="row">
-  {% for gamelist in wish_list %}
+  {% for lot in wish_list %}
   <div class="col-md-3">
     <div class="card">
-      {% if gamelist.game.cover %}
-      <img src="{{ gamelist.game.cover.url }}"
-        alt="{{ gamelist.game.name }} {% trans 'cover' %}"
+      {% if lot.game.cover %}
+      <img src="{{ lot.game.cover.url }}"
+        alt="{{ lot.game.name }} {% trans 'cover' %}"
         class="card-img-top"
-        href="{{ gamelist.game.get_absolute_url }}">
+        href="{{ lot.game.get_absolute_url }}">
       {% endif %}
       <div class="card-body">
         <p class="card-text">
-          <a href="{{ gamelist.game.get_absolute_url }}">
-            {{ gamelist.game.name }}
+          <a href="{{ lot.game.get_absolute_url }}">
+            {{ lot.game.name }}
           </a>
-          {% if gamelist.prop == 'b' %}<span class="badge badge-secondary">
+          {% if lot.prop == 'b' %}<span class="badge badge-secondary">
             {% trans "ready to buy" %}
           </span>{% endif %}
-          {% if not gamelist.active %}<span class="badge badge-warning">
+          {% if not lot.active %}<span class="badge badge-warning">
             {% trans "inactive" %}
           </span> {% endif %}
         </p>
-        <a href="{{ gamelist.get_absolute_url }}" class="btn btn-primary">
+        <a href="{{ lot.get_absolute_url }}" class="btn btn-primary">
           {% trans "View more" %}
         </a>
       </div>
@@ -105,25 +105,25 @@
 {% if sell_list %}
 <h3>Sell list</h3>
 <div class="row">
-  {% for gamelist in sell_list %}
+  {% for lot in sell_list %}
   <div class="col-md-3">
     <div class="card">
-      {% if gamelist.game.cover %}
-      <img src="{{ gamelist.game.cover.url }}"
-        alt="{{ gamelist.game.name }} {% trans 'cover' %}"
+      {% if lot.game.cover %}
+      <img src="{{ lot.game.cover.url }}"
+        alt="{{ lot.game.name }} {% trans 'cover' %}"
         class="card-img-top"
-        href="{{ gamelist.game.get_absolute_url }}">
+        href="{{ lot.game.get_absolute_url }}">
       {% endif %}
       <div class="card-body">
         <p class="card-text">
-          <a href="{{ gamelist.game.get_absolute_url }}">
-            {{ gamelist.game.name }}
+          <a href="{{ lot.game.get_absolute_url }}">
+            {{ lot.game.name }}
           </a>
-          {% if not gamelist.active %}<span class="badge badge-warning">
+          {% if not lot.active %}<span class="badge badge-warning">
             {% trans "inactive" %}
           </span>{% endif %}
         </p>
-        <a href="{{ gamelist.get_absolute_url }}" class="btn btn-primary">
+        <a href="{{ lot.get_absolute_url }}" class="btn btn-primary">
           {% trans "View more" %}
         </a>
       </div>
@@ -136,25 +136,25 @@
 {% if buy_list %}
 <h3>Buy list</h3>
 <div class="row">
-  {% for gamelist in buy_list %}
+  {% for lot in buy_list %}
   <div class="col-md-3">
     <div class="card">
-      {% if gamelist.game.cover %}
-      <img src="{{ gamelist.game.cover.url }}"
-        alt="{{ gamelist.game.name }} {% trans 'cover' %}"
+      {% if lot.game.cover %}
+      <img src="{{ lot.game.cover.url }}"
+        alt="{{ lot.game.name }} {% trans 'cover' %}"
         class="card-img-top"
-        href="{{ gamelist.game.get_absolute_url }}">
+        href="{{ lot.game.get_absolute_url }}">
       {% endif %}
       <div class="card-body">
         <p class="card-text">
-          <a href="{{ gamelist.game.get_absolute_url }}">
-            {{ gamelist.game.name }}
+          <a href="{{ lot.game.get_absolute_url }}">
+            {{ lot.game.name }}
           </a>
-          {% if not gamelist.active %}<span class="badge badge-warning">
+          {% if not lot.active %}<span class="badge badge-warning">
             {% trans "inactive" %}
           </span>{% endif %}
         </p>
-        <a href="{{ gamelist.get_absolute_url }}" class="btn btn-primary">
+        <a href="{{ lot.get_absolute_url }}" class="btn btn-primary">
           {% trans "View more" %}
         </a>
       </div>

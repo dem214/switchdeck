@@ -25,13 +25,13 @@ class GameSerializer(serializers.HyperlinkedModelSerializer):
         fields = ['url', 'id', 'name', 'cover', 'description', 'eshop_url']
 
 
-class GameListSerializer(serializers.HyperlinkedModelSerializer):
-    """Serializer/Desirializer of ``GameList`` model."""
+class LotSerializer(serializers.HyperlinkedModelSerializer):
+    """Serializer/Desirializer of ``Lot`` model."""
 
     class Meta:
-        """Metaclass for `GameListSerializer` class with additional info."""
+        """Metaclass for `LotSerializer` class with additional info."""
 
-        model = models.GameList
+        model = models.Lot
         fields = ['url', 'id', 'profile', 'game', 'active', 'desc', 'prop',
                   'price', 'public_date', 'up_time', 'change_to', 'comments']
 
@@ -53,7 +53,7 @@ class ProfileSerializer(serializers.HyperlinkedModelSerializer):
         """Metaclass for `ProfileSerializer` class with additional info."""
 
         model = models.Profile
-        fields = ['url', 'id', 'user', 'place', 'gamelist_set']
+        fields = ['url', 'id', 'user', 'place', 'lot_set']
 
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):

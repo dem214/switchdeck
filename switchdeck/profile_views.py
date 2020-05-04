@@ -30,16 +30,16 @@ class UserProfileView(DetailView):
     ``userprof``
         Related :model:`switchdeck.Profile` instances.
     ``keep_list``
-        List of profile's :model:`switchdeck/GameList` instances marked as
+        List of profile's :model:`switchdeck/Lot` instances marked as
         ``keep`` and ``sell``.
     ``wish_list``
-        List of profile's :model:`switchdeck/GameList` instances marked as
+        List of profile's :model:`switchdeck/Lot` instances marked as
         ``wish`` and ``buy``.
     ``sell_list``
-        List of profile's :model:`switchdeck/GameList` instances marked as
+        List of profile's :model:`switchdeck/Lot` instances marked as
         ``sell``.
     ``buy_list``
-        List of profile's :model:`switchdeck/GameList` instances marked as
+        List of profile's :model:`switchdeck/Lot` instances marked as
         ``buy``.
 
     **Template**

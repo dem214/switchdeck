@@ -78,11 +78,11 @@ class GameViewSet(viewsets.ModelViewSet):
                           IsStuffOrReadOnly]
 
 
-class GameListViewSet(viewsets.ModelViewSet):
-    """List of api views for ``GameList`` model."""
+class LotViewSet(viewsets.ModelViewSet):
+    """List of api views for ``Lot`` model."""
 
-    queryset = models.GameList.objects.all()
-    serializer_class = serializer.GameListSerializer
+    queryset = models.Lot.objects.all()
+    serializer_class = serializer.LotSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly,
                           IsOwnerProfileOrReadOnly]
 

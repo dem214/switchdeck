@@ -36,8 +36,8 @@ sitemaps = {
         {'queryset': models.Game.objects.all()},
         priority=0.8,
         changefreq='always'),
-    'gamelist': GenericSitemap(
-        {'queryset': models.GameList.objects.filter(active=True),
+    'lot': GenericSitemap(
+        {'queryset': models.Lot.objects.filter(active=True),
          'date_field': 'up_time'},
         priority=0.5,
         changefreq='always'),

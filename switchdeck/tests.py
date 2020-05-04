@@ -5,7 +5,7 @@ from django.test import TestCase, Client
 from django.utils import timezone
 from django.core import mail
 
-from .models import Game, GameList, Profile, Place
+from .models import Game, Lot, Profile, Place
 
 
 class ModelsTest(TestCase):
@@ -23,17 +23,17 @@ class ModelsTest(TestCase):
         self.john = Profile.create_profile('john', 'john@example.com',
                                            'passwordjohn', place=minsk)
 
-        GameList.objects.create(game=self.tloz, profile=self.john)
-        self.only_s_gamelsit = GameList.objects.create(
+        Lot.objects.create(game=self.tloz, profile=self.john)
+        self.only_s_gamelsit = Lot.objects.create(
             game=self.only_one_to_sell_and_buy,
             profile=self.john, prop='s')
-        self.only_b_gamelist = GameList.objects.create(
+        self.only_b_lot = Lot.objects.create(
             game=self.only_one_to_sell_and_buy,
             profile=self.john, prop='b')
-        self.inactive_john_gamelist = GameList.objects.create(
+        self.inactive_john_lot = Lot.objects.create(
             game=self.only_one_to_sell_and_buy,
             profile=self.john, active=False, prop='s')
-        self.future_john_gamelist = GameList.objects.create(
+        self.future_john_lot = Lot.objects.create(
             game=self.only_one_to_sell_and_buy,
             profile=self.john,
             public_date=timezone.now() + timedelta(days=1),
@@ -52,23 +52,23 @@ class ModelsTest(TestCase):
 
     def test_game_sell_list(self):
         self.assertIn(self.only_s_gamelsit,
-                      self.only_one_to_sell_and_buy.gamelists_to_sell())
-        self.assertEqual(self.only_one_to_sell_and_buy.gamelists_to_buy().
+                      self.only_one_to_sell_and_buy.lots_to_sell())
+        self.assertEqual(self.only_one_to_sell_and_buy.lots_to_buy().
                          count(), 1)
 
     def test_game_buy_list(self):
-        self.assertIn(self.only_b_gamelist,
-                      self.only_one_to_sell_and_buy.gamelists_to_buy())
-        self.assertEqual(self.only_one_to_sell_and_buy.gamelists_to_buy().
+        self.assertIn(self.only_b_lot,
+                      self.only_one_to_sell_and_buy.lots_to_buy())
+        self.assertEqual(self.only_one_to_sell_and_buy.lots_to_buy().
                          count(), 1)
 
     def test_game_sell_list_with_inactive(self):
-        self.assertNotIn(self.inactive_john_gamelist,
-                         self.only_one_to_sell_and_buy.gamelists_to_sell())
+        self.assertNotIn(self.inactive_john_lot,
+                         self.only_one_to_sell_and_buy.lots_to_sell())
 
     def test_game_buy_list_with_future(self):
-        self.assertNotIn(self.future_john_gamelist,
-                         self.only_one_to_sell_and_buy.gamelists_to_buy())
+        self.assertNotIn(self.future_john_lot,
+                         self.only_one_to_sell_and_buy.lots_to_buy())
 
     def test_underscored_game_name(self):
         game = Game(name="Some great name")
@@ -82,34 +82,31 @@ class ModelsTest(TestCase):
     def test_game_oredered_objects_by_sell(self):
         gaem2 = Game.objects.create(name='name2')
         gaem1 = Game.objects.create(name='name1')
-        GameList.objects.create(game=gaem2, profile=self.john, prop='s')
-        GameList.objects.create(game=gaem2, profile=self.john, prop='s',
+        Lot.objects.create(game=gaem2, profile=self.john, prop='s')
+        Lot.objects.create(game=gaem2, profile=self.john, prop='s',
                                 active=False)
-        GameList.objects.create(game=gaem2, profile=self.john, prop='s',
+        Lot.objects.create(game=gaem2, profile=self.john, prop='s',
                                 public_date=timezone.now()+timedelta(days=1))
-        GameList.objects.create(game=gaem2, profile=self.john, prop='b')
-        GameList.objects.create(game=gaem1, profile=self.john, prop='s')
-        GameList.objects.create(game=gaem1, profile=self.john, prop='s')
+        Lot.objects.create(game=gaem2, profile=self.john, prop='b')
+        Lot.objects.create(game=gaem1, profile=self.john, prop='s')
+        Lot.objects.create(game=gaem1, profile=self.john, prop='s')
         set = list(Game.objects_ordered_by_sell())
         self.assertLess(set.index(gaem1), set.index(gaem2), "oreder is broken")
         gaem1.delete()
         gaem2.delete()
 
-    def test_gamelist_ready_to_sell(self):
+    def test_lot_ready_to_sell(self):
         game = Game(name='name')
-        self.assertTrue(GameList(
-                            game=game, profile=self.john, prop='s',
+        self.assertTrue(Lot(game=game, profile=self.john, prop='s',
                             public_date=timezone.now() - timedelta(minutes=5))
                         .ready_to_sell)
-        self.assertFalse(GameList(game=game, profile=self.john, prop='b')
+        self.assertFalse(Lot(game=game, profile=self.john, prop='b')
                          .ready_to_sell)
-        self.assertFalse(GameList(
-                            game=game, profile=self.john, prop='b',
-                            active=False)
+        self.assertFalse(Lot(game=game, profile=self.john, prop='b',
+                             active=False)
                          .ready_to_sell)
-        self.assertFalse(GameList(
-                            game=game, profile=self.john, prop='b',
-                            public_date=timezone.now()+timedelta(days=1))
+        self.assertFalse(Lot(game=game, profile=self.john, prop='b',
+                             public_date=timezone.now()+timedelta(days=1))
                          .ready_to_sell)
 
     def test_profile_get_username(self):
@@ -120,20 +117,20 @@ class ModelsTest(TestCase):
                          self.john.get_absolute_url(),
                          'profile page is not "/accounts/profile/<username>"')
 
-    def test_gamelist_place(self):
-        gl = GameList(profile=self.john, game=self.tloz)
-        self.assertEqual('minsk', gl.place.name, 'Place of gamelist not equal')
-    # TODO: _list methods of GameList
+    def test_lot_place(self):
+        gl = Lot(profile=self.john, game=self.tloz)
+        self.assertEqual('minsk', gl.place.name, 'Place of lot not equal')
+    # TODO: _list methods of Lot
 
     def test_change_to_games_choices(self):
         mariah = Profile.create_profile('mariah', 'm@m.m', 'passwordmariah',
                                         place=self.minsk)
-        tloz = GameList.objects.create(profile=mariah, game=self.tloz,
+        tloz = Lot.objects.create(profile=mariah, game=self.tloz,
                                        prop='k')
-        smo = GameList.objects.create(profile=mariah, game=self.smo, prop='s')
-        smk = GameList.objects.create(profile=mariah, game=self.smk, prop='w')
+        smo = Lot.objects.create(profile=mariah, game=self.smo, prop='s')
+        smk = Lot.objects.create(profile=mariah, game=self.smk, prop='w')
         self.assertIn(smo, tloz.get_change_to_choices(),
-                      's gamelist not in choices')
+                      's lot not in choices')
         self.assertNotIn(smk, tloz.get_change_to_choices(),
                          'w game in choices')
         mariah.delete()
@@ -204,13 +201,13 @@ class ViewTest(TestCase):
                       'game name not presented on game page')
 
     def test_lot(self):
-        gl = GameList.objects.create(game=self.tloz, profile=self.john,
+        gl = Lot.objects.create(game=self.tloz, profile=self.john,
                                      prop='s')
         resp = self.c.get(f"/lot/{gl.id}/")
         self.assertEqual(200, resp.status_code,
-                         'gamelist (lot) is not reachable')
+                         'lot is not reachable')
         self.assertIn("TLOZ", str(resp.content),
-                      'game name not presented on gamelist (lot) page')
+                      'game name not presented on lot page')
 
     def test_add_game_form(self):
         c = Client()
@@ -300,13 +297,13 @@ class ViewTest(TestCase):
                          'Accounts list is not accessable')
 
     def test_change_description(self):
-        gl = GameList.objects.create(profile=self.john, game=self.tloz,
+        gl = Lot.objects.create(profile=self.john, game=self.tloz,
                                      prop='s', desc="FOO")
         gl.save()
         c = Client()
         resp = c.get(f"/lot/{gl.id}/")
         self.assertIn("FOO", str(resp.content),
-                      'Gamelist page dont content description')
+                      'Lot page dont content description')
         del resp
         c.login(username="john", password="passwordjohn")
         c.post(f"/lot/{gl.id}/change-description/",
@@ -319,12 +316,12 @@ class ViewTest(TestCase):
         gl.delete()
 
     def test_change_price(self):
-        gl = GameList.objects.create(profile=self.mary, game=self.smo,
+        gl = Lot.objects.create(profile=self.mary, game=self.smo,
                                      prop='b', price=42)
         gl.save()
         c = Client()
         resp = c.get(f"/lot/{gl.id}/")
-        self.assertIn("42", str(resp.content), 'Price not on gamelist page')
+        self.assertIn("42", str(resp.content), 'Price not on lot page')
         del resp
         self.assertTrue(c.login(username="mary", password="passwordmary"),
                         'Cannot login')

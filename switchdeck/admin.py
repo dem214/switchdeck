@@ -2,7 +2,7 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 
-from .models import Game, GameList, Comment, Profile, Place, User
+from .models import Game, Lot, Comment, Profile, Place, User
 
 
 class ProfileInline(admin.StackedInline):
@@ -23,13 +23,13 @@ class UserAdmin(BaseUserAdmin):
 class CommentAdmin(admin.ModelAdmin):
     """`Comment` class admin pages."""
 
-    fields = ['author', 'game_instance', 'text', 'timestamp']
-    readonly_fields = ['author', 'game_instance']
+    fields = ['author', 'lot', 'text', 'timestamp']
+    readonly_fields = ['author', 'lot']
     date_hierarchy = 'timestamp'
-    list_display = ('author', 'text', 'timestamp', 'game_instance')
+    list_display = ('author', 'text', 'timestamp', 'lot')
     list_display_links = ('text',)
     list_filter = ('author',)
-    ordering = ('-timestamp', 'author', 'game_instance')
+    ordering = ('-timestamp', 'author', 'lot')
     search_fields = ('author__user__username', 'text')
 
 
@@ -46,9 +46,9 @@ def update_up_time(modeladmin, request, queryset):
 update_up_time.short_description = "Update all up_time to now"
 
 
-@admin.register(GameList)
-class GamelistAdmin(admin.ModelAdmin):
-    """`Gamelist` class admin pages."""
+@admin.register(Lot)
+class LotAdmin(admin.ModelAdmin):
+    """`Lot` class admin pages."""
 
     readonly_fields = ['profile']
     # exclude = ['change_to']
