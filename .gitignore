@@ -111,3 +111,6 @@ emails/*
 
 test images
 nemaket.png
+
+# bunch of static files which compiles on initiation
+staticfiles
