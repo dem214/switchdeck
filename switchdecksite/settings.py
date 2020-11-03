@@ -28,7 +28,7 @@ SECRET_KEY = os.environ.get(
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get("DEBUG") == '1'
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -89,9 +89,17 @@ WSGI_APPLICATION = 'switchdecksite.wsgi.application'
 
 
 DATABASES = {
-    'default': dj_database_url.config(
-        default='sqlite:///' + os.path.join(BASE_DIR, 'db.sqlite3'),
-        conn_max_age=600)
+    # 'default': dj_database_url.config(
+    #     default='sqlite:///' + os.path.join(BASE_DIR, 'db.sqlite3'),
+    #     conn_max_age=600)
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'HOST': 'db',
+        'USER': os.environ.get('POSTGRES_USER'),
+        'PASSWORD': os.environ.get('POSTGRES_PASSWORD'),
+        'PORT': os.environ.get('POSTGRES_PORT'),
+        'CONN_MAX_AGE': 600,
+    }
 }
 
 
@@ -156,7 +164,7 @@ COMMENTS_PER_PAGE = 10
 # Activate django-heroku
 # deactivating logging and datavases because it make troubles with local
 # development process
-django_heroku.settings(locals(), logging=not DEBUG, databases=not DEBUG)
+# django_heroku.settings(locals(), logging=not DEBUG, databases=not DEBUG)
 
 # settings for REST service
 REST_FRAMEWORK = {

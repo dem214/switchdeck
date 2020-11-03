@@ -9,6 +9,10 @@ services:
       dockerfile: Dockerfile
     environment:
       - DATABASE_URL=postgres@db:5432/postgres
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=posgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_PORT=5432
       - DEBUG
     command: gunicorn switchdecksite.wsgi
     volumes:
