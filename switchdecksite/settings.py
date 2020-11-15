@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
+
 import django_heroku
 import dj_database_url
 
@@ -93,15 +94,15 @@ DATABASES = {
     #     default='sqlite:///' + os.path.join(BASE_DIR, 'db.sqlite3'),
     #     conn_max_age=600)
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'HOST': 'db',
+        'NAME': 'postgres',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'HOST': os.environ.get('POSTGRES_HOST'),
         'USER': os.environ.get('POSTGRES_USER'),
         'PASSWORD': os.environ.get('POSTGRES_PASSWORD'),
         'PORT': os.environ.get('POSTGRES_PORT'),
         'CONN_MAX_AGE': 600,
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
@@ -145,6 +146,8 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
+
+STATIC_ROOT = 'static'
 
 LOGOUT_REDIRECT_URL = 'index'
 AUTH_USER_MODEL = 'switchdeck.User'

@@ -3,21 +3,30 @@ version: '3'
 services:
   db:
     image: postgres
-  web:
+    env_file: ./.envs/postgres
+    ports: 
+      - 55551:5432
+    volumes: 
+      - postgres_data:/var/lib/postgresql/data
+    restart: always
+  
+  django: &django
     build:
       context: .
       dockerfile: Dockerfile
-    environment:
-      - DATABASE_URL=postgres@db:5432/postgres
-      - POSTGRES_DB=postgres
-      - POSTGRES_USER=posgres
-      - POSTGRES_PASSWORD=postgres
-      - POSTGRES_PORT=5432
-      - DEBUG
-    command: gunicorn switchdecksite.wsgi
-    volumes:
-      - .:/code
-    ports:
-      - "8000:8000"
+      cache_from: 
+        - switchdeck_django
+    image: switchdeck_django
     depends_on:
       - db
+    env_file:
+      - ./.envs/django
+      - ./.envs/postgres
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    command: gunicorn -w 4 switchdecksite.wsgi --bind="0.0.0.0:8000"
+
+volumes: 
+  postgres_data:
