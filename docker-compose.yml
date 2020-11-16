@@ -4,6 +4,7 @@ services:
   db:
     image: postgres
     env_file: ./.envs/postgres
+    container_name: switchdeck_db
     ports: 
       - 55551:5432
     volumes: 
@@ -17,16 +18,20 @@ services:
       cache_from: 
         - switchdeck_django
     image: switchdeck_django
+    container_name: switchdeck_django
     depends_on:
       - db
     env_file:
       - ./.envs/django
       - ./.envs/postgres
-    # volumes:
-    #   - .:/app
+    volumes:
+      - django_static:/home/switchdeck/static
+      - django_media:/home/switchdeck/media
     ports:
       - "8000:8000"
     command: /bin/bash /home/switchdeck/start
 
 volumes: 
   postgres_data:
+  django_static:
+  django_media:
