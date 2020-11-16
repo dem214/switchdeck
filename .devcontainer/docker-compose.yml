@@ -27,8 +27,9 @@ services:
       POSTGRES_HOST: db
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
-      POTGRES_PORT: 5432
-      DEBUG: 1
+      POSTGRES_PORT: 5432
+      DJANGO_SETTINGS_MODULE: switchdeck.settings.dev
+
 
     # Uncomment the next line to use a non-root user for all processes.
     # user: vscode

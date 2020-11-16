@@ -19,6 +19,14 @@ from django.core.exceptions import ImproperlyConfigured
 import django_heroku
 import dj_database_url
 
+def get_secret(setting):
+    """Get the secret variable from env or raise the exception."""
+    try:
+        return os.environ[setting]
+    except KeyError:
+        error_msg = f'Set the {setting} environment variable'
+        raise ImproperlyConfigured(error_msg)
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = pathlib.Path(__file__).parent.parent
 
@@ -38,10 +46,8 @@ ALLOWED_HOSTS = ['*']
 
 # Application definition
 
-INSTALLED_APPS = [
-    'switchdeck.apps.SwitchdeckConfig',
-    'crispy_forms',                 # Template forms rendering bootstrap-like
-    'rest_framework',               # Framework for REST API
+
+DJANGO_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.admindocs',
@@ -52,8 +58,16 @@ INSTALLED_APPS = [
     'django.contrib.humanize',      # Data and time humanization
     'django.contrib.sitemaps',      # Framework for '/sitemap.xml'
     'django.contrib.sites',         # site for flatpages
-    'django.contrib.flatpages',      # Flatpages like 'about', 'copyright' etc
+    'django.contrib.flatpages',     # Flatpages like 'about', 'copyright' etc
 ]
+THIRD_PARTY_APPS = [
+    'crispy_forms',                 # Template forms rendering bootstrap-like
+    'rest_framework',               # Framework for REST API
+]
+LOCAL_APPS = [
+    'switchdeck.apps.switchdeck.apps.SwitchdeckConfig',
+]
+INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -100,10 +114,10 @@ DATABASES = {
     'default': {
         'NAME': 'postgres',
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'HOST': get_sercret('POSTGRES_HOST'),
-        'USER': get_sercret('POSTGRES_USER'),
-        'PASSWORD': get_sercret('POSTGRES_PASSWORD'),
-        'PORT': get_sercret('POSTGRES_PORT'),
+        'HOST': get_secret('POSTGRES_HOST'),
+        'USER': get_secret('POSTGRES_USER'),
+        'PASSWORD': get_secret('POSTGRES_PASSWORD'),
+        'PORT': get_secret('POSTGRES_PORT'),
         'CONN_MAX_AGE': 600,
     }
 }
@@ -199,11 +213,3 @@ EXTERNAL_LIBS_PATH = EXTERNAL_BASE / 'libs'
 EXTERNAL_APPS_PATH = EXTERNAL_BASE / 'apps'
 
 sys.path = ['', EXTERNAL_LIBS_PATH, EXTERNAL_APPS_PATH] + sys.path
-
-def get_secret(setting):
-    """Get the secret variable from env or raise the exception."""
-    try:
-        return os.environ[setting]
-    except KeyError:
-        error_msg = f'Set the {setting} environment variable'
-        raise ImproperlyConfigured(error_msg)

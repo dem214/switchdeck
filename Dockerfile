@@ -14,5 +14,5 @@ WORKDIR /home/switchdeck
 
 COPY --chown=switchdeck . /home/switchdeck/
 
-RUN pip install -r requirements.txt
+RUN pip install -r requirements/production.txt
 
