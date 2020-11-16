@@ -11,7 +11,10 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
+import sys
 import pathlib
+
+from django.core.exceptions import ImproperlyConfigured
 
 import django_heroku
 import dj_database_url
@@ -28,7 +31,7 @@ SECRET_KEY = os.environ.get(
     'SECRET_KEY', '!c75dli6my&&8sp-(qkgk8b(#5n4vqrvfrxhecbq%912+k1u63')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get("DEBUG") == '1'
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -70,7 +73,7 @@ ROOT_URLCONF = 'switchdecksite.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['switchdecksite/templates'],
+        'DIRS': [BASE_DIR / 'switchdeck' / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -97,10 +100,10 @@ DATABASES = {
     'default': {
         'NAME': 'postgres',
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'HOST': os.environ.get('POSTGRES_HOST'),
-        'USER': os.environ.get('POSTGRES_USER'),
-        'PASSWORD': os.environ.get('POSTGRES_PASSWORD'),
-        'PORT': os.environ.get('POSTGRES_PORT'),
+        'HOST': get_sercret('POSTGRES_HOST'),
+        'USER': get_sercret('POSTGRES_USER'),
+        'PASSWORD': get_sercret('POSTGRES_PASSWORD'),
+        'PORT': get_sercret('POSTGRES_PORT'),
         'CONN_MAX_AGE': 600,
     }
 }
@@ -147,8 +150,12 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'static'
+STATICFILES_DIRS = [
+    BASE_DIR / 'switchdeck' / 'site_static',
+]
 
 MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
 
 
 LOGOUT_REDIRECT_URL = 'index'
@@ -182,3 +189,21 @@ REST_FRAMEWORK = {
 # one DB
 
 SITE_ID = 1
+
+# Set the externals
+# `libs` for required python modules
+# `apps` for additional Django apps
+
+EXTERNAL_BASE = BASE_DIR / 'externals'
+EXTERNAL_LIBS_PATH = EXTERNAL_BASE / 'libs'
+EXTERNAL_APPS_PATH = EXTERNAL_BASE / 'apps'
+
+sys.path = ['', EXTERNAL_LIBS_PATH, EXTERNAL_APPS_PATH] + sys.path
+
+def get_secret(setting):
+    """Get the secret variable from env or raise the exception."""
+    try:
+        return os.environ[setting]
+    except KeyError:
+        error_msg = f'Set the {setting} environment variable'
+        raise ImproperlyConfigured(error_msg)

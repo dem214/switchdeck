@@ -1,1 +1,0 @@
-"""Swithcdeck application module."""
