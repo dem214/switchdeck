@@ -9,8 +9,8 @@ services:
         # [Choice] Python version: 3, 3.8, 3.7, 3.6
         VARIANT: 3.7
         # [Choice] Install Node.js
-        INSTALL_NODE: "true"
-        NODE_VERSION: "lts/*"
+        # INSTALL_NODE: "true"
+        # NODE_VERSION: "lts/*"
         # On Linux, you may need to update USER_UID and USER_GID below if not your local UID is not 1000.
         USER_UID: 1000
         USER_GID: 1000
@@ -24,10 +24,10 @@ services:
     # Runs app on the same network as the database container, allows "forwardPorts" in devcontainer.json function.
     network_mode: service:db
     environment:
-      POSTGRES_DB: "db"
-      POSTGRES_USER: "postgres"
-      POSTGRES_PASSWORD: "postgres"
-      POTGRES_PORT: "5432"
+      POSTGRES_DB: db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POTGRES_PORT: 5432
 
     # Uncomment the next line to use a non-root user for all processes.
     # user: vscode

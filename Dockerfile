@@ -6,11 +6,13 @@ RUN apt-get update
 # Install GnuText
 RUN apt-get install -y gettext
 
-COPY requirements.txt /
+RUN useradd -ms /bin/bash switchdeck
+
+USER switchdeck
+
+WORKDIR /home/switchdeck
+
+COPY --chown=switchdeck . /home/switchdeck/
+
 RUN pip install -r requirements.txt
 
-RUN mkdir /app
-
-COPY . /app/
-
-WORKDIR app

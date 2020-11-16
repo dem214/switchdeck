@@ -26,7 +26,7 @@ services:
     #   - .:/app
     ports:
       - "8000:8000"
-    command: /bin/bash /app/start
+    command: /bin/bash /home/switchdeck/start
 
 volumes: 
   postgres_data:
