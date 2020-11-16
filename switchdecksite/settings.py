@@ -11,12 +11,13 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
+import pathlib
 
 import django_heroku
 import dj_database_url
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = pathlib.Path(__file__).parent.parent
 
 
 # Quick-start development settings - unsuitable for production
@@ -145,22 +146,23 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR / 'static'
+
 MEDIA_URL = '/media/'
 
-STATIC_ROOT = 'static'
 
 LOGOUT_REDIRECT_URL = 'index'
 AUTH_USER_MODEL = 'switchdeck.User'
 
 # Email wirting to file
 EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
-EMAIL_FILE_PATH = os.path.join(BASE_DIR, 'emails')
+EMAIL_FILE_PATH = BASE_DIR / 'emails'
 
 # crispy bootstrap forms
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 # path for localization files
-LOCALE_PATHS = [os.path.join(BASE_DIR, 'locale')]
+LOCALE_PATHS = [BASE_DIR / 'locale']
 
 COMMENTS_PER_PAGE = 10
 

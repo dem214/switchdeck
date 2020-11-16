@@ -22,11 +22,11 @@ services:
     env_file:
       - ./.envs/django
       - ./.envs/postgres
-    volumes:
-      - .:/app
+    # volumes:
+    #   - .:/app
     ports:
       - "8000:8000"
-    command: gunicorn -w 4 switchdecksite.wsgi --bind="0.0.0.0:8000"
+    command: /bin/bash /app/start
 
 volumes: 
   postgres_data:

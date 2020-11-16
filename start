@@ -1,10 +1,5 @@
 #!/bin/bash
-
-set -o errexit
-set -o pipefail
-set -o nounset
-
-
 python manage.py migrate
 python manage.py compilemessages
-gunicorn -w 4 switchdecksite.wsgi
+python manage.py collectstatic
+gunicorn -w 4 switchdecksite.wsgi --bind="0.0.0.0:8000"

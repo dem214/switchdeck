@@ -11,4 +11,6 @@ RUN pip install -r requirements.txt
 
 RUN mkdir /app
 
+COPY . /app/
+
 WORKDIR app
