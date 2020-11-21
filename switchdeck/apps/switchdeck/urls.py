@@ -2,7 +2,7 @@
 from django.urls import path, include, re_path
 from django.views.generic.base import TemplateView
 
-from . import views, profile_views, api_urls
+from . import views, profile_views
 
 
 urlpatterns = [
@@ -62,10 +62,6 @@ urlpatterns = [
     # URL to delete account.
     path('comments/<int:cid>/delete/', views.delete_comment,
          name='delete_comment'),
-    # Place page
-    path('place/<str:name>/', views.PlaceView.as_view(), name='place'),
-    # Page with list of all pages.
-    path('place/', views.PlacesListView.as_view(), name='places'),
     # Page with list of all accounts.
     path('accounts/', profile_views.UsersListView.as_view(), name='users'),
     # URL to change some info of lot.
@@ -88,6 +84,4 @@ urlpatterns = [
     path('games/', views.GamesView.as_view(), name='games'),
     # Lots search page/
     path('search/', views.search, name='search'),
-    # REST api urls.
-    path('api/v1/', include(api_urls.urlpatterns))
 ]

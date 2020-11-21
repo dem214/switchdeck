@@ -66,6 +66,7 @@ THIRD_PARTY_APPS = [
 ]
 LOCAL_APPS = [
     'switchdeck.apps.switchdeck.apps.SwitchdeckConfig',
+    'switchdeck.apps.place.apps.PlaceConfig'
 ]
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
@@ -183,7 +184,7 @@ EMAIL_FILE_PATH = BASE_DIR / 'emails'
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 # path for localization files
-LOCALE_PATHS = [BASE_DIR / 'locale']
+LOCALE_PATHS = [BASE_DIR / 'locale', ]
 
 COMMENTS_PER_PAGE = 10
 

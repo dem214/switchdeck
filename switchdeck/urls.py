@@ -22,10 +22,15 @@ from django.contrib.sitemaps.views import sitemap
 from django.contrib.flatpages import views as flatpage_views
 
 from .sitemaps import sitemaps
+from .api_router import router
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('switchdeck.apps.switchdeck.urls')),
+    path('api-auth', include('rest_framework.urls',
+                             namespace='rest_framework')),
+    path('api/v1/', include(router.urls)),
+    path('places/', include('switchdeck.apps.place.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
     path('admin/doc/', include('django.contrib.admindocs.urls')),
     path('sitemap.xml', sitemap, {'sitemaps': sitemaps},

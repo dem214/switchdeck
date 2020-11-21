@@ -9,6 +9,8 @@ from django.utils import timezone
 from django.urls import reverse
 from django.conf import settings
 
+from switchdeck.apps.place.models import Place
+
 
 class User(AbstractUser):
     """Class of user.Inherits from AbstractUser login methods and add link
@@ -24,44 +26,13 @@ class User(AbstractUser):
         return reverse('profile', args=[self.get_username()])
 
 
-class Place(models.Model):
-    """Represent place for convinient searching."""
-
-    name = models.CharField(
-        max_length=20,
-        unique=True,
-        verbose_name=_('Name'),
-        help_text=_("Name of the region or city."))
-    popularity = models.IntegerField(
-        default=0,
-        help_text=_("Popularity of place. The higher popularity - the higher "
-                    "this place in place list."),
-        verbose_name=_('Popularity')
-    )
-
-    class Meta():
-        """Meta class for some `Place` class properties."""
-
-        # order of descending popularity
-        ordering = ['-popularity', 'name']
-        verbose_name = _('Place')
-        verbose_name_plural = _('Places')
-
-    def __str__(self) -> str:
-        """Return string representation of the Place (Place name)."""
-        return self.name
-
-    def get_absolute_url(self) -> str:
-        """Return URL, there placed the info about a Place."""
-        return reverse('place', args=[self.name])
-
-
 class Profile(models.Model):
     """Profile have link to User identity and additional information."""
 
     user = models.OneToOneField(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
+        related_name="profiles",
         editable=False,
         verbose_name=_("User"),
         help_text=_("Link to the user instanse, which have authentication "

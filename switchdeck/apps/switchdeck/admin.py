@@ -62,16 +62,6 @@ class LotAdmin(admin.ModelAdmin):
     radio_fields = {"prop": admin.HORIZONTAL}
 
 
-@admin.register(Place)
-class PlaceAdmin(admin.ModelAdmin):
-    """`Place` class admin pages."""
-
-    list_display = ['popularity', 'name']
-    list_display_links = ['name']
-    search_fields = ['name']
-    list_editable = ['popularity']
-
-
 @admin.register(Game)
 class GameAdmin(admin.ModelAdmin):
     """`Game` class admin pages."""

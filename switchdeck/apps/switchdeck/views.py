@@ -348,69 +348,6 @@ def set_game(request, glid: int, set_prop: str):
         return render(request, 'switchdeck/set_game.html', context)
 
 
-class PlaceView(DetailView):
-    """
-    Show the details about Place instance.
-
-    **Arguments**
-
-    ``name: str``
-        Name of the place.
-
-    **Context**
-
-    ``object``
-        Related :model:`switchdeck.Place` instance.
-    ``profiles``
-        List of :model:`switchdeck.Profile` instances related to that place.
-    ``sell_list``
-        List of all available :model:`switchdeck.Lot` objects related to
-        this place, ready to sell.
-    ``buy_list``
-        List of all available :model:`switchdeck.Lot` objects related to
-        this place, ready to buy.
-
-    **Template**
-
-    :template:`switchdeck/place_detail.html`
-    """
-
-    model = Place
-    slug_field = 'name'
-    slug_url_kwarg = 'name'
-
-    def get_context_data(self, **kwargs):
-        """Insert related context data.
-
-        Insert `Place `object and lists of related profiles and lots.
-        """
-        context = super().get_context_data(**kwargs)
-        context['profiles'] = Profile.objects.filter(place=self.object)\
-            .order_by("user__username")
-        gl_query = Lot.objects.filter(profile__place=self.object)\
-            .filter(active=True)
-        context['sell_list'] = gl_query.filter(prop='s')
-        context['buy_list'] = gl_query.filter(prop='b')
-        return context
-
-
-class PlacesListView(ListView):
-    """
-    Show all available Places.
-
-    **Context**
-
-    ``objects``
-        List of all :model:`switchdeck.Place` instances. Ordered.
-
-    **Template**
-
-    :template:`switchdeck/place_list.html`
-    """
-
-    model = Place
-
-
 @require_POST
 @login_required
 def change_description(request, glid: int):
