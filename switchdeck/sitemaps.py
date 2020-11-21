@@ -7,7 +7,7 @@ from django.contrib.flatpages.sitemaps import FlatPageSitemap
 from django.contrib.sitemaps import Sitemap, GenericSitemap
 from django.urls import reverse
 
-from switchdeck import models
+from switchdeck.apps.switchdeck import models
 
 
 class StaticViewSitemap(Sitemap):

@@ -25,7 +25,7 @@ from .sitemaps import sitemaps
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('switchdeck.urls')),
+    path('', include('switchdeck.apps.switchdeck.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
     path('admin/doc/', include('django.contrib.admindocs.urls')),
     path('sitemap.xml', sitemap, {'sitemaps': sitemaps},
