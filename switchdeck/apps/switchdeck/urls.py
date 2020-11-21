@@ -2,7 +2,7 @@
 from django.urls import path, include, re_path
 from django.views.generic.base import TemplateView
 
-from . import views, profile_views
+from . import views
 
 
 urlpatterns = [
@@ -42,28 +42,9 @@ urlpatterns = [
     # URL to delete lot
     path('delete-game/<int:glid>/', views.delete_game, name='delete_game'),
     # Page with profile info.
-    path('accounts/profile/<str:username>/',
-         profile_views.UserProfileView.as_view(),
-         name='profile'),
-    # Redirect to profile page.
-    path('accounts/profile/', profile_views.profile_redirect),
-    # Signing up page.
-    path('accounts/signup/', profile_views.SignUpView.as_view(),
-         name='signup'),
-    # Page if account not confirmed.
-    path('accounts/need-confirmation/',
-         TemplateView.as_view(
-            template_name='registration/need_confirm_email.html'),
-         name='need_confirmation'),
-    # Email confirmation account path/
-    re_path(r'^accounts/activate/(?P<uid>[0-9A-Za-z_\-]+)/'
-            r'(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
-            profile_views.activate, name='activate'),
-    # URL to delete account.
+    
     path('comments/<int:cid>/delete/', views.delete_comment,
          name='delete_comment'),
-    # Page with list of all accounts.
-    path('accounts/', profile_views.UsersListView.as_view(), name='users'),
     # URL to change some info of lot.
     path('lot/<int:glid>/change/', include([
         path('description/', views.change_description,
@@ -76,10 +57,6 @@ urlpatterns = [
         path('change-to/', views.UpdateChangeToView.as_view(),
              name='lot_change_to')
     ])),
-    # URL to update profile info
-    path('accounts/update-profile/',
-         profile_views.UpdateProfileView.as_view(),
-         name='update_profile'),
     # Page with all games.
     path('games/', views.GamesView.as_view(), name='games'),
     # Lots search page/

@@ -9,6 +9,7 @@ from django.urls import reverse
 
 from switchdeck.apps.switchdeck import models
 from switchdeck.apps.place.models import Place
+from switchdeck.apps.account.models import Profile
 
 
 class StaticViewSitemap(Sitemap):
@@ -43,6 +44,6 @@ sitemaps = {
         priority=0.5,
         changefreq='always'),
     'profile': GenericSitemap(
-        {'queryset': models.Profile.objects.filter(user__is_active=True)},
+        {'queryset': Profile.objects.filter(user__is_active=True)},
         priority=0.4,
         changefreq='daily')}

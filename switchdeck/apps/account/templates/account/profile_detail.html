@@ -1,11 +1,11 @@
 {% extends "switchdeck/_base.html" %}
 {% load i18n %}
 
-{% block title %}{{ userprof.get_username }} | {% trans "Profile" %} | SwitchDeck{{ userprof.get_username }} {% endblock %}
+{% block title %}{{ object.get_username }} | {% trans "Profile" %} | SwitchDeck{{ object.get_username }} {% endblock %}
 
 {% block admin_link %}<li>
   <a class="btn btn-outline-danger"
-    href="{% url 'admin:switchdeck_user_change' userprof.id%}">
+    href="{% url 'admin:switchdeck_user_change' object.id%}">
     {% trans "Change on admin site" %}
   </a>
 </li>
@@ -13,21 +13,21 @@
 
 {% block content %}
 
-<h1>{{ userprof.username }}</h1>
-{% if userprof.get_full_name %}
-<p>{{ userprof.get_full_name }}</p>
+<h1>{{ object.username }}</h1>
+{% if object.get_full_name %}
+  <p>{{ object.get_full_name }}</p>
 {% endif %}
-<p>from <a href="{% url 'place' name=userprof.profile.place.name %}">
-  {{ userprof.profile.place.name|title }}
+<p>from <a href="{% url 'place' name=object.profile.place.name %}">
+  {{ object.profile.place.name|title }}
 </a></p>
 
-{% if user.is_authenticated and user == userprof %}
+{% if user.is_authenticated and user == object %}
 <p><a href="{% url 'update_profile' %}">
   {% trans "Update" %} {% trans "profile" %}
 </a></p>
 {% endif %}
 
-{% if user.is_authenticated and user == userprof %}
+{% if user.is_authenticated and user == object %}
 <!-- Add game href -->
 <p><a href="{% url 'add_game_keep' %}">Add keep game</a></p>
 <p><a href="{% url 'add_game_wish' %}">Add wish game</a></p>
@@ -164,7 +164,7 @@
 </div>
 {% endif %}
 
-{% if user.is_authenticated and user == userprof %}
+{% if user.is_authenticated and user == object %}
 <!-- User navigation highlighting-->
 <script>
   document.getElementById("user-nav-item").classList.add("active")

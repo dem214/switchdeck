@@ -1,22 +1,8 @@
 """Administration method and classes for `switchdeck` app."""
 from django.contrib import admin
-from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 
-from .models import Game, Lot, Comment, Profile, Place, User
+from .models import Game, Lot, Comment
 
-
-class ProfileInline(admin.StackedInline):
-    """Create profile inlines in user page."""
-
-    model = Profile
-    can_delete = False
-
-# admin.site.unregister(User)
-@admin.register(User)
-class UserAdmin(BaseUserAdmin):
-    """`User` admin pages with profile inlines."""
-
-    inlines = (ProfileInline,)
 
 
 @admin.register(Comment)
@@ -69,3 +55,4 @@ class GameAdmin(admin.ModelAdmin):
     list_display = ['name']
     ordering = ['name']
     search_fields = ['name']
+    prepopulated_fields = {'slug': ('name',)}

@@ -3,131 +3,9 @@ import decimal
 
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-from django.contrib.auth.models import AbstractUser
 from django.contrib.auth import get_user_model
 from django.utils import timezone
 from django.urls import reverse
-from django.conf import settings
-
-from switchdeck.apps.place.models import Place
-
-
-class User(AbstractUser):
-    """Class of user.Inherits from AbstractUser login methods and add link
-    to `Profile` instance
-    """
-
-    def get_absolute_url(self):
-        """
-        Return the URL of User.
-
-        Refer to the related :model:``switchdeck.Profile`` instance.
-        """
-        return reverse('profile', args=[self.get_username()])
-
-
-class Profile(models.Model):
-    """Profile have link to User identity and additional information."""
-
-    user = models.OneToOneField(
-        settings.AUTH_USER_MODEL,
-        on_delete=models.CASCADE,
-        related_name="profiles",
-        editable=False,
-        verbose_name=_("User"),
-        help_text=_("Link to the user instanse, which have authentication "
-                    "methods, email, first name, last name, etc."))
-    games = models.ManyToManyField(
-        "Game",
-        related_name="owners",
-        related_query_name="owner", through="Lot",
-        verbose_name=_("Games"),
-        help_text=_("All games user have"))
-    place = models.ForeignKey(
-        Place,
-        on_delete=models.SET_DEFAULT,
-        default=1,
-        verbose_name=_("Place"),
-        help_text=_("Place of registration of user. Place of all his "
-                    "lots."))
-
-    class Meta():
-        """Meta class for some `Profile` class properties."""
-
-        verbose_name = _("Profile"),
-        verbose_name_plural = _("Profiles")
-
-    def __str__(self) -> str:
-        """Return the string representation of Profile (Profile username)."""
-        return self.user.get_username()
-
-    def get_absolute_url(self) -> str:
-        """Return URL there placed info about Profile."""
-        return reverse('profile', args=[self.user.username])
-
-    def get_username(self) -> str:
-        """Username of Profile."""
-        return self.user.get_username()
-
-    def keep_list(self, with_inactive: bool = False):
-        """
-        Return list with keep or sell prop instalnces.
-
-        Retrun the list of related :model:`switchdeck.Lot` instances
-        marked as ``keep`` or ``sell``.
-        """
-        query = self.lot_set.filter(
-            models.Q(prop='k') | models.Q(prop='s')
-        )
-        if not with_inactive:
-            query = query.filter(active=True)
-        return query.order_by('game__name')
-
-    def wish_list(self, with_inactive: bool = False):
-        """
-        Return list with wish or buy prop instances.
-
-        Retrun the list of related :model:`switchdeck.Lot` instances
-        marked as ``wish`` or ``buy``.
-        """
-        query = self.lot_set.filter(
-            models.Q(prop='w') | models.Q(prop='b'))
-        if not with_inactive:
-            query = query.filter(active=True)
-        return query.order_by('game__name')
-
-    def sell_list(self, with_inactive: bool = False):
-        """
-        Return list with sell instances.
-
-        Retrun the list of related :model:`switchdeck.Lot` instances
-        marked as ``sell``.
-        """
-        query = self.lot_set.filter(prop='s')
-        if not with_inactive:
-            query = query.filter(active=True)
-        return query.order_by('-public_date')
-
-    def buy_list(self, with_inactive: bool = False):
-        """
-        Return list with buy prop instances.
-
-        Retrun the list of related :model:`switchdeck.Lot` instances
-        marked as ``buy``.
-        """
-        query = self.lot_set.filter(prop='b')
-        if not with_inactive:
-            query = query.filter(active=True)
-        return query.order_by('-public_date')
-
-    @classmethod
-    def create_profile(cls, *args, place: Place, **kwargs):
-        """Create new profile.
-
-        Refers to :model:`swithcdeck.User` `create_user` method
-        """
-        user = get_user_model().objects.create_user(*args, **kwargs)
-        return cls.objects.create(user=user, place=place)
 
 
 def games_images_path(instance, filename: str) -> str:
@@ -139,7 +17,7 @@ def games_images_path(instance, filename: str) -> str:
     :returns: Path to save the file.
     :rtype: str
     """
-    return "games_images/" + instance.underscored_name + "/" + filename
+    return "games_images/" + instance.slug + "/" + filename
 
 
 class Game(models.Model):
@@ -201,15 +79,6 @@ class Game(models.Model):
             filter(public_date__lte=timezone.now()).\
             filter(prop='b')
 
-    @property
-    def underscored_name(self) -> str:
-        """
-        Return fs readable names.
-
-        Return lowerscale name of game and replaced ' ' to '_' (fs friendly).
-        """
-        return self.name.replace(" ", "_").lower()
-
     def __repr__(self) -> str:
         """Readable representation for Game instance."""
         return f"<Game: '{self.name}'>"
@@ -254,7 +123,7 @@ class Lot(models.Model):
         ('w', 'wish')
     )
     profile = models.ForeignKey(
-        Profile,
+        'account.Profile',
         on_delete=models.CASCADE,
         verbose_name=_('Profile'),
         help_text=_("Related Profile. Represent the owner of ``Lot`` "
@@ -314,7 +183,7 @@ class Lot(models.Model):
         verbose_name_plural = _('Lots')
 
     @property
-    def place(self) -> Place:
+    def place(self) -> 'Place':
         """
         Return `Place` property of `Lot`.
 
@@ -378,14 +247,14 @@ class Comment(models.Model):
     """
 
     author = models.ForeignKey(
-        Profile,
+        'account.Profile',
         on_delete=models.CASCADE,
         editable=False,
         verbose_name=_('Author'),
         help_text=_("Author of the comment."))
     timestamp = models.DateTimeField(
-        default=timezone.now,
-        verbose_name=_('Timestamp'),
+        _('Timestamp'),
+        auto_now_add=True,
         help_text=_("Date of publication."))
     text = models.TextField(
         max_length=300,

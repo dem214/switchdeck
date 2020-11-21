@@ -44,15 +44,13 @@ class UserProfileView(DetailView):
 
     **Template**
 
-    :template:`registration/profile.html`
+    :template:`account/profile_detail.html`
     """
 
     model = get_user_model()
     # search in db by 'username' field and from 'username' kwarg
     slug_field = 'username'
     slug_url_kwarg = 'username'
-    template_name = 'registration/profile.html'
-    context_object_name = 'userprof'
 
     def get_context_data(self, **kwargs):
         """Insert additional information into context."""
@@ -86,10 +84,10 @@ class SignUpView(FormView):
 
     **Template**
 
-    :template:`registration/signup.html`
+    :template:`account/signup.html`
     """
 
-    template_name = 'registration/signup.html'
+    template_name = 'account/signup.html'
     form_class = SignUpForm
     success_url = reverse_lazy('need_confirmation')
 
@@ -104,7 +102,7 @@ class SignUpView(FormView):
         send_mail(
             subject="SwitchDeck: Account Verification",
             message=render_to_string(
-                'registration/email_confirm_email.html', {
+                'account/email_confirm_email.html', {
                     'user': user,
                     'domain': get_current_site(self.request).domain,
                     'uid': urlsafe_base64_encode(force_bytes(user.pk)),
@@ -127,12 +125,12 @@ def activate(request, uid, token):
         user.is_active = True
         user.save()
         login(request, user)
-        return render(request, 'registration/confirmation_ok.html')
+        return render(request, 'account/confirmation_ok.html')
     else:
-        return render(request, 'registration/confirmation_error.html')
+        return render(request, 'account/confirmation_error.html')
 
 
-class UsersListView(ListView):
+class ProfileListView(ListView):
     """
     Show the list of all available Profiles.
 
@@ -143,11 +141,10 @@ class UsersListView(ListView):
 
     **Template**
 
-    :template:`registration/profile_list.html`
+    :template:`account/profile_list.html`
     """
 
     model = Profile
-    template_name = 'registration/profile_list.html'
 
 
 class UpdateProfileView(LoginRequiredMixin, UpdateView):
@@ -162,12 +159,12 @@ class UpdateProfileView(LoginRequiredMixin, UpdateView):
         Form to update.
 
     **Template**
-    :template:`registration/user_form.html`
+    :template:`account/user_form.html`
     """
 
     model = Profile
     form_class = UpdateProfileForm
-    template_name = 'registration/user_form.html'
+    template_name = 'account/user_form.html'
 
     def get_object(self):
         """Return requested user's `Profile` object."""

@@ -5,7 +5,7 @@
 
 {% block content %}
 
-<form action="{% url 'signup' %}" method="post">
+<form action="{% url 'account:signup' %}" method="post">
   {% csrf_token %}
   {{ form|crispy }}
   <input type="submit" name="SignUp" class="btn btn-primary">

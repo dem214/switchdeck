@@ -1,8 +1,7 @@
 """All forms of app `switchdeck`."""
 from django import forms
-from django.contrib.auth.forms import UserCreationForm
 
-from .models import Comment, Lot, User, Profile, Game, Place
+from .models import Comment, Lot, Game
 
 
 class CommentForm(forms.ModelForm):
@@ -49,16 +48,6 @@ class SetLotForm(forms.ModelForm):
         fields = ['desc', 'price']
 
 
-class SignUpForm(UserCreationForm):
-    """Form to signing up (creating new user profile)."""
-
-    class Meta:
-        """Metaclass for `SignUpForm` class properties."""
-
-        model = User
-        fields = ('username', 'email', 'password1', 'password2')
-
-
 class ChangeDescLotForm(forms.ModelForm):
     """Form to change description of `Lot`."""
 
@@ -77,19 +66,6 @@ class ChangePriceLotForm(forms.ModelForm):
 
         model = Lot
         fields = ['price']
-
-
-class UpdateProfileForm(forms.ModelForm):
-    """Form to update user's profile page."""
-
-    first_name = forms.CharField(max_length=30, strip=True, required=False)
-    last_name = forms.CharField(max_length=150, strip=True, required=False)
-
-    class Meta():
-        """Metaclass for `UpdateProfile` class properties."""
-
-        model = Profile
-        fields = ['place']
 
 
 class ChangeToForm(forms.Form):

@@ -78,22 +78,7 @@ class LotViewSet(viewsets.ModelViewSet):
                           IsOwnerProfileOrReadOnly]
 
 
-class ProfileViewSet(viewsets.ModelViewSet):
-    """List of api views for ``Profile`` model."""
 
-    queryset = models.Profile.objects.all()
-    serializer_class = serializer.ProfileSerializer
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly,
-                          IsStuffOrReadOnly]
-
-
-class UserViewSet(viewsets.ModelViewSet):
-    """List of api views for ``User`` model."""
-
-    queryset = get_user_model().objects.all()
-    serializer_class = serializer.UserSerializer
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly,
-                          IsStuffOrReadOnly]
 
 
 class CommentViewSet(viewsets.ModelViewSet):

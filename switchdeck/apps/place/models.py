@@ -33,6 +33,6 @@ class Place(models.Model):
 
     def get_absolute_url(self) -> str:
         """Return URL, there placed the info about a Place."""
-        return reverse('place:view', args=[self.slug])
+        return reverse('place:place_detail', args=[self.slug])
         
 

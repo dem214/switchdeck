@@ -23,6 +23,7 @@ from django.contrib.flatpages import views as flatpage_views
 
 from .sitemaps import sitemaps
 from .api_router import router
+from switchdeck.apps.account import urls as account_url
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -32,6 +33,7 @@ urlpatterns = [
     path('api/v1/', include(router.urls)),
     path('places/', include('switchdeck.apps.place.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
+    path('accounts/', include(account_url)),
     path('admin/doc/', include('django.contrib.admindocs.urls')),
     path('sitemap.xml', sitemap, {'sitemaps': sitemaps},
          name="django.contrib.sitemaps.views.sitemap"),

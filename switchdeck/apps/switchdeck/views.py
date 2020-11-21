@@ -13,7 +13,7 @@ from django.views.decorators.http import require_POST
 from django.core.exceptions import PermissionDenied
 from django.db import models
 
-from .models import Game, Lot, Comment, Place, Profile
+from .models import Game, Lot, Comment
 from . import forms
 
 from django.conf import settings

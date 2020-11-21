@@ -65,8 +65,9 @@ THIRD_PARTY_APPS = [
     'rest_framework',               # Framework for REST API
 ]
 LOCAL_APPS = [
+    'switchdeck.apps.account.apps.AccountConfig',
     'switchdeck.apps.switchdeck.apps.SwitchdeckConfig',
-    'switchdeck.apps.place.apps.PlaceConfig'
+    'switchdeck.apps.place.apps.PlaceConfig',
 ]
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
@@ -174,7 +175,7 @@ MEDIA_ROOT = BASE_DIR / 'media'
 
 
 LOGOUT_REDIRECT_URL = 'index'
-AUTH_USER_MODEL = 'switchdeck.User'
+AUTH_USER_MODEL = 'account.User'
 
 # Email wirting to file
 EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
