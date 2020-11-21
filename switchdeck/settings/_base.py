@@ -166,7 +166,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'static'
 STATICFILES_DIRS = [
-    BASE_DIR / 'switchdeck' / 'site_static',
+    BASE_DIR / 'site_static',
 ]
 
 MEDIA_URL = '/media/'
