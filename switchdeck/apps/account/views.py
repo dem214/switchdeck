@@ -89,7 +89,7 @@ class SignUpView(FormView):
 
     template_name = 'account/signup.html'
     form_class = SignUpForm
-    success_url = reverse_lazy('need_confirmation')
+    success_url = reverse_lazy('account:need_confirmation')
 
     def form_valid(self, form):
         """Save user profile in case of valid form."""

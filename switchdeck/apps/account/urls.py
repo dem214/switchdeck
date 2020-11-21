@@ -18,7 +18,7 @@ urlpatterns = [
          name='signup'),
     path('need-confirmation/',
          TemplateView.as_view(
-            template_name='registration/need_confirm_email.html'
+            template_name='account/need_confirm_email.html'
          ),
          name='need_confirmation'),
     re_path(r'^accounts/activate/(?P<uid>[0-9A-Za-z_\-]+)/'

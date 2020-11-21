@@ -5,7 +5,7 @@
 
 {% block content %}
 <h1>DEPRECATED</h1>
-<form action="{% url 'accountupdate_profile'%}" method="post">
+<form action="{% url 'account:update_profile'%}" method="post">
   {% csrf_token %}
   {{ form|crispy }}
   <input type="submit" class="btn btn-success">
