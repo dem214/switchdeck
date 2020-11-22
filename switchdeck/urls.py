@@ -23,9 +23,10 @@ from django.contrib.flatpages import views as flatpage_views
 
 from .sitemaps import sitemaps
 from .api_router import router
-from switchdeck.apps.account import urls as account_url
+from switchdeck.apps.core.views import index
 
 urlpatterns = [
+    path('', index, name='index'),
     path('admin/', admin.site.urls),
     path('', include('switchdeck.apps.switchdeck.urls')),
     path('api-auth', include('rest_framework.urls',
@@ -34,7 +35,7 @@ urlpatterns = [
     path('places/', include('switchdeck.apps.place.urls')),
     path('games/', include('switchdeck.apps.game.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
-    path('accounts/', include(account_url)),
+    path('accounts/', include('switchdeck.apps.account.urls')),
     path('admin/doc/', include('django.contrib.admindocs.urls')),
     path('sitemap.xml', sitemap, {'sitemaps': sitemaps},
          name="django.contrib.sitemaps.views.sitemap"),

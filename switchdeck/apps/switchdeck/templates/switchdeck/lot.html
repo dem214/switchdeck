@@ -1,4 +1,4 @@
-{% extends "switchdeck/_base.html" %}
+{% extends "_base.html" %}
 {% load crispy_forms_tags %}
 {% load humanize %}
 {% load i18n %}
@@ -194,7 +194,7 @@
   {% endif %}
   <!-- Pagination -->
   {% if comments.paginator.num_pages > 1 %}
-    {% include "switchdeck/_pagination.html" with page_obj=comments %}
+    {% include "_pagination.html" with page_obj=comments %}
   {% endif %}
 
   <!--Add a comment -->

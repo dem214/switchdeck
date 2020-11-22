@@ -6,10 +6,7 @@ from . import views
 
 
 urlpatterns = [
-    # Index page.
-    path('', views.index, name='index'),
-    # Page with game info.
-    
+    # Page with game info.    
     # Lot page.
     path('lot/<int:glid>/', views.lot_view, name='lot_item'),
     # Page to add lot to keep list.

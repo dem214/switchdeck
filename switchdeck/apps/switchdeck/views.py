@@ -13,31 +13,12 @@ from django.views.decorators.http import require_POST
 from django.core.exceptions import PermissionDenied
 from django.db import models
 
-from switchdeck.apps.game.models import Game
-
 from .models import Lot, Comment
 from . import forms
 
 from django.conf import settings
 COMMENTS_PER_PAGE = settings.COMMENTS_PER_PAGE
 LOTS_PER_PAGE = 15
-
-
-def index(request):
-    """
-    Index page view.
-
-    **Context**
-
-    ``games``
-        List of available :model:`switchdeck.Game`, ordered by sell popularity.
-
-    **Template**
-
-    :template:`switchdeck/index.html`
-    """
-    context = {'games': Game.objects_ordered_by_sell()}
-    return render(request, 'switchdeck/index.html', context)
 
 
 def lot_view(request, glid: int):

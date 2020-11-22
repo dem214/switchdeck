@@ -1,4 +1,4 @@
-{% extends 'switchdeck/_base.html' %}
+{% extends '_base.html' %}
 {% load i18n %}
 
 {% block title %}{{proposition|title}} {% trans "list" %} | {{game.name}} | Switchdeck{% endblock %}
@@ -14,7 +14,7 @@
 {% endfor %}
 <!--Pagination-->
 {% if is_paginated %}
-    {% include "switchdeck/_pagination.html" %}
+    {% include "_pagination.html" %}
 {% endif %}
 
 {% endblock %}
