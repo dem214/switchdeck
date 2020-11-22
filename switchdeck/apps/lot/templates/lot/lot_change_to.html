@@ -19,7 +19,7 @@
 </h3>
 {% endif %}
 
-<form class="" action="{% url 'lot_change_to' object.pk %}" method="post">
+<form class="" action="{% url 'lot:lot_change_to' object.pk %}" method="post">
     {% csrf_token %}
     {{ form|crispy }}
     <input type="submit" name="submit" class="btn btn-primary">

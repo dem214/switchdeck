@@ -4,21 +4,22 @@ from django.views.generic.base import TemplateView
 
 from . import views
 
+app_name = 'lot'
 
 urlpatterns = [
     # Page with game info.    
     # Lot page.
-    path('lot/<int:glid>/', views.lot_view, name='lot_item'),
+    path('<int:glid>/', views.lot_view, name='lot_item'),
     # Page to add lot to keep list.
-    path('add-game/keep/', views.add_game_reduced, {'prop': 'k'},
+    path('add/keep/', views.add_game_reduced, {'prop': 'k'},
          name='add_game_keep'),
     # Page to add lot to wish list.
-    path('add-game/wish/', views.add_game_reduced, {'prop': 'w'},
+    path('add/wish/', views.add_game_reduced, {'prop': 'w'},
          name='add_game_wish'),
     # Page to add lot to generic list.
     path('add-game/', views.add_game, name='add_game'),
     # Setting existig lot to another prop
-    path('set-game/<int:glid>/', include([
+    path('set/<int:glid>/', include([
         path('to-sell/', views.set_game, {'set_prop': 's'},
              name="set_game_to_sell"),
         path('to-buy/', views.set_game, {'set_prop': 'b'},
@@ -29,13 +30,13 @@ urlpatterns = [
              name="set_game_to_wish")
     ])),
     # URL to delete lot
-    path('delete-game/<int:glid>/', views.delete_game, name='delete_game'),
+    path('<int:glid>/delete/', views.delete_game, name='delete_game'),
     # Page with profile info.
     
     path('comments/<int:cid>/delete/', views.delete_comment,
          name='delete_comment'),
     # URL to change some info of lot.
-    path('lot/<int:glid>/change/', include([
+    path('<int:glid>/change/', include([
         path('description/', views.change_description,
              name='change_description'),
         path('price/', views.change_price, name='change_price'),

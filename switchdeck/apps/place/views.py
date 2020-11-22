@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.views.generic import DetailView, ListView
 
-from switchdeck.apps.switchdeck.models import Lot
+from switchdeck.apps.lot.models import Lot
 
 from .models import Place
 

@@ -28,10 +28,10 @@ from switchdeck.apps.core.views import index
 urlpatterns = [
     path('', index, name='index'),
     path('admin/', admin.site.urls),
-    path('', include('switchdeck.apps.switchdeck.urls')),
     path('api-auth', include('rest_framework.urls',
                              namespace='rest_framework')),
     path('api/v1/', include(router.urls)),
+    path('lots/', include('switchdeck.apps.lot.urls')),
     path('places/', include('switchdeck.apps.place.urls')),
     path('games/', include('switchdeck.apps.game.urls')),
     path('accounts/', include('django.contrib.auth.urls')),

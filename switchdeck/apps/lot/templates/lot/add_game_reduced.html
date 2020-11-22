@@ -7,12 +7,12 @@
 {% block content %}
 {% if prop == 'k' %}
 <h2>Add game in your library</h2>
-<form class="" action="{% url 'add_game_keep'  %}" method="post">
+<form class="" action="{% url 'lot:add_game_keep'  %}" method="post">
 {% elif prop == 'w' %}
 <h2>Add game to you wish list</h2>
-<form class="" action="{% url 'add_game_wish'  %}" method="post">
+<form class="" action="{% url 'lot:add_game_wish'  %}" method="post">
 {% else %}
-<form class="" action="{% url 'add_game'  %}" method="post">
+<form class="" action="{% url 'lot:add_game'  %}" method="post">
 {% endif %}
   {% csrf_token %}
   {{form|crispy}}

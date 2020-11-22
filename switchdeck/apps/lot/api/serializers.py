@@ -1,7 +1,7 @@
 """Serialization classes and method for REST api JSON."""
 from rest_framework import serializers
 
-from . import models
+from ..models import Lot, Comment
 
 
 class LotSerializer(serializers.HyperlinkedModelSerializer):
@@ -10,7 +10,7 @@ class LotSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         """Metaclass for `LotSerializer` class with additional info."""
 
-        model = models.Lot
+        model = Lot
         fields = ['url', 'id', 'profile', 'game', 'active', 'desc', 'prop',
                   'price', 'public_date', 'up_time', 'change_to', 'comments']
 
@@ -21,6 +21,6 @@ class CommentSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         """Metaclass for `CommentSerializer` class with additional info."""
 
-        model = models.Comment
+        model = Comment
         fields = ['url', 'id', 'author', 'timestamp', 'text', 'game_instance']
 

@@ -9,8 +9,8 @@
 <p>Edit description and price</p>
 
 <form class="" action="
-{% if prop == 's' %}{% url 'set_game_to_sell' %}
-{% elif prop == 'b' %}{% url 'set_game_to_buy' %}{% endif %}"
+{% if prop == 's' %}{% url 'lot:set_game_to_sell' %}
+{% elif prop == 'b' %}{% url 'lot:set_game_to_buy' %}{% endif %}"
 method="post">
     {% csrf_token %}
     {{ form|crispy }}

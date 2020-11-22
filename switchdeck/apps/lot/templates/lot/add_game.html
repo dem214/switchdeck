@@ -5,7 +5,7 @@
 
 {% block content %}
 <h1>DEPRECATED</h1>
-<form class="" action="{% url 'add_game' %}" method="post">
+<form class="" action="{% url 'lot:add_game' %}" method="post">
   {% csrf_token %}
   {{form.as_ul}}
   <input type="submit" name="submit" value="submit">

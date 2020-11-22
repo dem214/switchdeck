@@ -47,7 +47,7 @@ def lot_view(request, glid: int):
 
     **Template**
 
-    :template:`switchdeck/lot.html`
+    :template:`lot/lot.html`
     """
     lot_item = get_object_or_404(Lot, id=glid)
     context = {'object': lot_item}
@@ -80,7 +80,7 @@ def lot_view(request, glid: int):
     )
     if int(request.GET.get('objects-per-page', 0)) > 0:
         context['objects_per_page'] = request.GET['objects-per-page']
-    return render(request, 'switchdeck/lot.html', context)
+    return render(request, 'lot/lot.html', context)
 
 
 @login_required
@@ -101,13 +101,13 @@ def add_game(request):
             return redirect(gl)
     else:
         context['form'] = forms.LotForm()
-    return render(request, 'switchdeck/add_game.html', context)
+    return render(request, 'lot/add_game.html', context)
 
 
 class AddGameBaseView(CreateView, LoginRequiredMixin):
     """View base class for generic add lot pages."""
 
-    template_name = "swithcdeck/add_game_reduced.html"
+    template_name = "lot/add_game_reduced.html"
 
 
 @login_required
@@ -130,7 +130,7 @@ def add_game_reduced(request, prop):
     else:
         context['form'] = forms.LotReducedForm()
         context['prop'] = prop
-    return render(request, 'switchdeck/add_game_reduced.html', context)
+    return render(request, 'lot/add_game_reduced.html', context)
 
 
 @login_required
@@ -209,7 +209,7 @@ def set_game(request, glid: int, set_prop: str):
             )
             context['set_prop'] = set_prop
             context['lot'] = lot
-        return render(request, 'switchdeck/set_game.html', context)
+        return render(request, 'lot/set_game.html', context)
 
 
 @require_POST
@@ -265,7 +265,7 @@ def change_activation(request, glid: int, activate: bool):
 class UpdateChangeToView(LoginRequiredMixin, FormView):
     """Update related change field of lot."""
 
-    template_name = 'switchdeck/lot_change_to.html'
+    template_name = 'lot/lot_change_to.html'
     form_class = forms.ChangeToForm
 
     def setup(self, request, *args, **kwargs):
@@ -368,7 +368,7 @@ def search(request):
                 'place': request.GET.get('place', ''),
                 'proposition': request.GET.get('proposition', 's')
             })
-        return render(request, 'switchdeck/search.html', context)
+        return render(request, 'lot/search.html', context)
     elif request.method == 'POST':
         form = forms.SearchForm(request.POST)
         if form.is_valid():

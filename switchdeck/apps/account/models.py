@@ -34,7 +34,7 @@ class Profile(models.Model):
     games = models.ManyToManyField(
         'game.Game',
         related_name="owners",
-        related_query_name="owner", through="switchdeck.Lot",
+        related_query_name="owner", through="lot.Lot",
         verbose_name=_("Games"),
         help_text=_("All games user have"))
     place = models.ForeignKey(

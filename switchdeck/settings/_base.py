@@ -28,7 +28,7 @@ def get_secret(setting):
         raise ImproperlyConfigured(error_msg)
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = pathlib.Path(__file__).parent.parent
+BASE_DIR = pathlib.Path(__file__).parent.parent.parent
 
 
 # Quick-start development settings - unsuitable for production
@@ -66,7 +66,7 @@ THIRD_PARTY_APPS = [
 ]
 LOCAL_APPS = [
     'switchdeck.apps.account.apps.AccountConfig',
-    'switchdeck.apps.switchdeck.apps.SwitchdeckConfig',
+    'switchdeck.apps.lot.apps.LotConfig',
     'switchdeck.apps.place.apps.PlaceConfig',
     'switchdeck.apps.game.apps.GameConfig',
 ]
@@ -168,7 +168,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'static'
 STATICFILES_DIRS = [
-    BASE_DIR / 'site_static',
+    BASE_DIR / 'switchdeck' / 'site_static',
 ]
 
 MEDIA_URL = '/media/'

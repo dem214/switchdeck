@@ -7,10 +7,10 @@ from django.contrib.flatpages.sitemaps import FlatPageSitemap
 from django.contrib.sitemaps import Sitemap, GenericSitemap
 from django.urls import reverse
 
-from switchdeck.apps.switchdeck import models
 from switchdeck.apps.place.models import Place
 from switchdeck.apps.account.models import Profile
 from switchdeck.apps.game.models import Game
+from switchdeck.apps.lot.models import Lot, Comment
 
 
 class StaticViewSitemap(Sitemap):
@@ -40,7 +40,7 @@ sitemaps = {
         priority=0.8,
         changefreq='always'),
     'lot': GenericSitemap(
-        {'queryset': models.Lot.objects.filter(active=True),
+        {'queryset': Lot.objects.filter(active=True),
          'date_field': 'up_time'},
         priority=0.5,
         changefreq='always'),

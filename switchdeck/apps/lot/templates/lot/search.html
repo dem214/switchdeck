@@ -5,7 +5,7 @@
 {% block title %}{% trans "Search" %} | SwitchDeck{% endblock %}
 
 {% block content %}
-<form class="" action="{% url 'search' %}" method="post">
+<form class="" action="{% url 'lot:search' %}" method="post">
       {% csrf_token %}
     {{ form|crispy }}
     <input type="submit" name="submit" class="btn btn-primary">

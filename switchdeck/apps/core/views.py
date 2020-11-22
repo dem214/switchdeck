@@ -13,7 +13,7 @@ def index(request):
 
     **Template**
 
-    :template:`switchdeck/index.html`
+    :template:`index.html`
     """
     context = {'games': Game.objects_ordered_by_sell()}
-    return render(request, 'switchdeck/index.html', context)
+    return render(request, 'index.html', context)

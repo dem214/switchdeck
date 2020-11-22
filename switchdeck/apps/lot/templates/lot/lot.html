@@ -39,7 +39,7 @@
          </button>
        </div>
        <div class="modal-body">
-         <form action="{% url 'change_price' object.id %}" method="post" id="change_price_form">
+         <form action="{% url 'lot:change_price' object.id %}" method="post" id="change_price_form">
            {% csrf_token %}
            {{ change_price_form|crispy }}
          </form>
@@ -79,7 +79,7 @@
 
 <!-- Change-to button -->
 {% if user.is_authenticated and user == object.profile.user %}
-<p><a href="{% url 'lot_change_to' object.id%}" class="btn btn-primary">Set changing</a></p>
+<p><a href="{% url 'lot:lot_change_to' object.id%}" class="btn btn-primary">Set changing</a></p>
 {% endif %}
 
  <p>{{object.desc}}</p>
@@ -116,12 +116,12 @@
   <p>
     {% if object.active %}
     <small>{% trans "This is now" %} <b>{% trans "active" %}</b></small>
-    <a href="{% url 'change_deactivate' glid=object.id %}" class="badge badge-primary">
+    <a href="{% url 'lot:change_deactivate' glid=object.id %}" class="badge badge-primary">
       {% trans "Deactivate" %}
     </a>
     {% else %}
     <small>{% trans "This is now" %} <b>{% trans "inactive" %}</b></small>
-    <a href="{% url 'change_activate' glid=object.id %}" class="badge badge-primary">
+    <a href="{% url 'lot:change_activate' glid=object.id %}" class="badge badge-primary">
       {% trans "Activate" %}
     </a>
     {% endif %}
@@ -136,19 +136,19 @@
 <div class="btn-group" role="group" aria-label="Set button group">
   {% if object.prop != 'k' %}
   <a class="btn btn-outline-primary"
-    href="{% url 'set_game_to_keep' glid=object.id %}">Set to keep</a>
+    href="{% url 'lot:set_game_to_keep' glid=object.id %}">Set to keep</a>
   {% endif %}
   {% if object.prop != 's' %}
   <a class="btn btn-outline-primary"
-    href="{% url 'set_game_to_sell' glid=object.id %}">Set to sell</a>
+    href="{% url 'lot:set_game_to_sell' glid=object.id %}">Set to sell</a>
   {% endif %}
   {% if object.prop != 'b' %}
   <a class="btn btn-outline-primary"
-    href="{% url 'set_game_to_buy' glid=object.id %}">Set to buy</a>
+    href="{% url 'lot:set_game_to_buy' glid=object.id %}">Set to buy</a>
   {% endif %}
   {% if object.prop != 'w' %}
   <a class="btn btn-outline-primary"
-    href="{% url 'set_game_to_wish' glid=object.id %}">Set to wish</a>
+    href="{% url 'lot:set_game_to_wish' glid=object.id %}">Set to wish</a>
   {% endif %}
 </div>
 <button type="button" class="btn btn-danger" onclick="delete_func()">
@@ -182,7 +182,7 @@
         {% if comment.author.user == user %}
           <a class="btn btn-danger btn-sm float-right"
             name="delete-comment-button"
-            href="{% url 'delete_comment' comment.id %}?next={{ request.path }}">
+            href="{% url 'lot:delete_comment' comment.id %}?next={{ request.path }}">
             {% trans "Delete" %} {% trans "comment" %}
           </a>
         {% endif %}
@@ -199,7 +199,7 @@
 
   <!--Add a comment -->
   {% if user.is_authenticated %}
-    <form action="{% url 'lot_item' object.id %}" method="post">
+    <form action="{% url 'lot:lot_item' object.id %}" method="post">
       {% csrf_token %}
       {{ form| crispy }}
       <br>

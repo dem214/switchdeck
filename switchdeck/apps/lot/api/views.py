@@ -2,7 +2,8 @@
 from rest_framework import viewsets, permissions
 from django.contrib.auth import get_user_model
 
-from . import serializer, models
+from . import serializers
+from .. import models
 
 
 class IsStuffOrReadOnly(permissions.BasePermission):
@@ -10,7 +11,7 @@ class IsStuffOrReadOnly(permissions.BasePermission):
 
     def has_object_permission(self, request, view, obj):
         """
-        Check HTML method and user permissions.
+        Check HTTP method and user permissions.
 
         Return `True` if used safe methods of user is from staff.
         """
@@ -30,7 +31,7 @@ class IsOwnerProfileOrReadOnly(permissions.BasePermission):
 
     def has_object_permission(self, request, view, obj):
         """
-        Check HTML method and user permissions.
+        Check HTTP method and user permissions.
 
         Return `True` if used safe methods of user on them profile page.
         """
@@ -64,7 +65,7 @@ class LotViewSet(viewsets.ModelViewSet):
     """List of api views for ``Lot`` model."""
 
     queryset = models.Lot.objects.all()
-    serializer_class = serializer.LotSerializer
+    serializer_class = serializers.LotSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly,
                           IsOwnerProfileOrReadOnly]
 
@@ -73,6 +74,6 @@ class CommentViewSet(viewsets.ModelViewSet):
     """List of api views for ``Comment`` model."""
 
     queryset = models.Comment.objects.all()
-    serializer_class = serializer.CommentSerializer
+    serializer_class = serializers.CommentSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly,
                           IsOwnerAuthorOrReadOnly]
