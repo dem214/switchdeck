@@ -20,10 +20,13 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.sitemaps.views import sitemap
 from django.contrib.flatpages import views as flatpage_views
+from django.utils.translation import gettext_lazy as _
 
 from .sitemaps import sitemaps
 from .api_router import router
 from switchdeck.apps.core.views import index
+
+admin.site.site_header = _("Switchdeck administration")
 
 urlpatterns = [
     path('', index, name='index'),
