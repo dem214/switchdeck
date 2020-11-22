@@ -9,15 +9,7 @@ urlpatterns = [
     # Index page.
     path('', views.index, name='index'),
     # Page with game info.
-    path('game/<slug:slug>/', include([
-        path('', views.game_slug, name='game_slug'),
-        # Additional page with lots to sell
-        path('sell-list/', views.GameSellListView.as_view(),
-             name='game_sell_list'),
-        # Additional list with gamelsists to buy.
-        path('buy-list/', views.GameBuyListView.as_view(),
-             name='game_buy_list')
-    ])),
+    
     # Lot page.
     path('lot/<int:glid>/', views.lot_view, name='lot_item'),
     # Page to add lot to keep list.
@@ -57,8 +49,6 @@ urlpatterns = [
         path('change-to/', views.UpdateChangeToView.as_view(),
              name='lot_change_to')
     ])),
-    # Page with all games.
-    path('games/', views.GamesView.as_view(), name='games'),
     # Lots search page/
     path('search/', views.search, name='search'),
 ]

@@ -60,15 +60,6 @@ class IsOwnerAuthorOrReadOnly(permissions.BasePermission):
         return obj.author == request.user.profile
 
 
-class GameViewSet(viewsets.ModelViewSet):
-    """List of api views for ``Game`` model."""
-
-    queryset = models.Game.objects.all()
-    serializer_class = serializer.GameSerializer
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly,
-                          IsStuffOrReadOnly]
-
-
 class LotViewSet(viewsets.ModelViewSet):
     """List of api views for ``Lot`` model."""
 
@@ -76,9 +67,6 @@ class LotViewSet(viewsets.ModelViewSet):
     serializer_class = serializer.LotSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly,
                           IsOwnerProfileOrReadOnly]
-
-
-
 
 
 class CommentViewSet(viewsets.ModelViewSet):

@@ -10,6 +10,7 @@ from django.urls import reverse
 from switchdeck.apps.switchdeck import models
 from switchdeck.apps.place.models import Place
 from switchdeck.apps.account.models import Profile
+from switchdeck.apps.game.models import Game
 
 
 class StaticViewSitemap(Sitemap):
@@ -35,7 +36,7 @@ sitemaps = {
         priority=0.8,
         changefreq='always'),
     'game': GenericSitemap(
-        {'queryset': models.Game.objects.all()},
+        {'queryset': Game.objects.all()},
         priority=0.8,
         changefreq='always'),
     'lot': GenericSitemap(

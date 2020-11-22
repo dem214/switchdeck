@@ -32,7 +32,7 @@ class Profile(models.Model):
         help_text=_("Link to the user instanse, which have authentication "
                     "methods, email, first name, last name, etc."))
     games = models.ManyToManyField(
-        'switchdeck.Game',
+        'game.Game',
         related_name="owners",
         related_query_name="owner", through="switchdeck.Lot",
         verbose_name=_("Games"),

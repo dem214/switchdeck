@@ -4,16 +4,6 @@ from rest_framework import serializers
 from . import models
 
 
-class GameSerializer(serializers.HyperlinkedModelSerializer):
-    """Serializer/Desirializer of ``Game`` model."""
-
-    class Meta:
-        """Metaclass for `GameSerializer` class with additional info."""
-
-        model = models.Game
-        fields = ['url', 'id', 'name', 'cover', 'description', 'eshop_url']
-
-
 class LotSerializer(serializers.HyperlinkedModelSerializer):
     """Serializer/Desirializer of ``Lot`` model."""
 

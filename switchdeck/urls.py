@@ -32,6 +32,7 @@ urlpatterns = [
                              namespace='rest_framework')),
     path('api/v1/', include(router.urls)),
     path('places/', include('switchdeck.apps.place.urls')),
+    path('games/', include('switchdeck.apps.game.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
     path('accounts/', include(account_url)),
     path('admin/doc/', include('django.contrib.admindocs.urls')),

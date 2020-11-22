@@ -68,6 +68,7 @@ LOCAL_APPS = [
     'switchdeck.apps.account.apps.AccountConfig',
     'switchdeck.apps.switchdeck.apps.SwitchdeckConfig',
     'switchdeck.apps.place.apps.PlaceConfig',
+    'switchdeck.apps.game.apps.GameConfig',
 ]
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 

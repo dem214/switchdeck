@@ -1,7 +1,7 @@
 """Administration method and classes for `switchdeck` app."""
 from django.contrib import admin
 
-from .models import Game, Lot, Comment
+from .models import Lot, Comment
 
 
 
@@ -46,13 +46,3 @@ class LotAdmin(admin.ModelAdmin):
     list_filter = ['active', 'profile', 'game']
     actions = [update_up_time]
     radio_fields = {"prop": admin.HORIZONTAL}
-
-
-@admin.register(Game)
-class GameAdmin(admin.ModelAdmin):
-    """`Game` class admin pages."""
-
-    list_display = ['name']
-    ordering = ['name']
-    search_fields = ['name']
-    prepopulated_fields = {'slug': ('name',)}

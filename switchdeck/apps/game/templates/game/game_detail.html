@@ -1,0 +1,46 @@
+{% extends "switchdeck/_base.html" %}
+{% load i18n %}
+
+{% block title %}{{object.name}} | SwitchDeck{% endblock %}
+
+{% block admin_link %}<li>
+  <a class="btn btn-outline-danger" href="{% url 'admin:game_game_change' game.id%}">
+    {% trans "Change on admin site" %}
+  </a>
+</li>
+{% endblock %}
+
+{% block content %}
+
+<div class="media">
+  {% if object.cover %}
+  <img class="mr-3" src="{{ object.cover.url }}" alt="{{ object.name }} cover"
+  width="400">
+  {% endif %}
+  <div class="media-body">
+    <h5 class="mt-0">{{ object.name }}</h5>
+    {{ object.description }}
+    {% if object.eshop_url %}
+    <p><a href="{{object.eshop_url}}">{% trans "Link to eshop" %}</a></p>
+    {% endif %}
+  </div>
+</div>
+
+{% if sell_list %}
+<a href="{% url 'game:game_sell_list' game.slug%}">
+  Sell list: {{sell_list__count}} lots</a>
+{% for lot in sell_list %}
+{% include 'switchdeck/_lot_card.html'%}
+{% endfor %}
+<p><a href="{% url 'game:game_sell_list' game.slug%}" class="btn btn-primary">{% trans "more..." %}</a></p>
+{% endif %}
+{% if buy_list %}
+<p><a href="{% url 'game:game_buy_list' game.slug%}"></p>
+  Buy list: {{buy_list__count}} lots</a>
+{% for lot in buy_list %}
+{% include 'switchdeck/_lot_card.html'%}
+{% endfor %}
+<p><a href="{% url 'game:game_buy_list' game.slug %}" class="btn btn-primary">{% trans "more..." %}</a></p>
+{% endif %}
+
+{% endblock %}

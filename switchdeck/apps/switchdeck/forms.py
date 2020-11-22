@@ -1,7 +1,10 @@
 """All forms of app `switchdeck`."""
 from django import forms
 
-from .models import Comment, Lot, Game
+from switchdeck.apps.place.models import Place
+from switchdeck.apps.game.models import Game
+
+from .models import Comment, Lot
 
 
 class CommentForm(forms.ModelForm):
