@@ -56,6 +56,7 @@ django-admin compilemessages
 * [Bootstrap] - Fancy frontend framework.
 * [Crispy-forms] - Useful Bootstrap-like forms addon.
 * [Django REST framework] - Help framework for building API.
+* [drf-spectacular] - OpenAPI schema generator.
 
 ## Author
 
@@ -72,3 +73,4 @@ The license of the project is GNU General Public License - see [LICENSE](LICENSE
 [GNU gettext]: https://www.gnu.org/software/gettext/ "https://www.gnu.org/software/gettext/"
 [Gunicorn]: https://gunicorn.org/ "https://gunicorn.org/"
 [Python]: https://www.python.org/ "https://www.python.org/"
+[drf-spectacular]: https://github.com/tfranzel/drf-spectacular "https://github.com/tfranzel/drf-spectacular"
