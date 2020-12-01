@@ -8,7 +8,7 @@ from django.contrib.sitemaps import Sitemap, GenericSitemap
 from django.urls import reverse
 
 from switchdeck.apps.place.models import Place
-from switchdeck.apps.account.models import Profile
+from switchdeck.apps.users.models import Profile
 from switchdeck.apps.game.models import Game
 from switchdeck.apps.lot.models import Lot, Comment
 

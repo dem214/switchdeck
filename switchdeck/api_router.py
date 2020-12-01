@@ -4,7 +4,7 @@ from rest_framework import routers
 
 from switchdeck.apps.lot.api.views import LotViewSet, CommentViewSet
 from switchdeck.apps.place.api.views import PlaceViewSet
-from switchdeck.apps.account.api.views import ProfileViewSet, UserViewSet
+from switchdeck.apps.users.api.views import ProfileViewSet, UserViewSet
 from switchdeck.apps.game.api.views import GameViewSet
 
 router = routers.DefaultRouter()

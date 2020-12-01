@@ -57,7 +57,7 @@ class Profile(models.Model):
 
     def get_absolute_url(self) -> str:
         """Return URL there placed info about Profile."""
-        return reverse('account:profile_detail', args=[self.get_username()])
+        return reverse('users:list', args=[self.get_username()])
 
     def get_username(self) -> str:
         """Username of Profile."""

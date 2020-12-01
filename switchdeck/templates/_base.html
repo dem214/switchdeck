@@ -51,7 +51,7 @@
             </a>
           </li>
           <li class="nav-item" id="users-nav-item">
-            <a class="nav-link" href="{% url 'account:profile_list' %}" id="users-nav-link">
+            <a class="nav-link" href="{% url 'users:list' %}" id="users-nav-link">
               {% trans "Users" %}
             </a>
           </li>
@@ -73,21 +73,21 @@
           </form>
           {% endif %}
           <li class="nav-item" id="user-nav-item">
-            <a class="nav-link" href="{{ user.profile.get_absolute_url }}"
+            <a class="nav-link" href="{{ request.user.profile.get_absolute_url }}"
               id="user-nav-link">
             {{ user.get_username }}
           </a></li>
           <li class="nav-item">
-            <a class="nav-link" href="{% url 'logout'%}?next={{request.path}}">
+            <a class="nav-link" href="{% url 'account_logout'%}?next={{request.path}}">
               {% trans "Logout" %}
             </a></li>
           {% else %}
           <!-- Unauthenticated header bar info -->
           <li class="nav-item" id="signup-nav-item">
-            <a class="nav-link" href="{% url 'account:signup' %}">
+            <a class="nav-link" href="{% url 'account_login' %}">
               {% trans "SignUp"%}</a></li>
           <li class="nav-item" id="login-nav-item">
-            <a class="nav-link" href="{% url 'login'%}?next={{request.path}}"
+            <a class="nav-link" href="{% url 'account_login'%}?next={{request.path}}"
               id="login-nav-link">
               {% trans "Login" %}</a></li>
           {% endif %}

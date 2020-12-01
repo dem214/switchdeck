@@ -63,9 +63,12 @@ DJANGO_APPS = [
 THIRD_PARTY_APPS = [
     'crispy_forms',                 # Template forms rendering bootstrap-like
     'rest_framework',               # Framework for REST API
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
 ]
 LOCAL_APPS = [
-    'switchdeck.apps.account.apps.AccountConfig',
+    'switchdeck.apps.users.apps.UsersConfig',
     'switchdeck.apps.lot.apps.LotConfig',
     'switchdeck.apps.place.apps.PlaceConfig',
     'switchdeck.apps.game.apps.GameConfig',
@@ -176,7 +179,7 @@ MEDIA_ROOT = BASE_DIR / 'media'
 
 
 LOGOUT_REDIRECT_URL = 'index'
-AUTH_USER_MODEL = 'account.User'
+AUTH_USER_MODEL = 'users.User'
 
 # Email wirting to file
 EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
@@ -216,3 +219,16 @@ EXTERNAL_LIBS_PATH = EXTERNAL_BASE / 'libs'
 EXTERNAL_APPS_PATH = EXTERNAL_BASE / 'apps'
 
 sys.path = ['', EXTERNAL_LIBS_PATH, EXTERNAL_APPS_PATH] + sys.path
+
+AUTHENTICATION_BACKENDS = [
+    # Needed to login by username in Django admin, regardless of `allauth`
+    'django.contrib.auth.backends.ModelBackend',
+
+    # `allauth` specific authentication methods, such as login by e-mail
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
+
+# Allauth settings
+ACCOUNT_AUTHENTICATION_METHOD = "username_email"
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_EMAIL_VERIFICATION = 'mandatory'

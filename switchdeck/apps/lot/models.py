@@ -23,7 +23,7 @@ class Lot(models.Model):
         ('w', 'wish')
     )
     profile = models.ForeignKey(
-        'account.Profile',
+        'users.Profile',
         on_delete=models.CASCADE,
         verbose_name=_('Profile'),
         help_text=_("Related Profile. Represent the owner of ``Lot`` "
@@ -147,7 +147,7 @@ class Comment(models.Model):
     """
 
     author = models.ForeignKey(
-        'account.Profile',
+        'users.Profile',
         on_delete=models.CASCADE,
         editable=False,
         verbose_name=_('Author'),
