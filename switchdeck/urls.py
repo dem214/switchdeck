@@ -33,7 +33,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api-auth', include('rest_framework.urls',
                              namespace='rest_framework')),
-    path('api/v1/', include(router.urls)),
+    path('api/', include(router.urls)),
     path('lots/', include('switchdeck.apps.lot.urls')),
     path('places/', include('switchdeck.apps.place.urls')),
     path('games/', include('switchdeck.apps.game.urls')),
