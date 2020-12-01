@@ -62,10 +62,11 @@ DJANGO_APPS = [
 ]
 THIRD_PARTY_APPS = [
     'crispy_forms',                 # Template forms rendering bootstrap-like
-    'rest_framework',               # Framework for REST API
+    'rest_framework',               # Framework for Web API
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
+    'drf_spectacular'
 ]
 LOCAL_APPS = [
     'switchdeck.apps.users.apps.UsersConfig',
@@ -202,7 +203,8 @@ COMMENTS_PER_PAGE = 10
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS':
         'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE': 10
+    'PAGE_SIZE': 24,
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema'
 }
 
 # Site identification for flat pages processing to store multiple sites in
@@ -232,3 +234,17 @@ AUTHENTICATION_BACKENDS = [
 ACCOUNT_AUTHENTICATION_METHOD = "username_email"
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'Swithcdeck Web API',
+    'DESCRIPTION': 'Small amount of schema of Web API of service Switchdeck',
+    'CONTACT': {
+        'name': 'Dzmitry Izaitka',
+        'email': 'dem214overlord@gmail.com'
+    },
+    'VERSION': '1.0.0',
+    'LICENSE': {
+        'name': 'GNU GPL',
+        'url': 'https://www.gnu.org/licenses/gpl-3.0.html'
+    }
+}

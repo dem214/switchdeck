@@ -22,5 +22,5 @@ class CommentSerializer(serializers.HyperlinkedModelSerializer):
         """Metaclass for `CommentSerializer` class with additional info."""
 
         model = Comment
-        fields = ['url', 'id', 'author', 'timestamp', 'text', 'game_instance']
+        fields = ['url', 'id', 'author', 'timestamp', 'text', 'lot']
 

@@ -22,6 +22,10 @@ from django.contrib.sitemaps.views import sitemap
 from django.contrib.flatpages import views as flatpage_views
 from django.utils.translation import gettext_lazy as _
 
+from drf_spectacular.views import (SpectacularAPIView,
+                                   SpectacularRedocView,
+                                   SpectacularSwaggerView,)
+
 from .sitemaps import sitemaps
 from .api_router import router
 from switchdeck.apps.core.views import index
@@ -34,6 +38,11 @@ urlpatterns = [
     path('api-auth', include('rest_framework.urls',
                              namespace='rest_framework')),
     path('api/', include(router.urls)),
+    path('api/schema/',include([
+        path('', SpectacularAPIView.as_view(), name='schema'),
+        path('swagger-ui/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
+        path('redoc/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
+    ])),
     path('lots/', include('switchdeck.apps.lot.urls')),
     path('places/', include('switchdeck.apps.place.urls')),
     path('games/', include('switchdeck.apps.game.urls')),
