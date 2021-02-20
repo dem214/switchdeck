@@ -5,8 +5,6 @@ services:
     image: postgres
     env_file: ./.envs/postgres
     container_name: switchdeck_db
-    ports: 
-      - 55551:5432
     volumes: 
       - postgres_data:/var/lib/postgresql/data
     restart: always
@@ -18,7 +16,13 @@ services:
       cache_from: 
         - switchdeck_django
     image: switchdeck_django
-    container_name: switchdeck_django
+    labels:
+      - "traefik.enable=True"
+      - "traefik.http.routers.web-router.rule=Host(`localhost`)"
+      - "traefik.http.routers.web-router.service=django"
+      - "traefik.http.routers.web-router.entrypoints=web"
+      - "traefik.http.services.django.loadbalancer.server.port=8000"
+      - "traefik.http.services.django.loadbalancer.server.scheme=http"
     depends_on:
       - db
     env_file:
@@ -27,11 +31,24 @@ services:
     volumes:
       - django_static:/home/switchdeck/static
       - django_media:/home/switchdeck/media
-    ports:
-      - "8000:8000"
     command: /bin/bash /home/switchdeck/start
+  
+  traefik:
+    image: traefik
+    depends_on: 
+      - django
+    command:
+      - "--providers.docker=true"
+    volumes:
+      - traefik:/etc/traefik/acme:z
+      - ./config/traefik/traefik.yaml:/etc/traefik/traefik.yaml:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    ports:
+      - "80:80"
+      - "443:443"
 
 volumes: 
   postgres_data:
   django_static:
   django_media:
+  traefik: 

@@ -7,12 +7,10 @@ RUN apt-get update
 RUN apt-get install -y gettext
 
 RUN useradd -ms /bin/bash switchdeck
-
 USER switchdeck
-
 WORKDIR /home/switchdeck
 
 COPY --chown=switchdeck . /home/switchdeck/
 
-RUN pip install -r requirements/production.txt
+RUN pip install -r /home/switcdeck/requirements/production.txt
 
