@@ -29,9 +29,9 @@ services:
       - ./.envs/django
       - ./.envs/postgres
     volumes:
-      - django_static:/home/switchdeck/static
-      - django_media:/home/switchdeck/media
-    command: /bin/bash /home/switchdeck/start
+      - django_static:/app/static
+      - django_media:/app/media
+    command: /bin/bash /app/start.sh
   
   traefik:
     image: traefik
