@@ -1,2 +1,6 @@
 MINIO_ROOT_USER=minio 
 MINIO_ROOT_PASSWORD=minio_pass
+
+MINIO_ALIAS=switchdeck
+MINIO_ACCESSKEY=switchdeck
+MINIO_SECRETKEY=switchdeck
