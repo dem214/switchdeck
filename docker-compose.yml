@@ -31,6 +31,7 @@ services:
     volumes:
       - django_static:/app/static
       - django_media:/app/media
+      - ./config/gunicorn/gunicorn.conf.py:/app/gunicorn.conf.py:ro
     command: /bin/bash /app/start.sh
   
   # traefik:
@@ -49,6 +50,8 @@ services:
 
   nginx:
     image: nginx
+    depends_on:
+      - django
     volumes: 
       - ./config/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
     # restart: always
