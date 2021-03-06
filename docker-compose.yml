@@ -33,19 +33,27 @@ services:
       - django_media:/app/media
     command: /bin/bash /app/start.sh
   
-  traefik:
-    image: traefik
-    depends_on: 
-      - django
-    command:
-      - "--providers.docker=true"
-    volumes:
-      - traefik:/etc/traefik/acme:z
-      - ./config/traefik/traefik.yaml:/etc/traefik/traefik.yaml:ro
-      - /var/run/docker.sock:/var/run/docker.sock:ro
+  # traefik:
+  #   image: traefik
+  #   depends_on: 
+  #     - django
+  #   command:
+  #     - "--providers.docker=true"
+  #   volumes:
+  #     - traefik:/etc/traefik/acme:z
+  #     - ./config/traefik/traefik.yaml:/etc/traefik/traefik.yaml:ro
+  #     - /var/run/docker.sock:/var/run/docker.sock:ro
+  #   ports:
+  #     - "80:80"
+  #     - "443:443"
+
+  nginx:
+    image: nginx
+    volumes: 
+      - ./config/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    # restart: always
     ports:
       - "80:80"
-      - "443:443"
 
 volumes: 
   postgres_data:
