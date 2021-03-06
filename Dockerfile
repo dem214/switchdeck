@@ -6,13 +6,15 @@ RUN apt-get update
 # Install GnuText
 RUN apt-get install -y gettext
 
-RUN mkdir -p /app
-WORKDIR /app
-
-COPY . .
-
+COPY ./requirements /requirements
 RUN pip install\
     --no-cache-dir\
     --disable-pip-version-check\
-    -r ./requirements/production.txt
+    -r /requirements/production.txt
+
+RUN mkdir -p /app
+WORKDIR /app
+COPY . .
+
+
 

@@ -1,3 +1,3 @@
 from ._base import *
 
-STATICFILE_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
