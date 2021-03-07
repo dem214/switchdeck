@@ -122,4 +122,3 @@ class Profile(models.Model):
         """
         user = get_user_model().objects.create_user(*args, **kwargs)
         return cls.objects.create(user=user, place=place)
-
