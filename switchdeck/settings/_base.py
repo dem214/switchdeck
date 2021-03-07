@@ -67,6 +67,7 @@ THIRD_PARTY_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'drf_spectacular',
+    'django_celery_beat',
 ]
 LOCAL_APPS = [
     'switchdeck.apps.users.apps.UsersConfig',
@@ -253,3 +254,15 @@ SPECTACULAR_SETTINGS = {
         'url': 'https://www.gnu.org/licenses/gpl-3.0.html'
     }
 }
+
+RABBITMQ_DEFAULT_USER = get_secret('RABBITMQ_DEFAULT_USER')
+RABBITMQ_DEFAULT_PASS = get_secret('RABBITMQ_DEFAULT_PASS')
+RABBITMQ_DEFAULT_VHOST = get_secret('RABBITMQ_DEFAULT_VHOST')
+
+CELERY_TIMEZONE = "Europe/Minsk"
+CELERY_TASK_TIME_LIMIT = 5 * 60
+CELERY_BROKER_URL = f"amqp://{RABBITMQ_DEFAULT_USER}:{RABBITMQ_DEFAULT_PASS}@rabbitmq:5672/{RABBITMQ_DEFAULT_VHOST}"
+CELERY_RESULT_BACKEND = "rpc://"
+CELERY_TASK_SERIALIZER = "json"
+CELERY_RESULT_SERIALIZER = "json"
+CELERY_ACCEPT_CONTENT = ["json"]
