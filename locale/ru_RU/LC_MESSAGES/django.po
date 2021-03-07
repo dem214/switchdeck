@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-04 15:22+0300\n"
+"POT-Creation-Date: 2021-03-07 18:54+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,146 +17,219 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: .\switchdeck\models.py:33 .\switchdeck\models.py:180
-msgid "Name"
-msgstr "Название"
+#: switchdeck/apps/catalog_service/admin.py:39
+msgid "Do parsing of selected links."
+msgstr "Совершить парсинг выбранных связей."
 
-#: .\switchdeck\models.py:34
-msgid "Name of the region or city."
-msgstr "Название региона или города."
+#: switchdeck/apps/catalog_service/admin.py:53
+#: switchdeck/apps/catalog_service/models.py:37
+#: switchdeck/apps/catalog_service/models.py:59
+msgid "Catalog"
+msgstr "Каталог"
 
-#: .\switchdeck\models.py:37
-msgid ""
-"Popularity of place. The higher popularity - the higher this place in place "
-"list."
-msgstr "Популярность места. Чем больше популярность, тем выше место в поиске."
-
-#: .\switchdeck\models.py:39
-msgid "Popularity"
-msgstr "Популярность"
-
-#: .\switchdeck\models.py:47 .\switchdeck\models.py:79
-msgid "Place"
-msgstr "Место"
-
-#: .\switchdeck\models.py:48 .\switchdeck\templates\switchdeck\_base.html:50
-#: .\switchdeck\templates\switchdeck\place_list.html:4
-msgid "Places"
-msgstr "Места"
-
-#: .\switchdeck\models.py:66
-msgid "User"
-msgstr "Пользователь"
-
-#: .\switchdeck\models.py:67
-msgid ""
-"Link to the user instanse, which have authentication methods, email, first "
-"name, last name, etc."
-msgstr ""
-"Ссылка на пользователя, где можно найти методы аутентификации, email, "
-"имяфамилия, и т.д."
-
-#: .\switchdeck\models.py:73 .\switchdeck\models.py:204
-#: .\switchdeck\templates\switchdeck\_base.html:60
-#: .\switchdeck\templates\switchdeck\games.html:4
-msgid "Games"
-msgstr "Игры"
-
-#: .\switchdeck\models.py:74
-msgid "All games user have"
-msgstr "Все игры пользователя"
-
-#: .\switchdeck\models.py:80
-msgid "Place of registration of user. Place of all his lots."
-msgstr "Место регистрации пользователя. Место всех его лотов."
-
-#: .\switchdeck\models.py:86 .\switchdeck\models.py:283
-#: .\switchdeck\templates\registration\profile.html:4
-msgid "Profile"
-msgstr "Профиль"
-
-#: .\switchdeck\models.py:87
-#: .\switchdeck\templates\registration\profile_list.html:3
-msgid "Profiles"
-msgstr "Профили"
-
-#: .\switchdeck\models.py:181
-msgid "Full name of the game in english (may look from the shop page)."
-msgstr "Полное название игры на английском (можно посмотреть в ешопе)"
-
-#: .\switchdeck\models.py:187
-msgid "Cover"
-msgstr "Обложка"
-
-#: .\switchdeck\models.py:188
-msgid "Cover of the game box or any related image."
-msgstr "Обложка коробки с игрой или любое похожее изображение."
-
-#: .\switchdeck\models.py:191 .\switchdeck\models.py:297
-msgid "Description"
-msgstr "Описание"
-
-#: .\switchdeck\models.py:192
-msgid "Description of the game. Related from shop page."
-msgstr "Описание игры. Можно взять из ешопа."
-
-#: .\switchdeck\models.py:196 .\switchdeck\templates\switchdeck\game.html:24
-msgid "Link to eshop"
-msgstr "Ссылка на ешоп"
-
-#: .\switchdeck\models.py:197
-msgid "Link to page there can locate additional information (nintendo eshop)."
-msgstr "Ссылка н астраницу, где можно найти дополнительную информацию об игре."
-
-#: .\switchdeck\models.py:203 .\switchdeck\models.py:289
+#: switchdeck/apps/catalog_service/admin.py:57
+#: switchdeck/apps/catalog_service/models.py:52 switchdeck/apps/game/apps.py:7
+#: switchdeck/apps/game/models.py:62 switchdeck/apps/lot/models.py:34
 msgid "Game"
 msgstr "Игра"
 
-#: .\switchdeck\models.py:284
-msgid "Related Profile. Represent the owner of ``Lot`` instance"
-msgstr "Профиль владельца лота"
+#: switchdeck/apps/catalog_service/apps.py:7
+msgid "Catalog Service"
+msgstr "Сервис Каталогов"
 
-#: .\switchdeck\models.py:292
+#: switchdeck/apps/catalog_service/apps.py:8
+msgid "Catalog Services"
+msgstr "Сервисы Каталогов"
+
+#: switchdeck/apps/catalog_service/models.py:17
+#: switchdeck/apps/game/models.py:27 switchdeck/apps/place/models.py:12
+msgid "Name"
+msgstr "Название"
+
+#: switchdeck/apps/catalog_service/models.py:32
+msgid "Price Selector"
+msgstr "Селектор цены"
+
+#: switchdeck/apps/catalog_service/models.py:33
+msgid "CSS selector of object with price num."
+msgstr "CSS селектор объекта страницы с ценой."
+
+#: switchdeck/apps/catalog_service/models.py:38
+msgid "Catalogs"
+msgstr "Каталоги"
+
+#: switchdeck/apps/catalog_service/models.py:66
+msgid "URL of page there this game presented in catalog"
+msgstr "URL страницы, на каторой представлена данная игра в каталоге"
+
+#: switchdeck/apps/catalog_service/models.py:70
+#: switchdeck/apps/lot/models.py:37
 msgid "Active"
 msgstr "Активный"
 
-#: .\switchdeck\models.py:293
-msgid "Set game to can be founded through the global search."
-msgstr "Устанавливает, можно ли найти лот через глобальный поиск."
+#: switchdeck/apps/catalog_service/models.py:71
+msgid "Determine parsing of this link is enabled."
+msgstr "Определить, включён ли парсинг данной связи."
 
-#: .\switchdeck\models.py:298
-msgid "Description leaved by the user"
-msgstr "Описание, оставленное пользователем"
+#: switchdeck/apps/catalog_service/models.py:75
+#: switchdeck/apps/catalog_service/models.py:144
+msgid "Link"
+msgstr "Связь"
 
-#: .\switchdeck\models.py:303 .\switchdeck\templates\switchdeck\search.html:38
-msgid "Proposition"
-msgstr "Предложение"
+#: switchdeck/apps/catalog_service/models.py:76
+msgid "Links"
+msgstr "Связи"
 
-#: .\switchdeck\models.py:304
-msgid "Proposition of lot - what user want to do with this game."
-msgstr "Предложение длшя лота - что пользователь хочет сделать с игрой."
+#: switchdeck/apps/catalog_service/models.py:84
+#, python-brace-format
+msgid "{self.game.name} in {self.catalog.name}"
+msgstr "{self.game.name} в {self.catalog.name}"
 
-#: .\switchdeck\models.py:310
+#: switchdeck/apps/catalog_service/models.py:148
+msgid "Time"
+msgstr "Время"
+
+#: switchdeck/apps/catalog_service/models.py:153
+msgid "Page file"
+msgstr "Файл страницы"
+
+#: switchdeck/apps/catalog_service/models.py:154
+msgid "Requested and parsed page."
+msgstr "Запрошеная и разобранная страница."
+
+#: switchdeck/apps/catalog_service/models.py:160
+#: switchdeck/apps/lot/models.py:55
 msgid "Price"
 msgstr "Цена"
 
-#: .\switchdeck\models.py:311
+#: switchdeck/apps/catalog_service/models.py:161
+msgid "Parsed price value."
+msgstr "Разобранная цена"
+
+#: switchdeck/apps/catalog_service/models.py:165
+msgid "Exception"
+msgstr "Исключение"
+
+#: switchdeck/apps/catalog_service/models.py:166
+msgid "Text of exception if occured."
+msgstr "Текст возникшего исключения."
+
+#: switchdeck/apps/catalog_service/models.py:170
+msgid "Successful"
+msgstr "Успешно"
+
+#: switchdeck/apps/catalog_service/models.py:174
+msgid "Parse Result"
+msgstr "Результат Парсинга"
+
+#: switchdeck/apps/catalog_service/models.py:175
+msgid "Parse Results"
+msgstr "Результаты Парсинга"
+
+#: switchdeck/apps/game/apps.py:8 switchdeck/apps/game/models.py:63
+#: switchdeck/apps/game/templates/game/game_list.html:4
+#: switchdeck/apps/users/models.py:38 switchdeck/templates/_base.html:60
+msgid "Games"
+msgstr "Игры"
+
+#: switchdeck/apps/game/models.py:28
+msgid "Full name of the game in english (may look from the shop page)."
+msgstr "Полное название игры на английском (можно посмотреть в ешопе)"
+
+#: switchdeck/apps/game/models.py:39
+msgid "Cover"
+msgstr "Обложка"
+
+#: switchdeck/apps/game/models.py:40
+msgid "Cover of the game box or any related image."
+msgstr "Обложка коробки с игрой или любое похожее изображение."
+
+#: switchdeck/apps/game/models.py:43 switchdeck/apps/lot/models.py:42
+msgid "Description"
+msgstr "Описание"
+
+#: switchdeck/apps/game/models.py:44
+msgid "Description of the game. Related from shop page."
+msgstr "Описание игры. Можно взять из ешопа."
+
+#: switchdeck/apps/game/models.py:48
+#: switchdeck/apps/game/templates/game/game_detail.html:24
+msgid "Link to eshop"
+msgstr "Ссылка на ешоп"
+
+#: switchdeck/apps/game/models.py:49
+msgid "Link to page there can locate additional information (nintendo eshop)."
+msgstr "Ссылка н астраницу, где можно найти дополнительную информацию об игре."
+
+#: switchdeck/apps/game/templates/game/game_additional_list.html:4
+msgid "list"
+msgstr "список"
+
+#: switchdeck/apps/game/templates/game/game_detail.html:8
+#: switchdeck/apps/lot/templates/lot/lot.html:10
+#: switchdeck/apps/place/templates/place/place_detail.html:8
+#: switchdeck/apps/users/templates/users/profile_detail.html:9
+msgid "Change on admin site"
+msgstr "Изменить как администратор"
+
+#: switchdeck/apps/game/templates/game/game_detail.html:29
+#, fuzzy
+#| msgid "Price"
+msgid "Price at"
+msgstr "Цена"
+
+#: switchdeck/apps/game/templates/game/game_detail.html:44
+#: switchdeck/apps/game/templates/game/game_detail.html:52
+msgid "more..."
+msgstr "больше..."
+
+#: switchdeck/apps/game/templates/game/game_list.html:27
+msgid "There are no games :("
+msgstr "Игр здесь нет :("
+
+#: switchdeck/apps/lot/models.py:28 switchdeck/apps/users/models.py:51
+#: switchdeck/apps/users/templates/users/profile_detail.html:4
+msgid "Profile"
+msgstr "Профиль"
+
+#: switchdeck/apps/lot/models.py:29
+msgid "Related Profile. Represent the owner of ``Lot`` instance"
+msgstr "Профиль владельца лота"
+
+#: switchdeck/apps/lot/models.py:38
+msgid "Set game to can be founded through the global search."
+msgstr "Устанавливает, можно ли найти лот через глобальный поиск."
+
+#: switchdeck/apps/lot/models.py:43
+msgid "Description leaved by the user"
+msgstr "Описание, оставленное пользователем"
+
+#: switchdeck/apps/lot/models.py:48
+#: switchdeck/apps/lot/templates/lot/search.html:38
+msgid "Proposition"
+msgstr "Предложение"
+
+#: switchdeck/apps/lot/models.py:49
+msgid "Proposition of lot - what user want to do with this game."
+msgstr "Предложение длшя лота - что пользователь хочет сделать с игрой."
+
+#: switchdeck/apps/lot/models.py:56
 msgid "Amount of money user want to buy/sell this game."
 msgstr "Цена по которой пользователь хочет продать/купить игру."
 
-#: .\switchdeck\models.py:315
+#: switchdeck/apps/lot/models.py:60
 msgid "Public date"
 msgstr "Дата публикации"
 
-#: .\switchdeck\models.py:316
+#: switchdeck/apps/lot/models.py:61
 msgid "Date of publication. Just additional information."
 msgstr "Дата публикации"
 
-#: .\switchdeck\models.py:319
+#: switchdeck/apps/lot/models.py:64
 msgid "Up time"
 msgstr "Аптайм"
 
-#: .\switchdeck\models.py:320
+#: switchdeck/apps/lot/models.py:65
 msgid ""
 "Up time show last activity from the lot. The newest up time - the highest "
 "this lot in lists. Up time update from each comment, updating or etc."
@@ -165,284 +238,329 @@ msgstr ""
 "Тем выше лот в списке. Аптайм обновляется при новом комментарии, "
 "обновленииинформации и т.д."
 
-#: .\switchdeck\models.py:329
+#: switchdeck/apps/lot/models.py:74
 msgid "Change to"
 msgstr "Обменять на"
 
-#: .\switchdeck\models.py:330
+#: switchdeck/apps/lot/models.py:75
 msgid "List of games user want to change this game."
 msgstr "Список игр на которые пользваотель хочет обменять игру."
 
-#: .\switchdeck\models.py:337 .\switchdeck\models.py:423
+#: switchdeck/apps/lot/models.py:82 switchdeck/apps/lot/models.py:168
 msgid "Lot"
 msgstr "Лот"
 
-#: .\switchdeck\models.py:338
+#: switchdeck/apps/lot/models.py:83
 msgid "Lots"
 msgstr "Лоты"
 
-#: .\switchdeck\models.py:375
+#: switchdeck/apps/lot/models.py:120
 msgid "Update uptime"
 msgstr "Обновить аптайм"
 
-#: .\switchdeck\models.py:408
+#: switchdeck/apps/lot/models.py:153
 msgid "Author"
 msgstr "Автор"
 
-#: .\switchdeck\models.py:409
+#: switchdeck/apps/lot/models.py:154
 msgid "Author of the comment."
 msgstr "Автор комментария."
 
-#: .\switchdeck\models.py:412
+#: switchdeck/apps/lot/models.py:156
 msgid "Timestamp"
 msgstr "Время и дата"
 
-#: .\switchdeck\models.py:413
+#: switchdeck/apps/lot/models.py:158
 msgid "Date of publication."
 msgstr "Дата публикации"
 
-#: .\switchdeck\models.py:416
+#: switchdeck/apps/lot/models.py:161
 msgid "Text"
 msgstr "Текст"
 
-#: .\switchdeck\models.py:424
+#: switchdeck/apps/lot/models.py:169
 msgid "Related lot."
 msgstr "Связанный лот."
 
-#: .\switchdeck\models.py:431
+#: switchdeck/apps/lot/models.py:176
 msgid "Comment"
 msgstr "Комментарий"
 
-#: .\switchdeck\models.py:432 .\switchdeck\templates\switchdeck\lot.html:169
+#: switchdeck/apps/lot/models.py:177
+#: switchdeck/apps/lot/templates/lot/lot.html:169
 msgid "Comments"
 msgstr "Комментарии"
 
-#: .\switchdeck\templates\registration\confirmation_error.html:3
-#: .\switchdeck\templates\registration\need_confirm_email.html:3
-msgid "Need Confirmation"
-msgstr "Нужно подтверждение"
-
-#: .\switchdeck\templates\registration\confirmation_ok.html:3
-msgid "Email confirmed"
-msgstr "Электронная почта подтверждена"
-
-#: .\switchdeck\templates\registration\login.html:5
-#: .\switchdeck\templates\switchdeck\_base.html:92
-msgid "Login"
-msgstr "Логин"
-
-#: .\switchdeck\templates\registration\login.html:15
-msgid "Forgot password?"
-msgstr "Забыли пароль?"
-
-#: .\switchdeck\templates\registration\profile.html:9
-#: .\switchdeck\templates\switchdeck\game.html:8
-#: .\switchdeck\templates\switchdeck\lot.html:10
-#: .\switchdeck\templates\switchdeck\place_detail.html:8
-msgid "Change on admin site"
-msgstr "Изменить как администратор"
-
-#: .\switchdeck\templates\registration\profile.html:26
-msgid "Update"
-msgstr "Обновить"
-
-#: .\switchdeck\templates\registration\profile.html:26
-msgid "profile"
-msgstr "профиль"
-
-#: .\switchdeck\templates\registration\profile.html:45
-#: .\switchdeck\templates\registration\profile.html:79
-#: .\switchdeck\templates\registration\profile.html:113
-#: .\switchdeck\templates\registration\profile.html:144
-#: .\switchdeck\templates\switchdeck\_lot_card.html:7
-#: .\switchdeck\templates\switchdeck\index.html:15
+#: switchdeck/apps/lot/templates/lot/_lot_card.html:7
+#: switchdeck/apps/users/templates/users/profile_detail.html:45
+#: switchdeck/apps/users/templates/users/profile_detail.html:79
+#: switchdeck/apps/users/templates/users/profile_detail.html:113
+#: switchdeck/apps/users/templates/users/profile_detail.html:144
+#: switchdeck/templates/index.html:15
 msgid "cover"
 msgstr "обложка"
 
-#: .\switchdeck\templates\registration\profile.html:55
-msgid "for sell"
-msgstr "на продажу"
-
-#: .\switchdeck\templates\registration\profile.html:58
-#: .\switchdeck\templates\registration\profile.html:92
-#: .\switchdeck\templates\registration\profile.html:123
-#: .\switchdeck\templates\registration\profile.html:154
-#: .\switchdeck\templates\switchdeck\lot.html:123
-msgid "inactive"
-msgstr "не активный"
-
-#: .\switchdeck\templates\registration\profile.html:62
-#: .\switchdeck\templates\registration\profile.html:96
-#: .\switchdeck\templates\registration\profile.html:127
-#: .\switchdeck\templates\registration\profile.html:158
-#: .\switchdeck\templates\switchdeck\_lot_card.html:39
+#: switchdeck/apps/lot/templates/lot/_lot_card.html:39
+#: switchdeck/apps/users/templates/users/profile_detail.html:62
+#: switchdeck/apps/users/templates/users/profile_detail.html:96
+#: switchdeck/apps/users/templates/users/profile_detail.html:127
+#: switchdeck/apps/users/templates/users/profile_detail.html:158
 msgid "View more"
 msgstr "Дополнительно"
 
-#: .\switchdeck\templates\registration\profile.html:89
-msgid "ready to buy"
-msgstr "для покупки"
-
-#: .\switchdeck\templates\registration\profile_list.html:13
-msgid "There are no users :("
-msgstr "Пользователей здесь нет :("
-
-#: .\switchdeck\templates\registration\register.html:3
-msgid "Register"
-msgstr "Регистрация"
-
-#: .\switchdeck\templates\registration\signup.html:4
-#: .\switchdeck\templates\switchdeck\_base.html:88
-msgid "SignUp"
-msgstr "Регистрация"
-
-#: .\switchdeck\templates\switchdeck\_base.html:10
-msgid "Nintendo Switch games barter and buy/sell."
-msgstr "Обмен и покупка/продажа игр для Nintendo Switch"
-
-#: .\switchdeck\templates\switchdeck\_base.html:45
-#: .\switchdeck\templates\switchdeck\search.html:5
-msgid "Search"
-msgstr "Поиск"
-
-#: .\switchdeck\templates\switchdeck\_base.html:55
-msgid "Users"
-msgstr "Пользователи"
-
-#: .\switchdeck\templates\switchdeck\_base.html:70
-msgid "Admin Site"
-msgstr "Сайт администрации"
-
-#: .\switchdeck\templates\switchdeck\_base.html:82
-msgid "Logout"
-msgstr "Выйти"
-
-#: .\switchdeck\templates\switchdeck\_lot_card.html:43
-#: .\switchdeck\templates\switchdeck\lot.html:131
+#: switchdeck/apps/lot/templates/lot/_lot_card.html:43
+#: switchdeck/apps/lot/templates/lot/lot.html:131
 msgid "Added"
 msgstr "Добавлено"
 
-#: .\switchdeck\templates\switchdeck\_pagination.html:8
-msgid "first"
-msgstr "первая"
-
-#: .\switchdeck\templates\switchdeck\_pagination.html:13
-msgid "previous"
-msgstr "предыдущая"
-
-#: .\switchdeck\templates\switchdeck\_pagination.html:23
-msgid "next"
-msgstr "следующая"
-
-#: .\switchdeck\templates\switchdeck\_pagination.html:28
-msgid "last"
-msgstr "последняя"
-
-#: .\switchdeck\templates\switchdeck\add_game_reduced.html:5
+#: switchdeck/apps/lot/templates/lot/add_game_reduced.html:5
 msgid "Add game"
 msgstr "Добавить игру"
 
-#: .\switchdeck\templates\switchdeck\game.html:35
-#: .\switchdeck\templates\switchdeck\game.html:43
-msgid "more..."
-msgstr "больше..."
-
-#: .\switchdeck\templates\switchdeck\game_base_list.html:4
-msgid "list"
-msgstr "список"
-
-#: .\switchdeck\templates\switchdeck\games.html:27
-msgid "There are no games :("
-msgstr "Игр здесь нет :("
-
-#: .\switchdeck\templates\switchdeck\lot.html:30
-#: .\switchdeck\templates\switchdeck\lot.html:36
+#: switchdeck/apps/lot/templates/lot/lot.html:30
+#: switchdeck/apps/lot/templates/lot/lot.html:36
 msgid "Change price"
 msgstr "Изменить цену"
 
-#: .\switchdeck\templates\switchdeck\lot.html:49
-#: .\switchdeck\templates\switchdeck\lot.html:109
+#: switchdeck/apps/lot/templates/lot/lot.html:49
+#: switchdeck/apps/lot/templates/lot/lot.html:109
 msgid "Close"
 msgstr "Закрыть"
 
-#: .\switchdeck\templates\switchdeck\lot.html:88
-#: .\switchdeck\templates\switchdeck\lot.html:96
+#: switchdeck/apps/lot/templates/lot/lot.html:88
+#: switchdeck/apps/lot/templates/lot/lot.html:96
 msgid "Change decription"
 msgstr "Изменить описание"
 
-#: .\switchdeck\templates\switchdeck\lot.html:118
-#: .\switchdeck\templates\switchdeck\lot.html:123
+#: switchdeck/apps/lot/templates/lot/lot.html:118
+#: switchdeck/apps/lot/templates/lot/lot.html:123
 msgid "This is now"
 msgstr "Сейчас"
 
-#: .\switchdeck\templates\switchdeck\lot.html:118
+#: switchdeck/apps/lot/templates/lot/lot.html:118
 msgid "active"
 msgstr "активный"
 
-#: .\switchdeck\templates\switchdeck\lot.html:120
+#: switchdeck/apps/lot/templates/lot/lot.html:120
 msgid "Deactivate"
 msgstr "Деактивировать"
 
-#: .\switchdeck\templates\switchdeck\lot.html:125
+#: switchdeck/apps/lot/templates/lot/lot.html:123
+#: switchdeck/apps/users/templates/users/profile_detail.html:58
+#: switchdeck/apps/users/templates/users/profile_detail.html:92
+#: switchdeck/apps/users/templates/users/profile_detail.html:123
+#: switchdeck/apps/users/templates/users/profile_detail.html:154
+msgid "inactive"
+msgstr "не активный"
+
+#: switchdeck/apps/lot/templates/lot/lot.html:125
 msgid "Activate"
 msgstr "Активировать"
 
-#: .\switchdeck\templates\switchdeck\lot.html:155
-#: .\switchdeck\templates\switchdeck\lot.html:186
+#: switchdeck/apps/lot/templates/lot/lot.html:155
+#: switchdeck/apps/lot/templates/lot/lot.html:186
 msgid "Delete"
 msgstr "Удалить"
 
-#: .\switchdeck\templates\switchdeck\lot.html:186
+#: switchdeck/apps/lot/templates/lot/lot.html:186
 msgid "comment"
 msgstr "коммент"
 
-#: .\switchdeck\templates\switchdeck\lot_change_to.html:5
+#: switchdeck/apps/lot/templates/lot/lot_change_to.html:5
 msgid "Update change list"
 msgstr "Обновить список на обмен"
 
-#: .\switchdeck\templates\switchdeck\place_list.html:15
-msgid "There are no places :("
-msgstr "Местоположений здесь нет :("
+#: switchdeck/apps/lot/templates/lot/search.html:5
+#: switchdeck/templates/_base.html:45
+msgid "Search"
+msgstr "Поиск"
 
-#: .\switchdeck\templates\switchdeck\search.html:16
+#: switchdeck/apps/lot/templates/lot/search.html:16
 msgid "You typed not exisiting game name"
 msgstr "Вы напечатали названия игры, которой нет"
 
-#: .\switchdeck\templates\switchdeck\search.html:18
-#: .\switchdeck\templates\switchdeck\search.html:30
+#: switchdeck/apps/lot/templates/lot/search.html:18
+#: switchdeck/apps/lot/templates/lot/search.html:30
 msgid "You picked"
 msgstr "Вы выбрали"
 
-#: .\switchdeck\templates\switchdeck\search.html:18
-#: .\switchdeck\templates\switchdeck\search.html:30
+#: switchdeck/apps/lot/templates/lot/search.html:18
+#: switchdeck/apps/lot/templates/lot/search.html:30
 msgid "all"
 msgstr "все"
 
-#: .\switchdeck\templates\switchdeck\search.html:18
+#: switchdeck/apps/lot/templates/lot/search.html:18
 msgid "games"
 msgstr "игры"
 
-#: .\switchdeck\templates\switchdeck\search.html:20
-#: .\switchdeck\templates\switchdeck\search.html:32
+#: switchdeck/apps/lot/templates/lot/search.html:20
+#: switchdeck/apps/lot/templates/lot/search.html:32
 msgid "Your picked"
 msgstr "Ваш выбор"
 
-#: .\switchdeck\templates\switchdeck\search.html:20
+#: switchdeck/apps/lot/templates/lot/search.html:20
 msgid "game"
 msgstr "игра"
 
-#: .\switchdeck\templates\switchdeck\search.html:28
+#: switchdeck/apps/lot/templates/lot/search.html:28
 msgid "You typed not exisiting place"
 msgstr "Вы напечатали название места, которого нет"
 
-#: .\switchdeck\templates\switchdeck\search.html:32
+#: switchdeck/apps/lot/templates/lot/search.html:30
+#, fuzzy
+#| msgid "place"
+msgid "places"
+msgstr "место"
+
+#: switchdeck/apps/lot/templates/lot/search.html:32
 msgid "place"
 msgstr "место"
 
-#: .\switchdeck\templates\switchdeck\search.html:47
+#: switchdeck/apps/lot/templates/lot/search.html:47
 msgid "Results"
 msgstr "Результаты"
 
-#: .\switchdeck\templates\switchdeck\set_game.html:5
+#: switchdeck/apps/lot/templates/lot/search.html:53
+msgid "Sorry, but no results. Try again."
+msgstr ""
+
+#: switchdeck/apps/lot/templates/lot/set_game.html:5
 msgid "Set game"
 msgstr "Установить игру"
+
+#: switchdeck/apps/place/apps.py:7 switchdeck/apps/place/models.py:27
+#: switchdeck/apps/users/models.py:44
+msgid "Place"
+msgstr "Место"
+
+#: switchdeck/apps/place/apps.py:8 switchdeck/apps/place/models.py:28
+#: switchdeck/apps/place/templates/place/place_list.html:4
+#: switchdeck/templates/_base.html:50
+msgid "Places"
+msgstr "Места"
+
+#: switchdeck/apps/place/models.py:13
+msgid "Name of the region or city."
+msgstr "Название региона или города."
+
+#: switchdeck/apps/place/models.py:17
+msgid ""
+"Popularity of place. The higher popularity - the higher this place in place "
+"list."
+msgstr "Популярность места. Чем больше популярность, тем выше место в поиске."
+
+#: switchdeck/apps/place/models.py:19
+msgid "Popularity"
+msgstr "Популярность"
+
+#: switchdeck/apps/place/templates/place/place_list.html:15
+msgid "There are no places :("
+msgstr "Местоположений здесь нет :("
+
+#: switchdeck/apps/users/apps.py:7 switchdeck/apps/users/models.py:31
+msgid "User"
+msgstr "Пользователь"
+
+#: switchdeck/apps/users/apps.py:8 switchdeck/templates/_base.html:55
+msgid "Users"
+msgstr "Пользователи"
+
+#: switchdeck/apps/users/models.py:32
+msgid ""
+"Link to the user instanse, which have authentication methods, email, first "
+"name, last name, etc."
+msgstr ""
+"Ссылка на пользователя, где можно найти методы аутентификации, email, "
+"имяфамилия, и т.д."
+
+#: switchdeck/apps/users/models.py:39
+msgid "All games user have"
+msgstr "Все игры пользователя"
+
+#: switchdeck/apps/users/models.py:45
+msgid "Place of registration of user. Place of all his lots."
+msgstr "Место регистрации пользователя. Место всех его лотов."
+
+#: switchdeck/apps/users/models.py:52
+#: switchdeck/apps/users/templates/users/profile_list.html:3
+msgid "Profiles"
+msgstr "Профили"
+
+#: switchdeck/apps/users/templates/registration/login.html:5
+#: switchdeck/templates/_base.html:92
+msgid "Login"
+msgstr "Логин"
+
+#: switchdeck/apps/users/templates/registration/login.html:15
+msgid "Forgot password?"
+msgstr "Забыли пароль?"
+
+#: switchdeck/apps/users/templates/users/confirmation_error.html:3
+#: switchdeck/apps/users/templates/users/need_confirm_email.html:3
+msgid "Need Confirmation"
+msgstr "Нужно подтверждение"
+
+#: switchdeck/apps/users/templates/users/confirmation_ok.html:3
+msgid "Email confirmed"
+msgstr "Электронная почта подтверждена"
+
+#: switchdeck/apps/users/templates/users/profile_detail.html:26
+msgid "Update"
+msgstr "Обновить"
+
+#: switchdeck/apps/users/templates/users/profile_detail.html:26
+msgid "profile"
+msgstr "профиль"
+
+#: switchdeck/apps/users/templates/users/profile_detail.html:55
+msgid "for sell"
+msgstr "на продажу"
+
+#: switchdeck/apps/users/templates/users/profile_detail.html:89
+msgid "ready to buy"
+msgstr "для покупки"
+
+#: switchdeck/apps/users/templates/users/profile_list.html:13
+msgid "There are no users :("
+msgstr "Пользователей здесь нет :("
+
+#: switchdeck/apps/users/templates/users/register.html:3
+msgid "Register"
+msgstr "Регистрация"
+
+#: switchdeck/apps/users/templates/users/signup.html:4
+#: switchdeck/templates/_base.html:88
+msgid "SignUp"
+msgstr "Регистрация"
+
+#: switchdeck/templates/_base.html:10
+msgid "Nintendo Switch games barter and buy/sell."
+msgstr "Обмен и покупка/продажа игр для Nintendo Switch"
+
+#: switchdeck/templates/_base.html:70
+msgid "Admin Site"
+msgstr "Сайт администрации"
+
+#: switchdeck/templates/_base.html:82
+msgid "Logout"
+msgstr "Выйти"
+
+#: switchdeck/templates/_pagination.html:8
+msgid "first"
+msgstr "первая"
+
+#: switchdeck/templates/_pagination.html:13
+msgid "previous"
+msgstr "предыдущая"
+
+#: switchdeck/templates/_pagination.html:23
+msgid "next"
+msgstr "следующая"
+
+#: switchdeck/templates/_pagination.html:28
+msgid "last"
+msgstr "последняя"
+
+#: switchdeck/urls.py:33
+msgid "Switchdeck administration"
+msgstr ""
