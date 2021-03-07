@@ -48,6 +48,13 @@ class Game(models.Model):
         verbose_name=_('Link to eshop'),
         help_text=_("Link to page there can locate additional information "
                     "(nintendo eshop)."))
+    catalogs = models.ManyToManyField(
+        'catalog_service.Catalog',
+        through='catalog_service.Link',
+        through_fields=('game', 'catalog'),
+        related_name='games',
+        related_query_name='game',
+    )
 
     class Meta():
         """Meta class for some `Game` class properties."""
