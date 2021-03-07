@@ -66,13 +66,14 @@ THIRD_PARTY_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
-    'drf_spectacular'
+    'drf_spectacular',
 ]
 LOCAL_APPS = [
     'switchdeck.apps.users.apps.UsersConfig',
     'switchdeck.apps.lot.apps.LotConfig',
     'switchdeck.apps.place.apps.PlaceConfig',
     'switchdeck.apps.game.apps.GameConfig',
+    'switchdeck.apps.catalog_service',
 ]
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
@@ -87,7 +88,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.contrib.admindocs.middleware.XViewMiddleware',
     'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
-    'django.contrib.sites.middleware.CurrentSiteMiddleware'
+    'django.contrib.sites.middleware.CurrentSiteMiddleware',
 ]
 
 ROOT_URLCONF = 'switchdeck.urls'
