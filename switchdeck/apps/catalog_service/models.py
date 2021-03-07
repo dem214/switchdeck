@@ -114,6 +114,12 @@ class Link(models.Model):
         )
         return result
         
+    def latest_price(self):
+        try:
+            last_parse = self.parse_results.filter(successful=True).latest()
+        except self.DoesNotExist:
+            return None
+        return last_parse.price
             
 
 

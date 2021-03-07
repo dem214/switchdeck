@@ -23,6 +23,15 @@
     {% if object.eshop_url %}
     <p><a href="{{object.eshop_url}}">{% trans "Link to eshop" %}</a></p>
     {% endif %}
+    {% for link in object.links.all %}
+      {% if link.latest_price %}
+      <p>
+        {% trans "Price at" %}
+        <a href="{{ link.url }}">{{ link.catalog.name }}</a>
+        -- {{ link.latest_price }} BYN
+      </p>
+      {% endif %}
+    {% endfor %}
   </div>
 </div>
 
