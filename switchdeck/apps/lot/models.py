@@ -16,12 +16,12 @@ class Lot(models.Model):
     (setted to buy).
     """
 
-    PROPS = (
-        ('k', 'keep'),
-        ('s', 'sell'),
-        ('b', 'buy'),
-        ('w', 'wish')
-    )
+    class PROPS(models.TextChoices):
+        KEEP = 'k', _('keep')
+        SELL = 's', _('sell')
+        BUY = 'b', _('buy')
+        WISH = 'w', _('wish')
+
     profile = models.ForeignKey(
         'users.Profile',
         on_delete=models.CASCADE,
@@ -43,8 +43,8 @@ class Lot(models.Model):
         help_text=_("Description leaved by the user"))
     prop = models.CharField(
         max_length=1,
-        choices=PROPS,
-        default='k',
+        choices=PROPS.choices,
+        default=PROPS.KEEP,
         verbose_name=_('Proposition'),
         help_text=_("Proposition of lot - what user want to do with this "
                     "game."))
@@ -111,7 +111,7 @@ class Lot(models.Model):
 
     def get_absolute_url(self) -> str:
         """Return url there leaved info about instance."""
-        return reverse('lot_item', args=[self.id])
+        return reverse('lot:lot_item', args=[self.id])
 
     def update_up_time(self) -> None:
         """Update ``up_time`` to now."""
