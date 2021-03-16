@@ -17,20 +17,20 @@
 {% if object.get_full_name %}
   <p>{{ object.get_full_name }}</p>
 {% endif %}
-<p>from <a href="{% url 'place' name=object.profile.place.name %}">
+<p>from <a href="{{ object.profile.place.get_absolute_url }}">
   {{ object.profile.place.name|title }}
 </a></p>
 
 {% if user.is_authenticated and user == object %}
-<p><a href="{% url 'update_profile' %}">
+<p><a href="{% url 'users:update' %}">
   {% trans "Update" %} {% trans "profile" %}
 </a></p>
 {% endif %}
 
 {% if user.is_authenticated and user == object %}
 <!-- Add game href -->
-<p><a href="{% url 'add_game_keep' %}">Add keep game</a></p>
-<p><a href="{% url 'add_game_wish' %}">Add wish game</a></p>
+<p><a href="{% url 'lot:add_game_keep' %}">Add keep game</a></p>
+<p><a href="{% url 'lot:add_game_wish' %}">Add wish game</a></p>
 {% endif %}
 
 

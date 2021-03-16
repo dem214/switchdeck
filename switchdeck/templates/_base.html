@@ -75,7 +75,7 @@
           <li class="nav-item" id="user-nav-item">
             <a class="nav-link" href="{{ request.user.profile.get_absolute_url }}"
               id="user-nav-link">
-            {{ user.get_username }}
+            {{ request.user.get_username }}
           </a></li>
           <li class="nav-item">
             <a class="nav-link" href="{% url 'account_logout'%}?next={{request.path}}">

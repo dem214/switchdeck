@@ -26,7 +26,7 @@ class Profile(models.Model):
     user = models.OneToOneField(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
-        related_name="profiles",
+        related_name="profile",
         editable=False,
         verbose_name=_("User"),
         help_text=_("Link to the user instanse, which have authentication "
@@ -57,7 +57,7 @@ class Profile(models.Model):
 
     def get_absolute_url(self) -> str:
         """Return URL there placed info about Profile."""
-        return reverse('users:list', args=[self.get_username()])
+        return reverse('users:detail', kwargs={'username': self.get_username()})
 
     def get_username(self) -> str:
         """Username of Profile."""

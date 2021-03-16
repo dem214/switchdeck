@@ -51,6 +51,7 @@ class UserProfileView(DetailView):
     # search in db by 'username' field and from 'username' kwarg
     slug_field = 'username'
     slug_url_kwarg = 'username'
+    template_name = 'users/profile_detail.html'
 
     def get_context_data(self, **kwargs):
         """Insert additional information into context."""
