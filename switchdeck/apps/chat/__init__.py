@@ -1,0 +1,1 @@
+default_app_config = 'switchdeck.apps.chat.apps.ChatConfig'
