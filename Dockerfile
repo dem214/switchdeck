@@ -28,6 +28,7 @@ RUN apt-get update && apt-get install -y gettext
 
 COPY --from=wheel_builder ./wheelhouse/ /tmp/wheelhouse
 RUN pip install\
+ --user \
  --no-cache-dir\
  --disable-pip-version-check\
  --no-index\

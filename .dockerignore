@@ -1,0 +1,8 @@
+.envs/
+.git/
+.gitignore
+.mypy_cache/
+.pytest_cache/
+.vscode/
+LICENSE
+Procfile
