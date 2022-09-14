@@ -1,7 +1,7 @@
 # SwitchDeck
 
 ## About
-Python implementation of web service to change little carriges of one famous portable game console.
+Python web application to change little carriges of one famous portable game console.
 
 ## Getting Started
 
