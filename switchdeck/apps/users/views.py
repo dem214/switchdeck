@@ -7,7 +7,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.core.mail import send_mail
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
-from django.utils.encoding import force_bytes, force_text
+from django.utils.encoding import force_bytes, force_str
 from django.template.loader import render_to_string
 from django.contrib.sites.shortcuts import get_current_site
 
@@ -117,7 +117,7 @@ class SignUpView(FormView):
 def activate(request, uid, token):
     """Profile activation view."""
     try:
-        uid = force_text(urlsafe_base64_decode(uid))
+        uid = force_str(urlsafe_base64_decode(uid))
         user = get_user_model().objects.get(pk=uid)
     except(TypeError, ValueError, OverflowError,
            get_user_model().DoesNotExist):
